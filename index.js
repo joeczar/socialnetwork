@@ -14,10 +14,25 @@ if (process.env.NODE_ENV != 'production') {
 } else {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
+app.get('/welcome', function(req, res) {
+    if (req.session.userId) {
+        res.redirect('/');
+    } else {
+        res.sendFile(__dirname + '/index.html');
+    }
+});
 
 app.get('*', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+    if (!req.session.userId) {
+        res.redirect('/welcome');
+    } else {
+        res.sendFile(__dirname + '/index.html');
+    }
 });
+
+// app.get('*', function(req, res) {
+//     res.sendFile(__dirname + '/index.html');
+// });
 
 app.listen(8080, function() {
     console.log("I'm listening.");
