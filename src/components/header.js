@@ -1,6 +1,6 @@
 import React from "react";
 import style from "../css/header.module.css";
-import { HashRouter, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "../helpers/axios";
 
@@ -9,9 +9,7 @@ const Header = () => {
         <header className={style.header}>
             <h1>This is my header</h1>
             <div id="logInOut">
-                <HashRouter>
-                    <Route path="/" component={Logout} />
-                </HashRouter>
+                <Route path="/" component={Logout} />
             </div>
         </header>
     );
@@ -21,7 +19,7 @@ const Logout = () => {
     function handleLogout() {
         console.log("Logout");
         if (window.confirm("Are you sure you wish to delete this item?")) {
-            axios.post("/logout").then((data) => {
+            axios.get("/logout").then((data) => {
                 console.log(data);
             });
         }
@@ -29,7 +27,9 @@ const Logout = () => {
 
     return (
         <div className="logoutWrapper">
-            <button onClick={handleLogout}>Logout</button>
+            <form>
+                <button onClick={handleLogout}>Logout</button>
+            </form>
         </div>
     );
 };

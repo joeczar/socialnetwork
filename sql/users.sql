@@ -19,3 +19,10 @@ CREATE TABLE user_profiles(
     url VARCHAR,
     user_id INT NOT NULL UNIQUE REFERENCES users(id)
 );
+
+CREATE TABLE password_reset_codes(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR,
+    code VARCHAR(6),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

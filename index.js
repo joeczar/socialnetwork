@@ -36,15 +36,6 @@ if (process.env.NODE_ENV != "production") {
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
-////////////////  WELCOME  ///////////////////////////
-app.get("/welcome", function (req, res) {
-    console.log("/welcome", req.session);
-    if (req.session.registerId) {
-        res.redirect("/");
-    } else {
-        res.sendFile(__dirname + "/index.html");
-    }
-});
 
 /////////////////////////  REGISTER  /////////////////////////////
 app.post("/register", (req, res) => {
@@ -86,11 +77,22 @@ app.post("/register", (req, res) => {
         });
 });
 ///////////////////////  LOGOUT  //////////////////////////////
-app.post("./logout", (req, res) => {
+app.get("/logout", (req, res) => {
+    console.log(req.body);
     req.session = null;
+    res.redirect("/");
+});
+////////////////  WELCOME  ///////////////////////////
+app.get("/welcome", function (req, res) {
+    console.log("/welcome", req.session);
+    if (req.session.registerId) {
+        res.redirect("/");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
 });
 ///////////////////////  *  /////////////////////////////////////
-app.get("/reset", (req, res) => {
+app.post("/reset", (req, res) => {
     console.log("/reset", req.session);
     if (!req.session.registerId) {
         res.redirect("/welcome");
@@ -100,7 +102,7 @@ app.get("/reset", (req, res) => {
 });
 
 app.get("*", function (req, res) {
-    console.log("/*", req.session);
+    console.log("*", req.session);
 
     if (!req.session.registerId) {
         res.redirect("/welcome");

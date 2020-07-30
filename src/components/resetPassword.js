@@ -8,6 +8,7 @@ export default class ResetPasswordEmail extends React.Component {
         super(props);
         this.state = {
             errors: [],
+            step: 0,
         };
     }
     handleChange(e) {
@@ -45,7 +46,8 @@ export default class ResetPasswordEmail extends React.Component {
     }
     render() {
         const { step } = this.state;
-        if (step == 1) {
+        console.log(step);
+        if (step == 0) {
             return (
                 <div id="resetPassWrapper" className={style.register}>
                     <h2>Reset Password</h2>

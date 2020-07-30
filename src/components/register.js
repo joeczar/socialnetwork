@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "../helpers/axios";
 import style from "../css/register.module.css";
+import Errors from "../components/errors";
+import { Link } from "react-router-dom";
 
 export default class Registration extends React.Component {
     constructor(props) {
@@ -49,56 +51,52 @@ export default class Registration extends React.Component {
     render() {
         return (
             <div id="registrationWrapper" className={style.register}>
-                {this.state.errors.length > 0 &&
-                    this.state.errors.map((err, key) => {
-                        return (
-                            <div className="error" key={key}>
-                                {err}
-                            </div>
-                        );
-                    })}
-                <label htmlFor="first">
-                    First Name
-                    <input
-                        onChange={(e) => this.handleChange(e)}
-                        name="first"
-                        id="first"
-                        type="text"
-                        placeholder="Enter your first name"
-                    />
-                </label>
-                <label htmlFor="last">
-                    Last Name
-                    <input
-                        onChange={(e) => this.handleChange(e)}
-                        name="last"
-                        id="last"
-                        type="text"
-                        placeholder="Enter your last name"
-                    />
-                </label>
-                <label htmlFor="email">
-                    Email
-                    <input
-                        onChange={(e) => this.handleChange(e)}
-                        name="email"
-                        id="email"
-                        type="email"
-                        placeholder="Enter your email"
-                    />
-                </label>
-                <label htmlFor="pass">
-                    Password
-                    <input
-                        onChange={(e) => this.handleChange(e)}
-                        name="pass"
-                        id="pass"
-                        type="password"
-                        placeholder="Password must be at least 8 characters"
-                    />
-                </label>
-                {/* <input name="csurf" id="pass" type="hidden" /> */}
-                <button onClick={() => this.submit()}>Submit</button>
+                <Errors errors={this.state.errors} />
+                <form>
+                    <label htmlFor="first">
+                        First Name
+                        <input
+                            onChange={(e) => this.handleChange(e)}
+                            name="first"
+                            id="first"
+                            type="text"
+                            placeholder="Enter your first name"
+                        />
+                    </label>
+                    <label htmlFor="last">
+                        Last Name
+                        <input
+                            onChange={(e) => this.handleChange(e)}
+                            name="last"
+                            id="last"
+                            type="text"
+                            placeholder="Enter your last name"
+                        />
+                    </label>
+                    <label htmlFor="email">
+                        Email
+                        <input
+                            onChange={(e) => this.handleChange(e)}
+                            name="email"
+                            id="email"
+                            type="email"
+                            placeholder="Enter your email"
+                        />
+                    </label>
+                    <label htmlFor="pass">
+                        Password
+                        <input
+                            onChange={(e) => this.handleChange(e)}
+                            name="pass"
+                            id="pass"
+                            type="password"
+                            placeholder="Password must be at least 8 characters"
+                        />
+                    </label>
+
+                    <button onClick={() => this.submit()}>Submit</button>
+                </form>
+                <Link to="login">Log in</Link>
             </div>
         );
     }

@@ -5,7 +5,7 @@ import Home from "./pages/home";
 import "./css/style.css";
 let elem;
 
-let isLoggedIn = true;
+let isLoggedIn = location.pathname !== "/welcome";
 
 if (isLoggedIn) {
     elem = <Home />;
