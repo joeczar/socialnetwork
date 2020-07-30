@@ -1,20 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Hello from './components/welcome';
-
+import React from "react";
+import ReactDOM from "react-dom";
+import Welcome from "./pages/welcome";
+import Home from "./pages/home";
+import "./css/style.css";
 let elem;
 
-let isLoggedIn;
+let isLoggedIn = true;
 
 if (isLoggedIn) {
-    elem = <div>Logo</div>
+    elem = <Home />;
 } else {
-    elem = <Welcome />
+    elem = <Welcome />;
 }
 
-ReactDOM.render(
-    elem,
-    document.querySelector('main')
-);
-
-
+ReactDOM.render(elem, document.querySelector("main"));

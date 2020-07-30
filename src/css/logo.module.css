@@ -1,0 +1,11 @@
+.logo {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.logo h1 {
+    position: absolute;
+    top: calc(50% - 50px);
+    font-size: 60px;
+}

@@ -1,0 +1,10 @@
+.zen {
+    fill: silver;
+    font-size: 62px;
+    height: 200px;
+    width: 100%;
+    z-index: 5;
+    position: relative;
+    top: -80px;
+    left: -130px;
+}

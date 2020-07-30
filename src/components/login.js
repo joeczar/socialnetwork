@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "../helpers/axios";
 import style from "../css/register.module.css";
+import { Link } from "react-router-dom";
 
 export default class Registration extends React.Component {
     constructor(props) {
@@ -10,19 +11,16 @@ export default class Registration extends React.Component {
         };
     }
     handleChange(e) {
-        // this[e.target.name] = e.target.value
         this.setState({
             [e.target.name]: e.target.value,
         });
     }
     submit() {
-        const { first, last, email, pass } = this.state;
+        const { email, pass } = this.state;
         axios
             .post(
-                "/register",
+                "/login",
                 {
-                    first,
-                    last,
                     email,
                     pass,
                 },
@@ -49,6 +47,7 @@ export default class Registration extends React.Component {
     render() {
         return (
             <div id="registrationWrapper" className={style.register}>
+                <h2>Login</h2>
                 {this.state.errors.length > 0 &&
                     this.state.errors.map((err, key) => {
                         return (
@@ -57,26 +56,7 @@ export default class Registration extends React.Component {
                             </div>
                         );
                     })}
-                <label htmlFor="first">
-                    First Name
-                    <input
-                        onChange={(e) => this.handleChange(e)}
-                        name="first"
-                        id="first"
-                        type="text"
-                        placeholder="Enter your first name"
-                    />
-                </label>
-                <label htmlFor="last">
-                    Last Name
-                    <input
-                        onChange={(e) => this.handleChange(e)}
-                        name="last"
-                        id="last"
-                        type="text"
-                        placeholder="Enter your last name"
-                    />
-                </label>
+
                 <label htmlFor="email">
                     Email
                     <input
@@ -99,6 +79,10 @@ export default class Registration extends React.Component {
                 </label>
                 {/* <input name="csurf" id="pass" type="hidden" /> */}
                 <button onClick={() => this.submit()}>Submit</button>
+                <p>
+                    Forgot your password? <br />
+                    Click <Link to="/reset">here</Link> to reset it.
+                </p>
             </div>
         );
     }

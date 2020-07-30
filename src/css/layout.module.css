@@ -1,0 +1,22 @@
+.layout {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 0px;
+    padding: 0px;
+    background-color: purple;
+}
+.layout header {
+    height: 100px;
+}
+.layout main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: salmon;
+}
+.layout footer {
+    height: 50px;
+    background-color: royalblue;
+}

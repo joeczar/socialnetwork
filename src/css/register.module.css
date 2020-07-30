@@ -1,0 +1,17 @@
+.register {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+.register label {
+    display: block;
+    margin: auto 10px auto auto;
+    padding: 1ex;
+}
+.register input {
+    width: 100%;
+}
+.register button {
+    margin: 1em auto;
+    padding: 1ex;
+}
