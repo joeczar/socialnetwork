@@ -15,34 +15,31 @@ export default class Registration extends React.Component {
             [e.target.name]: e.target.value,
         });
     }
-    submit() {
+    async submit() {
         const { email, pass } = this.state;
-        axios
-            .post(
+        try {
+            const { data } = await axios.post(
                 "/login",
-                {
-                    email,
-                    pass,
-                },
+                { email, pass },
                 {
                     xsrfCookieName: "token",
                     xsrfHeaderName: "csrf-token",
                 }
-            )
-            .then(({ data }) => {
-                console.log(data);
-                if (data.success) {
-                    location.replace("/");
-                } else {
-                    this.setState({
-                        errors: [...data.errors],
-                    });
-                }
-            })
-            .catch((err) => {
-                console.log("Error in submit", err);
-                this.setState({ errors: [`Something went wrong`] });
-            });
+            );
+
+            console.log(data);
+            if (data.success) {
+                location.replace("/");
+            } else {
+                this.setState({
+                    errors: [...data.errors],
+                });
+            }
+        } catch (err) {
+            console.log(data);
+            console.log("Error in submit", err);
+            this.setState({ errors: [`Something went wrong`] });
+        }
     }
     render() {
         return (
@@ -65,6 +62,7 @@ export default class Registration extends React.Component {
                         id="email"
                         type="email"
                         placeholder="Enter your email"
+                        required
                     />
                 </label>
                 <label htmlFor="pass">
@@ -75,6 +73,7 @@ export default class Registration extends React.Component {
                         id="pass"
                         type="password"
                         placeholder="Password must be at least 8 characters"
+                        required
                     />
                 </label>
                 {/* <input name="csurf" id="pass" type="hidden" /> */}

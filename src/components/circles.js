@@ -58,8 +58,6 @@ const Circles = ({ radius, steps, centerX, centerY, spread }) => {
             >
                 {renderedCircles}
             </g>
-
-            {/* <ZenStreak /> */}
         </svg>
     );
 };

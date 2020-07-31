@@ -40,3 +40,8 @@
             - ✔️ add css to `index.html`
 
 ## Part 2
+
+## Part 4 Profile Pic
+
+1. New top level Component `App` replaces and contains `Logo`
+    - `App` makes an ajax request to get userdata (`id, name, & profilePicUrl` - tbd)

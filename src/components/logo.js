@@ -18,8 +18,15 @@ class Logo extends React.Component {
     componentDidMount() {
         const height = document.getElementById("circles").clientHeight;
         const width = document.getElementById("circles").clientWidth;
-        console.log(width, height);
-        this.setState({ height: height, width: width });
+        const logoTextHeight = document.getElementById("logoName").offsetHeight;
+        const logoTextWidth = document.getElementById("logoName").offsetWidth;
+        console.log("Logo height & width", logoTextHeight, logoTextWidth);
+        this.setState({
+            height: height,
+            width: width,
+            logoHeight: logoTextHeight,
+            logoWidth: logoTextWidth,
+        });
     }
 
     render() {
@@ -35,8 +42,18 @@ class Logo extends React.Component {
             radius = this.state.height / 4;
         }
 
+        const outerWidth = { width: this.props.width };
+
+        const pos = {
+            position: "absolute",
+            top: `calc(50% -  ${this.state.logoHeight / 2}px)`,
+            right: `calc(50% - ${this.state.logoWidth / 2}px)`,
+
+            textShadow: "0px 0px 5px rgba(0,0,0,1)",
+        };
+
         return (
-            <div style={style} className={style.logo} id="circles">
+            <div className={style.logo} style={outerWidth} id="circles">
                 <CircleArray
                     radius={radius}
                     steps={steps}
@@ -45,7 +62,9 @@ class Logo extends React.Component {
                     className="circles"
                     spread={spread}
                 />
-                <h1 id="logoName">Zen Streak</h1>
+                <h1 id="logoName" style={pos} className={style.logoName}>
+                    {outerWidth.width > 300 ? "Zen Streak" : "ZD"}
+                </h1>
             </div>
         );
     }

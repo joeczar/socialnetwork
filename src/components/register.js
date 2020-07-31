@@ -17,10 +17,11 @@ export default class Registration extends React.Component {
             [e.target.name]: e.target.value,
         });
     }
-    submit() {
+    async submit() {
         const { first, last, email, pass } = this.state;
-        axios
-            .post(
+
+        try {
+            const { data } = await axios.post(
                 "/register",
                 {
                     first,
@@ -32,21 +33,51 @@ export default class Registration extends React.Component {
                     xsrfCookieName: "token",
                     xsrfHeaderName: "csrf-token",
                 }
-            )
-            .then(({ data }) => {
-                console.log(data);
-                if (data.success) {
-                    location.replace("/");
-                } else {
-                    this.setState({
-                        errors: [...data.errors],
-                    });
-                }
-            })
-            .catch((err) => {
-                console.log("Error in submit", err);
-                this.setState({ errors: [`Something went wrong`] });
-            });
+            );
+            if (data.success) {
+                console.log("data.success", data);
+                location.replace("/");
+            } else {
+                console.log("errors", data);
+                this.setState({
+                    errors: [...data.errors],
+                });
+            }
+            console.log("axios res", data);
+        } catch (err) {
+            console.log("Error in submit", err);
+            const errors = [err.message];
+            this.setState({ errors: errors });
+        }
+
+        // axios
+        //     .post(
+        //         "/register",
+        //         {
+        //             first,
+        //             last,
+        //             email,
+        //             pass,
+        //         },
+        //         {
+        //             xsrfCookieName: "token",
+        //             xsrfHeaderName: "csrf-token",
+        //         }
+        //     )
+        //     .then((data) => {
+        //         console.log(data);
+        //         if (data.success) {
+        //             location.replace("/");
+        //         } else {
+        //             this.setState({
+        //                 errors: [...data.errors],
+        //             });
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.log("Error in submit", err);
+        //         this.setState({ errors: [`Something went wrong`] });
+        //     });
     }
     render() {
         return (
@@ -61,6 +92,7 @@ export default class Registration extends React.Component {
                             id="first"
                             type="text"
                             placeholder="Enter your first name"
+                            required
                         />
                     </label>
                     <label htmlFor="last">
@@ -71,6 +103,7 @@ export default class Registration extends React.Component {
                             id="last"
                             type="text"
                             placeholder="Enter your last name"
+                            required
                         />
                     </label>
                     <label htmlFor="email">
@@ -81,6 +114,7 @@ export default class Registration extends React.Component {
                             id="email"
                             type="email"
                             placeholder="Enter your email"
+                            required
                         />
                     </label>
                     <label htmlFor="pass">
@@ -91,6 +125,7 @@ export default class Registration extends React.Component {
                             id="pass"
                             type="password"
                             placeholder="Password must be at least 8 characters"
+                            required
                         />
                     </label>
 

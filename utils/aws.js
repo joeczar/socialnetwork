@@ -8,10 +8,37 @@ if (process.env.NODE_ENV == "production") {
     secrets = require("./secrets"); // in dev they are in secrets.json which is listed in .gitignore
 }
 
+const ses = new aws.SES({
+    accessKeyId: secrets.AWS_SES_KEY,
+    secretAccessKey: secrets.AWS_SES_SECRET,
+    region: "eu-west-1",
+});
+
 const s3 = new aws.S3({
     accessKeyId: secrets.AWS_KEY,
     secretAccessKey: secrets.AWS_SECRET,
 });
+
+exports.sendEmail = (to, text, subj) => {
+    return ses
+        .sendEmail({
+            Source: "Funky Chicken <funky.chicken@spiced.academy>",
+            Destination: {
+                ToAddresses: [to],
+            },
+            Message: {
+                Body: {
+                    Text: {
+                        Data: text,
+                    },
+                },
+                Subject: {
+                    Data: subj,
+                },
+            },
+        })
+        .promise();
+};
 
 exports.upload = function (req, res, next) {
     if (!req.file) {

@@ -9,23 +9,35 @@ const passwordValidation = () => {
 
 const registerValidate = () => {
     return [
-        check("firstName")
-            .optional({ nullable: true, checkFalsy: true })
+        check("first")
             .isLength({ min: 1 })
             .isAlpha()
-            .withMessage("First name can only contain letters."),
-        check("lastName")
-            .optional({ nullable: true, checkFalsy: true })
+            .withMessage("That name doesn't work.")
+            .custom((name) => {
+                console.log(name.toLowerCase());
+                return name.toLowerCase() !== "undefined";
+            })
+            .withMessage("Undefined is for Funky 🐔🐔")
+            .exists(),
+        check("last")
             .isLength({ min: 1 })
             .isAlpha()
-            .withMessage("Last name can only contain letters."),
-        check("emailInput")
+            .withMessage("That name doesn't work.")
+            .custom((name) => {
+                console.log(name.toLowerCase());
+                return name.toLowerCase() !== "undefined";
+            })
+            .withMessage("Undefined is for Funky 🐔🐔")
+            .exists(),
+        check("email")
+            .normalizeEmail()
             .isEmail()
             .withMessage("Must be a valid email.")
-            .optional({ nullable: true, checkFalsy: true }),
-        check("pwdInput")
+            .exists(),
+        check("pass")
             .isLength({ min: 8 })
-            .withMessage("Password must be at least 8 characters long."),
+            .withMessage("Password must be at least 8 characters long.")
+            .exists(),
     ];
 };
 const profileValidate = () => {
@@ -79,16 +91,19 @@ const editProfileValidate = () => {
 };
 const loginValidate = () => {
     return [
-        check("emailInput")
+        check("email")
             .isEmail()
             .withMessage("Must be a valid email.")
-            .optional({ nullable: true, checkFalsy: true }),
-        check("pwdInput"),
+            .exists()
+            .withMessage("You must enter an Email."),
+        check("pass")
+            .isLength({ min: 8 })
+            .withMessage("Password must be at least 8 characters long.")
+            .exists()
+            .withMessage("You must enter a password."),
     ];
 };
-const petitionValidate = () => {
-    return [check("signature").exists()];
-};
+
 const validate = (req) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -106,6 +121,5 @@ module.exports = {
     profileValidate,
     editProfileValidate,
     loginValidate,
-    petitionValidate,
     validate,
 };
