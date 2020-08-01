@@ -49,11 +49,14 @@ app.post("/register", registerValidate(), async (req, res) => {
     // console.log(req);
     const errors = [...validate(req)];
     try {
+        console.log('in register try');
         const hashed = await hash(req.body.pass);
+        console.log('got hashed in register', hashed);
         const { first, last, email } = req.body;
         const usrArr = [first, last, email, hashed];
 
         if (errors.length > 0) {
+            console.log('register errors');
             return res.json({ success: false, errors: errors });
         } else {
             const user = await db.addUser(usrArr);

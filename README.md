@@ -45,19 +45,19 @@
 
 1. App
 
-    - Main container component for the entire logged in experience It is the keeper of information about the logged in user.
-    - It fetches this info when it mounts and keeps user info in its state
-    - Renders a `Logo`, `ProfilePic` and `Uploader`
+    - ✔️ Main container component for the entire logged in experience It is the keeper of information about the logged in user.
+    - ✔️ It fetches this info when it mounts and keeps user info in its state
+    - ✔️ Renders a `Logo`, `ProfilePic` and `Uploader`
     - Passes functions to `ProfilePic` and `Uploader` for making changes to its state
-    - MUST be a `class` since it needs both state and lifecycle methods
+    - ✔️ MUST be a `class` since it needs both state and lifecycle methods
 
-2. ProfilePic
+2. ✔️ ProfilePic
 
-    - Its job is to display a profile pic (can use first and last name for the `alt` tag of the image)
-    - Is passed down props that tell it the first and last name of the urser and the url of the image.
-    - Is also passed down a prop that is a function that it must call when the image is clicked. When user clicks the pic, the uploader needs to become visible.
-        - props -- `toggleUploader`, `name`, `url`
-    - Can be a `function` or a `class`.
+    - ✔️ Its job is to display a profile pic (can use first and last name for the `alt` tag of the image)
+    - ✔️ Is passed down props that tell it the first and last name of the urser and the url of the image.
+    - ✔️ Is also passed down a prop that is a function that it must call when the image is clicked. When user clicks the pic, the uploader needs to become visible.
+        - ✔️ props -- `toggleUploader`, `name`, `url`
+    - ✔️ Can be a `function` or a `class`.
 
 3. Uploader
 

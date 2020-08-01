@@ -20,7 +20,6 @@ class Logo extends React.Component {
         const width = document.getElementById("circles").clientWidth;
         const logoTextHeight = document.getElementById("logoName").offsetHeight;
         const logoTextWidth = document.getElementById("logoName").offsetWidth;
-        console.log("Logo height & width", logoTextHeight, logoTextWidth);
         this.setState({
             height: height,
             width: width,

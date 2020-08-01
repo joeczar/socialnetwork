@@ -1,5 +1,5 @@
 export const circlePos = ({ radius, steps, centerX, centerY, spread }) => {
-    console.log("x y beginning", radius, steps, centerX, centerY, spread);
+   
     centerX = centerX / 2;
     centerY = centerY / 2;
 

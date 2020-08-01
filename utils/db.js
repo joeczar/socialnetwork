@@ -1,7 +1,9 @@
 const spicedPg = require("spiced-pg");
+const username = require("os").userInfo().username
+
 const db = spicedPg(
     process.env.DATABASE_URL ||
-        "postgres:ripley:IfIhad1Ubuntu!@localhost:5432/socialnetwork"
+        `postgres:${username}:IfIhad1PostGres!@localhost:5432/socialnetwork`
 );
 const addUser = (params) => {
     const q = `INSERT INTO users (first, last, email, hash) VALUES ($1, $2, $3, $4) RETURNING first, last, id`;

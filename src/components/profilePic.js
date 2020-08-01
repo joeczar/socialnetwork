@@ -2,15 +2,15 @@ import React from "react";
 
 import style from "../css/profilePic.module.css";
 
-const ProfilePic = ({ name, url, showUpload }) => {
+const ProfilePic = ({ name, url, toggleUpload }) => {
     return (
-        <div onClick={showUpload} className={style.profilePic}>
+        <div onClick={toggleUpload} className={style.profilePic}>
             <img
-                src={url || "/userIcon.png"}
+                src={url || "/ZenUserIcon.png"}
                 alt={`${name.first} ${name.last}`}
             />
         </div>
     );
 };
 
-export default ProfilePic;
+export default ProfilePic; 

@@ -3,10 +3,10 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import style from "../css/layout.module.css";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, toggleUpload }) => {
     return (
         <div className={style.layout}>
-            <Header />
+            <Header toggleUpload={toggleUpload}/>
 
             <main className="glass">{children}</main>
 
@@ -16,3 +16,4 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
+ 

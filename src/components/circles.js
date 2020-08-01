@@ -11,17 +11,14 @@ const Circles = ({ radius, steps, centerX, centerY, spread }) => {
     const circArr = new Array(Number(steps)).fill(<Circle />);
 
     // Add x position, y position & radius values
-
     let position = circlePos({ radius, steps, centerX, centerY, spread });
-    console.log(position);
-    //sine wave for radius
+    //sine wave for radius * someday
 
     // map position values to array
-
     const renderedCircles = circArr.map((_circle, i) => {
         let xPos = position.xValues[i];
         let yPos = position.yValues[i];
-        console.log(radius, xPos, yPos);
+        
         return (
             <Circle
                 key={i}
