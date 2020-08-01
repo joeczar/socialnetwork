@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 
 /////////////////  COMPONENTS  ////////////////////
-import Logo from "./components/logo";
-import Logout from "./components/logout";
+import Layout from "./layouts/layout";
+
+///////////////  CSS  //////////////////
 import style from "./css/app.module.css";
 
 class App extends Component {
@@ -17,12 +18,15 @@ class App extends Component {
     }
     render() {
         return (
-            <div className={style.app}>
-                <Logo width="100px" />
+            <Layout>
+                {/* <div className={style.app}> */}
+                {/* <Logo width="100px" />
                 <Logout class={style.logout} />
+                <UserIcon /> */}
                 <h1>App</h1>
                 <p>Hi! </p>
-            </div>
+                {/* </div> */}
+            </Layout>
         );
     }
 }

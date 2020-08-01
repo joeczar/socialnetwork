@@ -17,10 +17,13 @@ export default class Registration extends React.Component {
             [e.target.name]: e.target.value,
         });
     }
-    async submit() {
+    async submit(e) {
+        e.preventDefault();
+        
         const { first, last, email, pass } = this.state;
-
+       
         try {
+            console.log('in try');
             const { data } = await axios.post(
                 "/register",
                 {
@@ -34,6 +37,7 @@ export default class Registration extends React.Component {
                     xsrfHeaderName: "csrf-token",
                 }
             );
+            console.log('submit data', data);
             if (data.success) {
                 console.log("data.success", data);
                 location.replace("/");
@@ -49,35 +53,6 @@ export default class Registration extends React.Component {
             const errors = [err.message];
             this.setState({ errors: errors });
         }
-
-        // axios
-        //     .post(
-        //         "/register",
-        //         {
-        //             first,
-        //             last,
-        //             email,
-        //             pass,
-        //         },
-        //         {
-        //             xsrfCookieName: "token",
-        //             xsrfHeaderName: "csrf-token",
-        //         }
-        //     )
-        //     .then((data) => {
-        //         console.log(data);
-        //         if (data.success) {
-        //             location.replace("/");
-        //         } else {
-        //             this.setState({
-        //                 errors: [...data.errors],
-        //             });
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.log("Error in submit", err);
-        //         this.setState({ errors: [`Something went wrong`] });
-        //     });
     }
     render() {
         return (
@@ -129,7 +104,7 @@ export default class Registration extends React.Component {
                         />
                     </label>
 
-                    <button onClick={() => this.submit()}>Submit</button>
+                    <button onClick={(e) => this.submit(e)}>Submit</button>
                 </form>
                 <Link to="login">Log in</Link>
             </div>

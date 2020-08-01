@@ -42,7 +42,7 @@ if (process.env.NODE_ENV != "production") {
 }
 
 /////////////////////////  REGISTER  /////////////////////////////
-app.post("/register", registerValidate, async (req, res) => {
+app.post("/register", registerValidate(), async (req, res) => {
     // use hash here  registerValidate(),
     // console.log("POST register", req.session);
     console.log("register", req.body);
