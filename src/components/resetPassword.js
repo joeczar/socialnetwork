@@ -87,7 +87,7 @@ export default class ResetPasswordEmail extends React.Component {
                                 placeholder="Enter your email"
                             />
                         </label>
-                        <button onClick={() => this.submit()}>Submit</button>
+                        <button onClick={(e) => this.submit(e)}>Submit</button>
                     </form>
                 </div>
             );
