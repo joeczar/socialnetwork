@@ -151,7 +151,7 @@ app.post("/resetpassword", async (req, res) => {
                 length: 6,
             });
             // save in REDIS
-            client.setex(email, 600, secretCode, (err, data) => {
+            client.setex(secretCode, 600, email, (err, data) => {
                 if (err) {
                     return console.log("error in redis", err);
                 }
@@ -160,15 +160,29 @@ app.post("/resetpassword", async (req, res) => {
             const emailMsg = `Your secret code is: \n \t${secretCode} \n\n It is only good for 10 min.`;
             const subject = "Reset your Password";
             const confirmation = await aws.sendEmail(email, emailMsg, subject);
-            console.log(confirmation);
+            console.log("AWS Confirmation", confirmation);
+            res.json({ success: true, confirmation });
         }
-        console.log(rows[0]);
-        res.json(rows);
     } catch (err) {
+        res.json({ success: false, errors: [err.message] });
         console.log("Error in reset password", err);
     }
 });
-
+app.post("/entercode", (req, res) => {
+    console.log("post /entercode sanityCheck", req.body);
+    const { code, password } = req.body;
+    client.get(code, (err, data) => {
+        if (err) {
+            return console.log("Error in entercode", err);
+        }
+        if (data) {
+            res.json({ success: true, data });
+        } else {
+            res.json({ success: false, errors: ["Nothing Found"] });
+        }
+    });
+    res.send(req);
+});
 ///////////////////////  USER  /////////////////////////////////
 app.get("/user", async (req, res) => {
     const { rows } = await db.getUser([req.session.registerId]);

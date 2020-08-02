@@ -19,7 +19,7 @@ export default class ResetPasswordEmail extends React.Component {
     async submit() {
         const { email } = this.state;
         try {
-            const { data } = axios.post(
+            const { data } = await axios.post(
                 "/resetpassword",
                 {
                     email,
@@ -34,13 +34,37 @@ export default class ResetPasswordEmail extends React.Component {
             if (data.success) {
                 this.setState({ step: 1 });
             } else {
+                console.log(data.errors);
+                this.setState({
+                    errors: [data.errors],
+                });
+            }
+        } catch (err) {
+            console.log("Error in submit", err.message);
+            this.setState({ errors: ["That didn't work"] });
+        }
+    }
+    submitCode(e) {
+        e.preventDefault();
+        const { code, password } = this.state;
+        try {
+            const { data } = axios.post(
+                "/submitcode",
+                { code, password },
+                {
+                    xsrfCookieName: "token",
+                    xsrfHeaderName: "csrf-token",
+                }
+            );
+            if (data.success) {
+                this.setState({ step: 2 });
+            } else {
                 this.setState({
                     errors: [...data.errors],
                 });
             }
         } catch (err) {
-            console.log("Error in submit", err);
-            this.setState({ errors: [`Something went wrong`] });
+            console.log("error in submitCode", err);
         }
     }
     render() {
@@ -94,7 +118,9 @@ export default class ResetPasswordEmail extends React.Component {
                                 placeholder="Enter your Password"
                             />
                         </label>
-                        <button onClick={() => this.submit()}>Submit</button>
+                        <button onClick={(e) => this.submitCode(e)}>
+                            Submit
+                        </button>
                     </form>
                 </div>
             );

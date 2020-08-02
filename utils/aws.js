@@ -11,7 +11,7 @@ if (process.env.NODE_ENV == "production") {
 const ses = new aws.SES({
     accessKeyId: secrets.AWS_SES_KEY,
     secretAccessKey: secrets.AWS_SES_SECRET,
-    region: "eu-west-1",
+    region: "eu-central-1",
 });
 
 const s3 = new aws.S3({
