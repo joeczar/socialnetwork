@@ -3,6 +3,7 @@ import React from "react";
 import style from "../css/profilePic.module.css";
 
 const ProfilePic = ({ name, url, toggleUpload }) => {
+    console.log("profilePic", url);
     return (
         <div onClick={toggleUpload} className={style.profilePic}>
             <img
@@ -13,4 +14,4 @@ const ProfilePic = ({ name, url, toggleUpload }) => {
     );
 };
 
-export default ProfilePic; 
+export default ProfilePic;

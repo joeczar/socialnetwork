@@ -7,11 +7,16 @@ import ProfilePic from "./profilePic";
 // import { Link } from "react-router-dom";
 
 const Header = (props) => {
+    console.log("header props", props);
     return (
         <header className={style.header}>
             <Logo />
             <h1>This is my header</h1>
-            <ProfilePic name={{ first: "Joe", last: "Czar" }} toggleUpload={props.toggleUpload} />
+            <ProfilePic
+                name={props.name}
+                url={props.url}
+                toggleUpload={props.toggleUpload}
+            />
             <div id="logInOut">
                 <Logout />
             </div>
@@ -20,4 +25,3 @@ const Header = (props) => {
 };
 
 export default Header;
- 

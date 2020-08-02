@@ -3,6 +3,9 @@ const app = express();
 const compression = require("compression");
 const cookieSession = require("cookie-session");
 const { hash, compare } = require("./utils/bc");
+const { uploader } = require("./utils/multer");
+const aws = require("./utils/aws");
+const { s3Url } = require("./config");
 const csurf = require("csurf");
 const { COOKIE_SESSION } = require("./secrets.json");
 const {
@@ -49,14 +52,14 @@ app.post("/register", registerValidate(), async (req, res) => {
     // console.log(req);
     const errors = [...validate(req)];
     try {
-        console.log('in register try');
+        console.log("in register try");
         const hashed = await hash(req.body.pass);
-        console.log('got hashed in register', hashed);
+        console.log("got hashed in register", hashed);
         const { first, last, email } = req.body;
         const usrArr = [first, last, email, hashed];
 
         if (errors.length > 0) {
-            console.log('register errors');
+            console.log("register errors");
             return res.json({ success: false, errors: errors });
         } else {
             const user = await db.addUser(usrArr);
@@ -122,6 +125,27 @@ app.get("/welcome", function (req, res) {
         res.sendFile(__dirname + "/index.html");
     }
 });
+///////////////////////  USER  /////////////////////////////////
+app.get("/user", async (req, res) => {
+    const { rows } = await db.getUser([req.session.registerId]);
+    res.json(rows[0]);
+});
+app.post(
+    "/upload-pic",
+    uploader.single("file"),
+    aws.upload,
+    async (req, res) => {
+        const { filename } = req.file;
+        const url = `${s3Url}${filename}`;
+        try {
+            const { rows } = await db.addProfilePic([url]);
+            res.json({ success: true, url: rows[0] });
+        } catch (err) {
+            console.log("Error indb.addProfilePic", err);
+            res.json({ success: false, errors: [err.message] });
+        }
+    }
+);
 ///////////////////////  *  /////////////////////////////////////
 app.post("/reset", (req, res) => {
     console.log("/reset", req.session);

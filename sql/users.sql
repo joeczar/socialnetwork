@@ -8,6 +8,7 @@ CREATE TABLE users(
     first VARCHAR NOT NULL CHECK(first != ''),
     last VARCHAR NOT NULL CHECK(last != ''),
     email TEXT NOT NULL CHECK(email != '') UNIQUE,
+    pic_url VARCHAR,
     hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
