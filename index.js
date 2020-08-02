@@ -16,11 +16,14 @@ const {
 const db = require("./utils/db");
 const cryptoRandomString = require("crypto-random-string");
 /////////////  REDIS  ////////////////
+const { promisify } = require("util");
 const redis = require("redis");
 const client = redis.createClient({
     host: "localhost",
     port: 6379,
 });
+const setex = promisify(client.setex).bind(client);
+const redisGet = promisify(client.get).bind(client);
 
 client.on("error", (err) => {
     console.log("Redis error", err);
@@ -151,12 +154,9 @@ app.post("/resetpassword", async (req, res) => {
                 length: 6,
             });
             // save in REDIS
-            client.setex(secretCode, 600, email, (err, data) => {
-                if (err) {
-                    return console.log("error in redis", err);
-                }
-                console.log('"email" was set');
-            });
+            const data = await setex(secretCode, 600, email);
+            console.log(data);
+
             const emailMsg = `Your secret code is: \n \t${secretCode} \n\n It is only good for 10 min.`;
             const subject = "Reset your Password";
             const confirmation = await aws.sendEmail(email, emailMsg, subject);
@@ -168,20 +168,16 @@ app.post("/resetpassword", async (req, res) => {
         console.log("Error in reset password", err);
     }
 });
-app.post("/entercode", (req, res) => {
+app.post("/entercode", async (req, res) => {
     console.log("post /entercode sanityCheck", req.body);
-    const { code, password } = req.body;
-    client.get(code, (err, data) => {
-        if (err) {
-            return console.log("Error in entercode", err);
-        }
-        if (data) {
-            res.json({ success: true, data });
-        } else {
-            res.json({ success: false, errors: ["Nothing Found"] });
-        }
-    });
-    res.send(req);
+    const { code, password, email } = req.body;
+    const data = await redisGet(code);
+    if (data === email) {
+        // hash password
+        // store new password
+    }
+    console.log("enercode redis data", data);
+    // res.send(req.body);
 });
 ///////////////////////  USER  /////////////////////////////////
 app.get("/user", async (req, res) => {

@@ -16,7 +16,8 @@ export default class ResetPasswordEmail extends React.Component {
             [e.target.name]: e.target.value,
         });
     }
-    async submit() {
+    async submit(e) {
+        e.preventDefault();
         const { email } = this.state;
         try {
             const { data } = await axios.post(
@@ -46,16 +47,17 @@ export default class ResetPasswordEmail extends React.Component {
     }
     submitCode(e) {
         e.preventDefault();
-        const { code, password } = this.state;
+        const { code, password, email } = this.state;
         try {
             const { data } = axios.post(
-                "/submitcode",
-                { code, password },
+                "/entercode",
+                { code, password, email },
                 {
                     xsrfCookieName: "token",
                     xsrfHeaderName: "csrf-token",
                 }
             );
+            console.log(data);
             if (data.success) {
                 this.setState({ step: 2 });
             } else {
