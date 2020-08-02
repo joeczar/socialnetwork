@@ -22,7 +22,7 @@ const s3 = new aws.S3({
 exports.sendEmail = (to, text, subj) => {
     return ses
         .sendEmail({
-            Source: "Funky Chicken <funky.chicken@spiced.academy>",
+            Source: "Rollercoaster Dev <dev@rollercoaster.dev>",
             Destination: {
                 ToAddresses: [to],
             },

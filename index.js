@@ -14,7 +14,19 @@ const {
     validate,
 } = require("./utils/validatorRules");
 const db = require("./utils/db");
+const cryptoRandomString = require("crypto-random-string");
+/////////////  REDIS  ////////////////
+const redis = require("redis");
+const client = redis.createClient({
+    host: "localhost",
+    port: 6379,
+});
 
+client.on("error", (err) => {
+    console.log("Redis error", err);
+});
+
+//////////  MIDDLEWARE  //////////////
 app.use(
     cookieSession({
         secret: COOKIE_SESSION,
@@ -125,6 +137,38 @@ app.get("/welcome", function (req, res) {
         res.sendFile(__dirname + "/index.html");
     }
 });
+/////////////////  RESET PASSWORD  //////////////////
+
+app.post("/resetpassword", async (req, res) => {
+    console.log("post /resetpassword sanityCheck", req.body);
+    // check for email
+    const email = req.body.email;
+    try {
+        const { rows } = await db.getUserByEmail([email]);
+        if (rows[0]) {
+            // generate code
+            const secretCode = cryptoRandomString({
+                length: 6,
+            });
+            // save in REDIS
+            client.setex(email, 600, secretCode, (err, data) => {
+                if (err) {
+                    return console.log("error in redis", err);
+                }
+                console.log('"email" was set');
+            });
+            const emailMsg = `Your secret code is: \n \t${secretCode} \n\n It is only good for 10 min.`;
+            const subject = "Reset your Password";
+            const confirmation = await aws.sendEmail(email, emailMsg, subject);
+            console.log(confirmation);
+        }
+        console.log(rows[0]);
+        res.json(rows);
+    } catch (err) {
+        console.log("Error in reset password", err);
+    }
+});
+
 ///////////////////////  USER  /////////////////////////////////
 app.get("/user", async (req, res) => {
     const { rows } = await db.getUser([req.session.registerId]);

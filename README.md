@@ -41,6 +41,36 @@
 
 ## Part 2
 
+## Part 3
+
+1. Reset Password
+    - accessible through a Link rendered by `Login`
+    - component of 3rd route in `HashRouter`
+    - Displays
+        1. form field with email input & button to advance to next step
+            - button makes `POST` request
+            - confirm that ther is a user with that email
+            - generate secret code & store in db for later
+            - put code into an email message and send it to the user
+        2. Upon success rerender `ResetPassword` with new form containing 2 inputs one for code & one for new Password.
+            - on submit - `POST` request w/ email, code and new password
+            - find stored code for given email
+            - confirm that the code matches the stored one in db.
+            - hash password & replace the old one with it.
+        3. Upon success rerender `ResetPassword` to show a link to the login page.
+2. Creating secret code
+
+    - use [crypto-random-string](https://github.com/sindresorhus/crypto-random-string#readme)
+
+    ```
+    const cryptoRandomString = require('crypto-random-string');
+    const secretCode = cryptoRandomString({
+        length: 6
+    });
+    ```
+
+3. Storing the Code
+
 ## Part 4 Profile Pic
 
 1. App
