@@ -22,4 +22,14 @@ const addProfilePic = (params) => {
     const q = `UPDATE users SET pic_url=$1 RETURNING pic_url`;
     return db.query(q, params);
 };
-module.exports = { addUser, getUserByEmail, getUser, addProfilePic };
+const updatePassword = (params) => {
+    const q = `UPDATE users SET hash=$1`;
+    return db.query(q, params);
+};
+module.exports = {
+    addUser,
+    getUserByEmail,
+    getUser,
+    addProfilePic,
+    updatePassword,
+};

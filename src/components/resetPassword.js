@@ -2,6 +2,7 @@ import React from "react";
 import axios from "../helpers/axios";
 import Errors from "./errors";
 import style from "../css/register.module.css";
+import { Link } from "react-router-dom";
 
 export default class ResetPasswordEmail extends React.Component {
     constructor(props) {
@@ -45,11 +46,11 @@ export default class ResetPasswordEmail extends React.Component {
             this.setState({ errors: ["That didn't work"] });
         }
     }
-    submitCode(e) {
+    async submitCode(e) {
         e.preventDefault();
         const { code, password, email } = this.state;
         try {
-            const { data } = axios.post(
+            const { data } = await axios.post(
                 "/entercode",
                 { code, password, email },
                 {
@@ -57,7 +58,6 @@ export default class ResetPasswordEmail extends React.Component {
                     xsrfHeaderName: "csrf-token",
                 }
             );
-            console.log(data);
             if (data.success) {
                 this.setState({ step: 2 });
             } else {
@@ -126,10 +126,11 @@ export default class ResetPasswordEmail extends React.Component {
                     </form>
                 </div>
             );
-        } else {
+        } else if (step === 2) {
             return (
                 <div>
-                    <h1></h1>
+                    <h1>Password successfully reset</h1>
+                    <Link to="login">Login</Link>
                 </div>
             );
         }

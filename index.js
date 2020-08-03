@@ -18,6 +18,7 @@ const cryptoRandomString = require("crypto-random-string");
 /////////////  REDIS  ////////////////
 const { promisify } = require("util");
 const redis = require("redis");
+const { log } = require("console");
 const client = redis.createClient({
     host: "localhost",
     port: 6379,
@@ -171,12 +172,25 @@ app.post("/resetpassword", async (req, res) => {
 app.post("/entercode", async (req, res) => {
     console.log("post /entercode sanityCheck", req.body);
     const { code, password, email } = req.body;
-    const data = await redisGet(code);
-    if (data === email) {
-        // hash password
-        // store new password
+    try {
+        const data = await redisGet(code);
+        console.log("entercode redis response", data, email);
+        if (data == email) {
+            // hash password
+            const hashed = await hash(password);
+            console.log(hashed);
+            // store new password
+            const { rows } = await db.updatePassword([hashed]);
+            console.log(rows);
+            res.json({ success: true });
+        } else {
+            res.json({ success: false, errors: ["That code didn't match"] });
+        }
+    } catch (err) {
+        res.json({ success: false, errors: [err.message] });
+        console.log("Error in POST /entercode", err);
     }
-    console.log("enercode redis data", data);
+
     // res.send(req.body);
 });
 ///////////////////////  USER  /////////////////////////////////

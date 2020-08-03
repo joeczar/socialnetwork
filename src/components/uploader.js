@@ -31,12 +31,12 @@ class Uploader extends Component {
             });
             if (data.success) {
                 this.props.updateUrl(data.url.pic_url);
-                (e) => this.props.toggleModal(e);
+                this.props.toggleModal();
             } else {
                 this.setState({ errors: data.errors });
             }
         } catch (err) {
-            console.log("error in uploadpic axios", err);
+            console.log("error in upload pic axios", err);
         }
     }
     render() {
@@ -46,7 +46,7 @@ class Uploader extends Component {
                 <div id="uploadWrapper" className={style.uploader}>
                     <CloseX close={(e) => toggleModal(e)} />
                     <ProfilePic name={name} url={url} close={null} />
-                    <h1>Change your profile pictrue</h1>
+                    <h1>Change your profile picture</h1>
                     <form className="upload shadow-3">
                         <div className="formTitleWrapper">
                             <h1>Upload a photo</h1>

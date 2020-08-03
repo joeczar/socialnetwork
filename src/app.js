@@ -27,8 +27,7 @@ class App extends Component {
             url: pic_url,
         });
     }
-    toggleUploadModal(e) {
-        console.log(e.target);
+    toggleUploadModal() {
         this.setState(
             {
                 toggleUploadModal: !this.state.toggleUploadModal,
