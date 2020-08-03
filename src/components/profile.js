@@ -7,13 +7,13 @@ export default class Profile extends Component {
         super(props);
     }
     render() {
-        console.log(this.props);
-        const { name, url } = this.props;
+        const { name, url, bio, setBio } = this.props;
+        console.log("profile props", this.props);
         return (
             <div>
                 <h1>{`${name.first}'s `}Profile</h1>
                 <ProfilePic name={name} url={url} size="large" />
-                <Bio setBio={this.props.setBio} bio={this.props.bio} />
+                <Bio setBio={setBio} bio={bio} />
             </div>
         );
     }

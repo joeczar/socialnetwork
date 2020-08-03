@@ -25,9 +25,11 @@ class App extends Component {
         console.log("App has mounted");
         const { data } = await axios.get("/user");
         const { first, last, pic_url, bio } = data;
+
         this.setState({
             name: { first: first, last: last },
             url: pic_url,
+            bio: bio,
         });
     }
     toggleUploadModal() {
@@ -46,10 +48,15 @@ class App extends Component {
     async setBio(bio) {
         console.log("in set bio", bio);
         try {
-            const { data } = await axios.post("/add-bio", bio, {
-                xsrfCookieName: "token",
-                xsrfHeaderName: "csrf-token",
-            });
+            const { data } = await axios.post(
+                "/add-bio",
+                { bio: bio },
+                {
+                    xsrfCookieName: "token",
+                    xsrfHeaderName: "csrf-token",
+                }
+            );
+            console.log("setBio response", data);
             if (data.success) {
                 this.setState({
                     bio: data.bio,

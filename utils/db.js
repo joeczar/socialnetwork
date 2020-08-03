@@ -15,7 +15,7 @@ const getUserByEmail = (params) => {
     return db.query(q, params);
 };
 const getUser = (params) => {
-    const q = `SELECT first, last, pic_url FROM users WHERE id=$1`;
+    const q = `SELECT first, last, pic_url, bio FROM users WHERE id=$1`;
     return db.query(q, params);
 };
 const addProfilePic = (params) => {

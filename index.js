@@ -222,8 +222,12 @@ app.post(
 app.post("/add-bio", async (req, res) => {
     console.log("post /add-bio sanityCheck", req.body);
     try {
-        const { rows } = db.addBio([req.body, req.session.registerId]);
-        res.send({ success: true, bio: rows[0] });
+        const { rows } = await db.addBio([
+            req.body.bio,
+            req.session.registerId,
+        ]);
+        console.log("add-bio rows", rows);
+        res.send({ success: true, bio: rows[0].bio });
     } catch (err) {
         console.log("error in add-bio", err);
     }
