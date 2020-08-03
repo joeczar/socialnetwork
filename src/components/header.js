@@ -16,6 +16,7 @@ const Header = (props) => {
                 name={props.name}
                 url={props.url}
                 toggleUpload={props.toggleUpload}
+                size="small"
             />
             <div id="logInOut">
                 <Logout />

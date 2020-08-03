@@ -1,23 +1,49 @@
 import React from "react";
 import CircleArray from "./circles";
-import ZenStreak from "./zenStreak";
 import style from "../css/logo.module.css";
+import { easeInOutQuad, easeOutQuad } from "../helpers/easing";
 
-let radius = 0;
-let spread = 0;
-let centerX = 0;
-let centerY = 0;
-let steps = 8;
+let step;
+let requestAnimationFrame =
+    window.requestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.msRequestAnimationFrame;
+
+let cancelAnimationFrame =
+    window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+
+const steps = 200;
+const speed = 50;
+const curve = [];
+for (let i = 0; i < steps + 1; i++) {
+    const stepValue = easeInOutQuad(i, 0, speed, steps);
+    curve.push(stepValue);
+}
+let count = 0;
 
 class Logo extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { width: 0, height: 0, r: [] };
+        this.state = {
+            width: 0,
+            height: 0,
+            r: [],
+            radius: 0,
+            spread: 0,
+            centerX: 0,
+            centerY: 0,
+            steps: 8,
+            change: 50,
+            open: false,
+        };
+        this.spread = this.spread.bind(this);
     }
 
     componentDidMount() {
         const height = document.getElementById("circles").clientHeight;
         const width = document.getElementById("circles").clientWidth;
+        console.log("height width", height, width);
         const logoTextHeight = document.getElementById("logoName").offsetHeight;
         const logoTextWidth = document.getElementById("logoName").offsetWidth;
         this.setState({
@@ -26,20 +52,42 @@ class Logo extends React.Component {
             logoHeight: logoTextHeight,
             logoWidth: logoTextWidth,
         });
-    }
 
-    render() {
-        // Square the SVG box and subtract margins
-        if (this.state.width < this.state.height) {
-            centerX = this.state.width;
-            centerY = this.state.width;
-            radius = this.state.width / 4;
+        if (width < height) {
+            this.setState({
+                centerX: width,
+                centerY: width,
+                radius: width / 4,
+            });
         } else {
             // no need to subtract margins here
-            centerX = this.state.height;
-            centerY = this.state.height;
-            radius = this.state.height / 4;
+            this.setState({
+                centerX: height,
+                centerY: height,
+                radius: height / 4,
+            });
         }
+    }
+    handleLogoClick(e) {
+        e.preventDefault();
+        console.log("clicked zd");
+        this.setState({ open: true });
+        step = this.spread();
+        step = requestAnimationFrame(this.spread);
+        cancelAnimationFrame(step);
+    }
+    spread() {
+        this.setState({
+            // radius: this.state.radius - 10,
+            spread: this.state.spread + curve[count],
+        });
+        count++;
+        if (this.state.spread <= 200) {
+            step = requestAnimationFrame(this.spread);
+        }
+    }
+    render() {
+        // Square the SVG box and subtract margins
 
         const outerWidth = { width: this.props.width };
 
@@ -50,19 +98,23 @@ class Logo extends React.Component {
 
             textShadow: "0px 0px 5px rgba(0,0,0,1)",
         };
-
         return (
             <div className={style.logo} style={outerWidth} id="circles">
                 <CircleArray
-                    radius={radius}
-                    steps={steps}
-                    centerX={centerX}
-                    centerY={centerY}
-                    className="circles"
-                    spread={spread}
+                    radius={this.state.radius}
+                    steps={this.state.steps}
+                    centerX={this.state.centerX}
+                    centerY={this.state.centerY}
+                    className={style.circleSvg}
+                    spread={this.state.spread}
                 />
-                <h1 id="logoName" style={pos} className={style.logoName}>
-                    {outerWidth.width > 300 ? "Zen Streak" : "ZD"}
+                <h1
+                    onClick={(e) => this.handleLogoClick(e)}
+                    id="logoName"
+                    style={pos}
+                    className={style.logoName}
+                >
+                    {this.state.width > 300 ? "Zen Streak" : "ZD"}
                 </h1>
             </div>
         );

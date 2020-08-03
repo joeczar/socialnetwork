@@ -45,7 +45,12 @@ class Uploader extends Component {
             <div className={style.modal}>
                 <div id="uploadWrapper" className={style.uploader}>
                     <CloseX close={(e) => toggleModal(e)} />
-                    <ProfilePic name={name} url={url} close={null} />
+                    <ProfilePic
+                        name={name}
+                        url={url}
+                        close={null}
+                        size="medium"
+                    />
                     <h1>Change your profile picture</h1>
                     <form className="upload shadow-3">
                         <div className="formTitleWrapper">

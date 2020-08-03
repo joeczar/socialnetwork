@@ -1,10 +1,28 @@
-.profilePic {
-    height: 75px;
-    width: 75px;
-    border-radius: 50%;
-   
-}
 .profilePic img {
+    border-radius: 50%;
+}
+.smallPic {
     height: 75px;
     width: 75px;
+}
+.smallPic img {
+    height: 75px;
+    width: 75px;
+}
+
+.mediumPic {
+    height: 150px;
+    width: 150px;
+}
+.mediumPic img {
+    height: 150px;
+    width: 150px;
+}
+.largePic {
+    height: 300px;
+    width: 300px;
+}
+.largePic img {
+    height: 200px;
+    width: 200px;
 }

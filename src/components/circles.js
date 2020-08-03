@@ -6,7 +6,6 @@ import { circlePos } from "../helpers/circleOfCircles";
 import style from "../css/circles.module.css";
 
 const Circles = ({ radius, steps, centerX, centerY, spread }) => {
-    const { height, width } = { centerX, centerY };
     //Create an array of Circles
     const circArr = new Array(Number(steps)).fill(<Circle />);
 
@@ -18,7 +17,7 @@ const Circles = ({ radius, steps, centerX, centerY, spread }) => {
     const renderedCircles = circArr.map((_circle, i) => {
         let xPos = position.xValues[i];
         let yPos = position.yValues[i];
-        
+
         return (
             <Circle
                 key={i}

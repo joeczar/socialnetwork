@@ -6,10 +6,10 @@ class ProfileMenu extends Component {
         this.state = { visible: true }
     }
     render() { 
-        const {name, }
+        const {name, url, }
         return ( 
             <div>
-
+                
             </div>
          );
     }

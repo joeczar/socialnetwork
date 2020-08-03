@@ -19,11 +19,15 @@ const getUser = (params) => {
     return db.query(q, params);
 };
 const addProfilePic = (params) => {
-    const q = `UPDATE users SET pic_url=$1 RETURNING pic_url`;
+    const q = `UPDATE users SET pic_url=$1 WHERE id=$2 RETURNING pic_url`;
+    return db.query(q, params);
+};
+const addBio = (params) => {
+    const q = `UPDATE users SET bio=$1 WHERE id=$2 RETURNING bio`;
     return db.query(q, params);
 };
 const updatePassword = (params) => {
-    const q = `UPDATE users SET hash=$1`;
+    const q = `UPDATE users SET hash=$1 WHERE id=$2`;
     return db.query(q, params);
 };
 module.exports = {
@@ -32,4 +36,5 @@ module.exports = {
     getUser,
     addProfilePic,
     updatePassword,
+    addBio,
 };

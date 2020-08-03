@@ -4,6 +4,7 @@ import axios from "axios";
 /////////////////  COMPONENTS  ////////////////////
 import Layout from "./layouts/layout";
 import Uploader from "./components/uploader";
+import Profile from "./components/profile";
 ///////////////  CSS  //////////////////
 import style from "./css/app.module.css";
 
@@ -14,14 +15,16 @@ class App extends Component {
             toggleUploadModal: false,
             name: "",
             url: "",
+            bio: "",
         };
         this.toggleUploadModal = this.toggleUploadModal.bind(this);
         this.updateUrl = this.updateUrl.bind(this);
+        this.setBio = this.setBio.bind(this);
     }
     async componentDidMount() {
         console.log("App has mounted");
         const { data } = await axios.get("/user");
-        const { first, last, pic_url } = data;
+        const { first, last, pic_url, bio } = data;
         this.setState({
             name: { first: first, last: last },
             url: pic_url,
@@ -40,6 +43,24 @@ class App extends Component {
     updateUrl(url) {
         this.setState({ url: url });
     }
+    async setBio(bio) {
+        console.log("in set bio", bio);
+        try {
+            const { data } = await axios.post("/add-bio", bio, {
+                xsrfCookieName: "token",
+                xsrfHeaderName: "csrf-token",
+            });
+            if (data.success) {
+                this.setState({
+                    bio: data.bio,
+                });
+            } else {
+                console.log("Something went wrong.", data.errors);
+            }
+        } catch (err) {
+            console.log("error in setBio", err);
+        }
+    }
     render() {
         console.log("app state", this.state);
         return (
@@ -48,8 +69,12 @@ class App extends Component {
                 name={this.state.name}
                 url={this.state.url}
             >
-                <h1>App</h1>
-                <p>Hi! {`$`} </p>
+                <Profile
+                    name={this.state.name}
+                    url={this.state.url}
+                    bio={this.state.bio}
+                    setBio={this.setBio}
+                />
 
                 {this.state.toggleUploadModal && (
                     <Uploader

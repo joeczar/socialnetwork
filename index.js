@@ -18,7 +18,6 @@ const cryptoRandomString = require("crypto-random-string");
 /////////////  REDIS  ////////////////
 const { promisify } = require("util");
 const redis = require("redis");
-const { log } = require("console");
 const client = redis.createClient({
     host: "localhost",
     port: 6379,
@@ -180,7 +179,10 @@ app.post("/entercode", async (req, res) => {
             const hashed = await hash(password);
             console.log(hashed);
             // store new password
-            const { rows } = await db.updatePassword([hashed]);
+            const { rows } = await db.updatePassword([
+                hashed,
+                req.session.registerId,
+            ]);
             console.log(rows);
             res.json({ success: true });
         } else {
@@ -206,14 +208,26 @@ app.post(
         const { filename } = req.file;
         const url = `${s3Url}${filename}`;
         try {
-            const { rows } = await db.addProfilePic([url]);
+            const { rows } = await db.addProfilePic([
+                url,
+                req.session.registerId,
+            ]);
             res.json({ success: true, url: rows[0] });
         } catch (err) {
-            console.log("Error indb.addProfilePic", err);
+            console.log("Error in db.addProfilePic", err);
             res.json({ success: false, errors: [err.message] });
         }
     }
 );
+app.post("/add-bio", async (req, res) => {
+    console.log("post /add-bio sanityCheck", req.body);
+    try {
+        const { rows } = db.addBio([req.body, req.session.registerId]);
+        res.send({ success: true, bio: rows[0] });
+    } catch (err) {
+        console.log("error in add-bio", err);
+    }
+});
 ///////////////////////  *  /////////////////////////////////////
 app.post("/reset", (req, res) => {
     console.log("/reset", req.session);
