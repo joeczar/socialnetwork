@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
-
+import {BrowserRouter, Route} from 'react-router-dom'
 /////////////////  COMPONENTS  ////////////////////
 import Layout from "./layouts/layout";
 import Uploader from "./components/uploader";
 import Profile from "./components/profile";
 ///////////////  CSS  //////////////////
 import style from "./css/app.module.css";
+import OtherProfile from "./components/otherProfile";
 
 class App extends Component {
     constructor(props) {
@@ -76,21 +77,29 @@ class App extends Component {
                 name={this.state.name}
                 url={this.state.url}
             >
-                <Profile
-                    name={this.state.name}
-                    url={this.state.url}
-                    bio={this.state.bio}
-                    setBio={this.setBio}
-                />
-
-                {this.state.toggleUploadModal && (
-                    <Uploader
+                <BrowserRouter>
+                    <Route exact path="/" render={() => (
+                        <>
+                        <Profile
                         name={this.state.name}
                         url={this.state.url}
-                        toggleModal={this.toggleUploadModal}
-                        updateUrl={this.updateUrl}
-                    />
-                )}
+                        bio={this.state.bio}
+                        setBio={this.setBio}
+                        />
+                        {this.state.toggleUploadModal && (
+                        <Uploader
+                            name={this.state.name}
+                            url={this.state.url}
+                            toggleModal={this.toggleUploadModal}
+                            updateUrl={this.updateUrl}
+                        />
+                        )}
+                        </>
+                    )}/>
+
+                    <Route path="/user/:id" component={OtherProfile} />
+                </BrowserRouter>
+                
             </Layout>
         );
     }

@@ -1,7 +1,8 @@
 const spicedPg = require("spiced-pg");
 const username = require("os").userInfo().username;
 const { POSTGRES_PWD } = require("../secrets.json");
-console.log(POSTGRES_PWD);
+// const fakeUsers = require("./fakeUsers.json")
+
 const db = spicedPg(
     process.env.DATABASE_URL ||
         `postgres:${username}:${POSTGRES_PWD}@localhost:5432/socialnetwork`
@@ -30,6 +31,22 @@ const updatePassword = (params) => {
     const q = `UPDATE users SET hash=$1 WHERE id=$2`;
     return db.query(q, params);
 };
+
+
+// const add200Users = () => {
+//     return db.query(fakeUsers.query)
+// }
+// (async () => {
+//     try {
+//         const {rows} = await add200Users()
+//     console.log(rows);
+//     } catch (err) {
+//         console.log('Error in add200Users', err);
+//     }
+    
+// }
+// )();
+
 module.exports = {
     addUser,
     getUserByEmail,

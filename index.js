@@ -193,7 +193,6 @@ app.post("/entercode", async (req, res) => {
         console.log("Error in POST /entercode", err);
     }
 
-    // res.send(req.body);
 });
 ///////////////////////  USER  /////////////////////////////////
 app.get("/user", async (req, res) => {
@@ -232,6 +231,12 @@ app.post("/add-bio", async (req, res) => {
         console.log("error in add-bio", err);
     }
 });
+app.get("/other-user/:id", async (req, res) => {
+    const {rows} = await db.getUser([req.params.id])
+    res.json(rows[0])
+
+}
+)
 ///////////////////////  *  /////////////////////////////////////
 app.post("/reset", (req, res) => {
     console.log("/reset", req.session);
