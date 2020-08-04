@@ -1,5 +1,6 @@
 .profilePic img {
     border-radius: 50%;
+    object-fit: cover;
 }
 .smallPic {
     height: 75px;

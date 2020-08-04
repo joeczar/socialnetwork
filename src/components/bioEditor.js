@@ -16,11 +16,9 @@ export default class Bio extends Component {
     componentDidMount() {
         this.props.bio &&
             this.setState({ draft: this.props.bio, bio: this.props.bio });
-        console.log("bio cdm state", this.state, this.props.bio);
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.bio !== this.props.bio) {
-            console.log("Props.bio updated", this.props.bio);
             this.setState(
                 { draft: this.props.bio, bio: this.props.bio, mode: "showBio" },
                 () => {
@@ -31,7 +29,7 @@ export default class Bio extends Component {
     }
     handleAddBio(e) {
         e.preventDefault();
-        console.log("handle addBio");
+   
         this.setState({ mode: "edit" });
     }
     handleEdit(e) {
@@ -43,7 +41,6 @@ export default class Bio extends Component {
         this.setState({ draft: e.target.value });
     }
     showBio() {
-        console.log("Show bio", this.state.bio);
         if (this.props.bio) {
             console.log("Showing bio");
             this.setState({ mode: "show" }, () => {
