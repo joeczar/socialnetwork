@@ -36,6 +36,7 @@ class Logo extends React.Component {
             steps: 8,
             change: 50,
             open: false,
+            size: "large",
         };
         this.spread = this.spread.bind(this);
     }
@@ -44,13 +45,13 @@ class Logo extends React.Component {
         const height = document.getElementById("circles").clientHeight;
         const width = document.getElementById("circles").clientWidth;
         console.log("height width", height, width);
-        const logoTextHeight = document.getElementById("logoName").offsetHeight;
-        const logoTextWidth = document.getElementById("logoName").offsetWidth;
+        // const logoTextHeight = document.getElementById("logoName").offsetHeight;
+        // const logoTextWidth = document.getElementById("logoName").offsetWidth;
         this.setState({
             height: height,
             width: width,
-            logoHeight: logoTextHeight,
-            logoWidth: logoTextWidth,
+            // logoHeight: logoTextHeight,
+            // logoWidth: logoTextWidth,
         });
 
         if (width < height) {
@@ -68,21 +69,41 @@ class Logo extends React.Component {
             });
         }
     }
-    handleLogoClick(e) {
-        e.preventDefault();
-        console.log("clicked zd");
-        this.setState({ open: true });
-        step = this.spread();
-        step = requestAnimationFrame(this.spread);
-        cancelAnimationFrame(step);
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.open != this.props.open) {
+            this.setState({ open: this.props.open });
+            this.animate();
+        }
+    }
+    animate() {
+        if (this.state.open) {
+            step = this.spread();
+            step = requestAnimationFrame(this.spread);
+            cancelAnimationFrame(step);
+        } else {
+            step = this.close();
+            step = requestAnimationFrame(this.close);
+            cancelAnimationFrame(step);
+        }
     }
     spread() {
+        const radius = this.state.radius;
         this.setState({
             // radius: this.state.radius - 10,
             spread: this.state.spread + curve[count],
         });
         count++;
-        if (this.state.spread <= 200) {
+        if (this.state.spread <= 180) {
+            step = requestAnimationFrame(this.spread);
+        }
+    }
+    close() {
+        this.setState({
+            // radius: this.state.radius - 10,
+            spread: this.state.spread - curve[count],
+        });
+        count++;
+        if (this.state.spread <= 180) {
             step = requestAnimationFrame(this.spread);
         }
     }
@@ -108,14 +129,14 @@ class Logo extends React.Component {
                     className={style.circleSvg}
                     spread={this.state.spread}
                 />
-                <h1
+                {/* <h1
                     onClick={(e) => this.handleLogoClick(e)}
                     id="logoName"
                     style={pos}
                     className={style.logoName}
                 >
-                    {this.state.width > 300 ? "Zen Streak" : "ZD"}
-                </h1>
+                    {this.state.size === "small" ? "Zen Streak" : "ZD"}
+                </h1> */}
             </div>
         );
     }
