@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import ProfilePic from "./profilePic";
-import Bio from "./bioEditor";
+import BioHooked from "./BioHooked";
 
 export default class Profile extends Component {
     constructor(props) {
         super(props);
+    }
+    componentDidMount() {
+        console.log("Profile mounted");
     }
     render() {
         const { name, url, bio, setBio } = this.props;
@@ -13,7 +16,7 @@ export default class Profile extends Component {
             <div>
                 <h1>{`${name.first}'s `}Profile</h1>
                 <ProfilePic name={name} url={url} size="large" />
-                <Bio setBio={setBio} bio={bio} />
+                <BioHooked setBio={setBio} bio={bio} />
             </div>
         );
     }

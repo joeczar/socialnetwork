@@ -1,7 +1,7 @@
 import axios from "axios";
 
 let instance = axios.create({
-    xsrfCookieName: "mytoken",
+    xsrfCookieName: "token",
     xsrfHeaderName: "csrf-token",
 });
 

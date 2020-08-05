@@ -1,7 +1,7 @@
 const spicedPg = require("spiced-pg");
 const username = require("os").userInfo().username;
 const { POSTGRES_PWD } = require("../secrets.json");
-// const fakeUsers = require("./fakeUsers.json")
+// const fakeUsers = require("./fakeUsers.json");
 
 const db = spicedPg(
     process.env.DATABASE_URL ||
@@ -32,20 +32,17 @@ const updatePassword = (params) => {
     return db.query(q, params);
 };
 
-
 // const add200Users = () => {
-//     return db.query(fakeUsers.query)
-// }
+//     return db.query(fakeUsers.query);
+// };
 // (async () => {
 //     try {
-//         const {rows} = await add200Users()
-//     console.log(rows);
+//         const { rows } = await add200Users();
+//         console.log(rows);
 //     } catch (err) {
-//         console.log('Error in add200Users', err);
+//         console.log("Error in add200Users", err);
 //     }
-    
-// }
-// )();
+// })();
 
 module.exports = {
     addUser,

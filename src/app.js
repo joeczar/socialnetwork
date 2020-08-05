@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
-import {BrowserRouter, Route} from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 /////////////////  COMPONENTS  ////////////////////
 import Layout from "./layouts/layout";
 import Uploader from "./components/uploader";
 import Profile from "./components/profile";
+import { FindPeople } from "./components/findPeople";
+import NotFound from "./components/404";
+
 ///////////////  CSS  //////////////////
 import style from "./css/app.module.css";
 import OtherProfile from "./components/otherProfile";
@@ -49,14 +52,7 @@ class App extends Component {
     async setBio(bio) {
         console.log("in set bio", bio);
         try {
-            const { data } = await axios.post(
-                "/add-bio",
-                { bio: bio },
-                {
-                    xsrfCookieName: "token",
-                    xsrfHeaderName: "csrf-token",
-                }
-            );
+            const { data } = await axios.post("/add-bio", { bio: bio });
             console.log("setBio response", data);
             if (data.success) {
                 this.setState({
@@ -78,28 +74,34 @@ class App extends Component {
                 url={this.state.url}
             >
                 <BrowserRouter>
-                    <Route exact path="/" render={() => (
-                        <>
-                        <Profile
-                        name={this.state.name}
-                        url={this.state.url}
-                        bio={this.state.bio}
-                        setBio={this.setBio}
+                    <Switch>
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <>
+                                    <Profile
+                                        name={this.state.name}
+                                        url={this.state.url}
+                                        bio={this.state.bio}
+                                        setBio={this.setBio}
+                                    />
+                                    {this.state.toggleUploadModal && (
+                                        <Uploader
+                                            name={this.state.name}
+                                            url={this.state.url}
+                                            toggleModal={this.toggleUploadModal}
+                                            updateUrl={this.updateUrl}
+                                        />
+                                    )}
+                                </>
+                            )}
                         />
-                        {this.state.toggleUploadModal && (
-                        <Uploader
-                            name={this.state.name}
-                            url={this.state.url}
-                            toggleModal={this.toggleUploadModal}
-                            updateUrl={this.updateUrl}
-                        />
-                        )}
-                        </>
-                    )}/>
-
-                    <Route path="/user/:id" component={OtherProfile} />
+                        <Route path="/users" component={FindPeople} />
+                        <Route path="/user/:id" component={OtherProfile} />
+                        <Route component={NotFound} />
+                    </Switch>
                 </BrowserRouter>
-                
             </Layout>
         );
     }

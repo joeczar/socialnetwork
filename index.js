@@ -81,7 +81,7 @@ app.post("/register", registerValidate(), async (req, res) => {
             console.log("register User", req.session);
             const { first, last, id } = user.rows[0];
             req.session.registerId = id;
-            req.session.name = { first, last };
+            // req.session.name = { first, last };
             res.json({ success: true });
             console.log("register User after session", req.session);
         }
@@ -192,7 +192,6 @@ app.post("/entercode", async (req, res) => {
         res.json({ success: false, errors: [err.message] });
         console.log("Error in POST /entercode", err);
     }
-
 });
 ///////////////////////  USER  /////////////////////////////////
 app.get("/user", async (req, res) => {
@@ -232,11 +231,9 @@ app.post("/add-bio", async (req, res) => {
     }
 });
 app.get("/other-user/:id", async (req, res) => {
-    const {rows} = await db.getUser([req.params.id])
-    res.json(rows[0])
-
-}
-)
+    const { rows } = await db.getUser([req.params.id]);
+    res.json(rows[0]);
+});
 ///////////////////////  *  /////////////////////////////////////
 app.post("/reset", (req, res) => {
     console.log("/reset", req.session);

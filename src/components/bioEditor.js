@@ -14,39 +14,57 @@ export default class Bio extends Component {
         // this.showBio = this.showBio.bind(this);
     }
     componentDidMount() {
-        this.props.bio &&
-            this.setState({ draft: this.props.bio, bio: this.props.bio });
+        console.log("Bio mounted");
+        const bioState =
+            this.props.bio != "" || !this.props.bio ? "showBio" : "add";
+        if (this.props.bio) {
+            console.log("BIO PROPS CDM!!!!");
+            this.setState({
+                draft: this.props.bio,
+                bio: this.props.bio,
+            });
+        }
+
+        this.setState({ mode: bioState });
+        // this.setState(
+        //     { draft: this.props.bio, bio: this.props.bio, mode: "showBio" },
+        //     () => {
+        //         console.log("state updated", this.state);
+        //     }
+        // );
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.bio !== this.props.bio) {
-            this.setState(
-                { draft: this.props.bio, bio: this.props.bio, mode: "showBio" },
-                () => {
-                    console.log("state updated", this.state);
-                }
-            );
+            // this.showBio();
+            // this.setState(
+            //     { draft: this.props.bio, bio: this.props.bio, mode: "showBio" },
+            //     () => {
+            //         console.log("state updated", this.state);
+            //     }
+            // );
         }
     }
     handleAddBio(e) {
         e.preventDefault();
-   
         this.setState({ mode: "edit" });
     }
     handleEdit(e) {
         e.preventDefault();
         this.props.setBio(this.state.draft);
-        // this.showBio();
+        this.showBio();
     }
     handleChange(e) {
         this.setState({ draft: e.target.value });
     }
     showBio() {
-        if (this.props.bio) {
-            console.log("Showing bio");
-            this.setState({ mode: "show" }, () => {
-                console.log("updated State", this.state);
-            });
-        }
+        const bioState =
+            this.props.bio != "" || !this.props.bio ? "showBio" : "add";
+        this.setState(
+            { draft: this.props.bio, bio: this.props.bio, mode: bioState },
+            () => {
+                console.log("state updated", this.state);
+            }
+        );
     }
     render() {
         if (this.state.mode === "add") {
@@ -96,7 +114,9 @@ const ShowBio = ({ bio, handleAddBio }) => {
         <div>
             <h2>Bio</h2>
             <p>{bio}</p>
-            <button onClick={(e) => handleAddBio(e)}>Edit Bio</button>
+            <button id="editBio" onClick={(e) => handleAddBio(e)}>
+                Edit Bio
+            </button>
         </div>
     );
 };
