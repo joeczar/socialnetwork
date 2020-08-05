@@ -39,15 +39,35 @@ test('Clicking the "Add" button causes a textarea and a "Save" button to be rend
 
     expect(container.querySelector("#addBio").innerHTML).toContain("Add a Bio");
     fireEvent.click(container.querySelector("button"));
-    // const elem = await waitForElement(() => {
-    //     return container.querySelector("#editWrapper");
-    // });
+
     expect(container.querySelector("textarea").innerHTML).toContain(
         "Tell us about yourself"
     );
     expect(container.querySelector("button").innerHTML).toContain("Save");
 });
-test('Clicking the "Save" button causes an ajax request', () => {});
+test('Clicking the "Save" button causes an ajax request', () => {
+    axios.get.mockResolvedValue({
+        data: {
+            first: "Stella",
+            last: "deStroy",
+            url:
+                "https://www.maenner.media/downloads/53694/download/14_party_stella_destroy.jpg?cb=9bdba70576b4ab8936e571357cf374b2&w=640",
+            bio: "I'm am bio don't you like me?",
+        },
+    });
+    const { container } = render(<BioHooked />);
+
+    expect(container.querySelector("#addBio").innerHTML).toContain("Add a Bio");
+
+    fireEvent.click(container.querySelector("button"));
+
+    expect(container.querySelector("textarea").innerHTML).toContain(
+        "Tell us about yourself"
+    );
+    expect(container.querySelector("button").innerHTML).toContain("Save");
+
+    fireEvent.click(container.querySelector("button"));
+});
 /*
     const elem = await waitForElement(() => {
         return container.querySelector("#editBio");
