@@ -24,16 +24,9 @@ test('When no bio is passed to it, an "Add" button is rendered.', async () => {
 jest.retryTimes(3);
 jest.setTimeout(6000);
 test('When a bio is passed to it, an "Edit" button is rendered.', async () => {
-    axios.get.mockResolvedValue({
-        data: {
-            first: "Stella",
-            last: "deStroy",
-            url:
-                "https://www.maenner.media/downloads/53694/download/14_party_stella_destroy.jpg?cb=9bdba70576b4ab8936e571357cf374b2&w=640",
-            bio: "I'm am bio don't you like me?",
-        },
-    });
-    const { container } = render(<BioHooked />);
+    const { container } = render(
+        <BioHooked bio="I'm am bio don't you like me?" />
+    );
 
     const elem = await waitForElement(() => {
         return container.querySelector("#editBio");
@@ -41,14 +34,24 @@ test('When a bio is passed to it, an "Edit" button is rendered.', async () => {
     expect(elem.innerHTML).toContain(`Edit Bio`);
 });
 
-// test( 'Clicking the "Add" button causes a textarea and a "Save" button to be rendered.', async () => {
-//     const {container} =  render(<BioHooked />);
-//     expect(
-//         container.querySelector('div').innerHTML
-//     ).toContain(<tex)
-// })
+test('Clicking the "Add" button causes a textarea and a "Save" button to be rendered.', async () => {
+    const { container } = render(<BioHooked />);
+
+    expect(container.querySelector("#addBio").innerHTML).toContain("Add a Bio");
+    fireEvent.click(container.querySelector("button"));
+    // const elem = await waitForElement(() => {
+    //     return container.querySelector("#editWrapper");
+    // });
+    expect(container.querySelector("textarea").innerHTML).toContain(
+        "Tell us about yourself"
+    );
+    expect(container.querySelector("button").innerHTML).toContain("Save");
+});
+test('Clicking the "Save" button causes an ajax request', () => {});
 /*
-    
+    const elem = await waitForElement(() => {
+        return container.querySelector("#editBio");
+    });
     When no bio is passed to it, an "Add" button is rendered.
 
     When a bio is passed to it, an "Edit" button is rendered.

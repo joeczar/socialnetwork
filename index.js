@@ -234,6 +234,24 @@ app.get("/other-user/:id", async (req, res) => {
     const { rows } = await db.getUser([req.params.id]);
     res.json(rows[0]);
 });
+//////////////////////  FIND USERS  ////////////////////////////
+
+app.get("/new-users", async (req, res) => {
+    console.log("get /new-users sanityCheck");
+    const { rows } = await db.getNewUsers();
+
+    res.json({ success: true, rows });
+});
+app.get("/search-users/:input", async (req, res) => {
+    console.log("get /search-users sanityCheck", req.params.input);
+    try {
+        const { rows } = await db.searchUsers([req.params.input + "%"]);
+        console.log("searchusers", rows);
+        res.json({ success: true, rows });
+    } catch (err) {
+        console.log("Error getting users", err);
+    }
+});
 ///////////////////////  *  /////////////////////////////////////
 app.post("/reset", (req, res) => {
     console.log("/reset", req.session);

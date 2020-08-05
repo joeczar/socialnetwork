@@ -5,15 +5,6 @@ const BioHooked = (props) => {
     const [draft, setDraft] = useState("Tell us about yourself");
     const [bio, setBio] = useState(null);
 
-    // useEffect(() => {
-    //     const bioState = props.bio != "" ? "showBio" : "add";
-    //     setMode(bioState);
-    //     console.log(
-    //         "useEffect no array biostate",
-    //         bioState,
-    //         props.bio != "" || !props.bio
-    //     );
-    // }, []);
     useEffect(() => {
         if (props.bio == "" || !props.bio) {
             console.log("no bio");
@@ -40,7 +31,6 @@ const BioHooked = (props) => {
         setDraft(e.target.value);
     };
     const showBio = () => {
-        // const bioState = props.bio != null ? "showBio" : "add";
         setMode("showBio");
         setBio(props.bio);
     };
@@ -77,7 +67,7 @@ const AddBio = ({ handleAddBio }) => {
 };
 const EditBio = ({ handleEdit, handleChange, draft }) => {
     return (
-        <div>
+        <div id="editWrapper">
             <h2>Bio</h2>
             <textarea
                 defaultValue={draft}

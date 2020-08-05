@@ -19,6 +19,14 @@ const getUser = (params) => {
     const q = `SELECT first, last, pic_url, bio FROM users WHERE id=$1`;
     return db.query(q, params);
 };
+const searchUsers = (params) => {
+    const q = `SELECT * FROM users WHERE first ILIKE $1`;
+    return db.query(q, params);
+};
+const getNewUsers = () => {
+    const q = `SELECT * FROM users ORDER BY id DESC LIMIT 3`;
+    return db.query(q, []);
+};
 const addProfilePic = (params) => {
     const q = `UPDATE users SET pic_url=$1 WHERE id=$2 RETURNING pic_url`;
     return db.query(q, params);
@@ -48,6 +56,8 @@ module.exports = {
     addUser,
     getUserByEmail,
     getUser,
+    getNewUsers,
+    searchUsers,
     addProfilePic,
     updatePassword,
     addBio,
