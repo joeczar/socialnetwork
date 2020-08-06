@@ -252,6 +252,44 @@ app.get("/search-users/:input", async (req, res) => {
         console.log("Error getting users", err);
     }
 });
+//////////////  FRIEND REQUESTS  /////////////////////////
+app.get("/friendship/:id", async (req, res) => {
+    console.log("GET /friendship", req.params.id);
+    try {
+        const profileId = Number(req.params.id);
+        const userId = req.session.registerId;
+        const { rows } = db.getFriendshipStatus([userId, profileId]);
+        console.log("friendship button response", {
+            success: true,
+            status: rows,
+            userId,
+        });
+        res.json({ success: true, status: rows, userId });
+    } catch (err) {
+        console.log("error in GET /friendship", err);
+    }
+});
+app.post("/friend-request", async (req, res) => {
+    console.log("POST /friend-request", req.body);
+    const userId = req.session.registerId;
+    const { action, recipient_id, accepted } = req.body;
+    try {
+        switch (action) {
+            case "Add":
+                const { rows } = await db.addFriend([userId, recipient_id]);
+                res.json({ success: true, rows });
+                break;
+            case "Cancel":
+                // db.cancelFriendReq
+                break;
+            case "End":
+                //db.endFriendship
+                break;
+        }
+    } catch (err) {
+        console.log("error in friend request", err);
+    }
+});
 ///////////////////////  *  /////////////////////////////////////
 app.post("/reset", (req, res) => {
     console.log("/reset", req.session);
@@ -272,8 +310,8 @@ app.get("*", function (req, res) {
     }
 });
 
-// app.get('*', function(req, res) {
-//     res.sendFile(__dirname + '/index.html');
+// app.get("*", function (req, res) {
+//     res.sendFile(__dirname + "/index.html");
 // });
 
 app.listen(8080, function () {

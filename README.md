@@ -104,37 +104,61 @@
 
 ## Part 5
 
-1. Profile
+1. ✔️ Profile
 
-    - Child of app
-    - Function or class component
-    - Receives many props from App
-        - Renders users' name,
-        - larger Profile Pic
-        - Bio
+    - ✔️ Child of app
+    - ✔️ Function or class component
+    - ✔️ Receives many props from App
+        - ✔️ Renders users' name,
+        - ✔️ larger Profile Pic
+        - ✔️ Bio
 
-2. BioEditor
+2. ✔️ BioEditor
 
-    - Child of Profile
-    - Class component
-    - Keeps bioDraft (unsaved user input) in own state
-        - needs change handler
-    - Determines which ui to display based on bio prop passed
-        1. No Bio (prop from profile is undefined)
-           -render clickable element "Add Bio"
-            - No text area visible
-        2. User has bio
-            - render bio with clickable element "Edit Bio"
-        3. Display text area
-    - Updating bio on submit
-        - method called `setBio` - takes `newBio` as argument and stores in `App` state
-        - `setBio` needs tp be passed down from `App`
-        - click handler on save button makes POST request to save bio in db.
-            - send `newBio` as part of the request (no fromData)
-            - on success call `setBio` and pass it the newly set bio.
-            - when function is called, the new bio will flow back down to `BioEditor` from `App`
+    - ✔️ Child of Profile
+    - ✔️ Class component
+    - ✔️ Keeps bioDraft (unsaved user input) in own state
+        - ✔️ needs change handler
+    - ✔️ Determines which ui to display based on bio prop passed
+        1. ✔️ No Bio (prop from profile is undefined)
+           - ✔️ render clickable element "Add Bio"
+            - ✔️ No text area visible
+        2. ✔️ User has bio
+            - ✔️ render bio with clickable element "Edit Bio"
+        3. ✔️ Display text area
+    - ✔️ Updating bio on submit
+        - ✔️ method called `setBio` - takes `newBio` as argument and stores in `App` state
+        - ✔️ `setBio` needs tp be passed down from `App`
+        - ✔️ click handler on save button makes POST request to save bio in db.
+            - ✔️ send `newBio` as part of the request (no fromData)
+            - ✔️ on success call `setBio` and pass it the newly set bio.
+            - ✔️ when function is called, the new bio will flow back down to `BioEditor` from `App`
 
-3. Server
-    - add `bio` column to users table
-    - create new `POST` route for updating the bio column in db
-    - Return stored bio back to `App`
+3. ✔️ Server
+    - ✔️ add `bio` column to users table
+    - ✔️ create new `POST` route for updating the bio column in db
+    - ✔️ Return stored bio back to `App`
+
+## Part 6
+
+1. `OtherProfile`
+
+    - Shows profile of other users
+    - not editable (profilePic, bio, etc...)
+    - on mount, kames ajax call to get profile data.
+    - data is set to state to be displayed
+
+2. BrowserRouter
+
+## Part 8 Friend Requests
+
+1. New Table in DB
+    - ````
+        CREATE TABLE friendships( id SERIAL PRIMARY KEY,
+        sender_id INT REFERENCES users(id) NOT NULL,
+        recipient_id INT REFERENCES users(id) NOT NULL,
+        accepted BOOLEAN DEFAULT false);
+      ````
+2. Server Routes
+    - dynamic `GET` route that gets the friendship status between viewer oder viewee (cookie id, userr pofile)
+        - gets initial status between logged user and profile id of page

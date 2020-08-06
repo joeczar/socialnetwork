@@ -39,6 +39,17 @@ const updatePassword = (params) => {
     const q = `UPDATE users SET hash=$1 WHERE id=$2`;
     return db.query(q, params);
 };
+const getFriendshipStatus = (params) => {
+    console.log(params);
+    const q = `SELECT * FROM friendships
+    WHERE (recipient_id = $1 AND sender_id = $2)
+    OR (recipient_id = $2 AND sender_id = $1);`;
+    return db.query(q, params);
+};
+const addFriend = (params) => {
+    const q = `INSERT INTO friendships (sender_id, recipient_id) values ($1, $2) RETURNING sender_id, recipient_id, accepted`;
+    return db.query(q, params);
+};
 
 // const add200Users = () => {
 //     return db.query(fakeUsers.query);
@@ -61,4 +72,6 @@ module.exports = {
     addProfilePic,
     updatePassword,
     addBio,
+    getFriendshipStatus,
+    addFriend,
 };

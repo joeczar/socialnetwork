@@ -6,6 +6,7 @@
     "scripts": {
         "build": "node build.js",
         "start": "node index.js",
+        "bundle": "node bundle-server.js",
         "test": "jest"
     },
     "engines": {
@@ -52,14 +53,23 @@
     "jest": {
         "setupFiles": [
             "./jest.js"
-        ]
+        ],
+        "coveragePathIgnorePatterns": [
+            "/node_modules/"
+        ],
+        "moduleNameMapper": {
+            "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+            "\\.(css|less)$": "identity-obj-proxy"
+        }
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "cross-env": "^7.0.2",
         "css-loader": "^4.1.0",
         "file-loader": "^6.0.0",
+        "identity-obj-proxy": "^3.0.0",
         "mini-css-extract-plugin": "^0.9.0",
         "style-loader": "^1.2.1"
     }

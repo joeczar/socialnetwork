@@ -12,7 +12,7 @@ const BioHooked = (props) => {
         } else {
             setMode("showBio");
             setBio(props.bio);
-            console.log(" !!!!! useEffect BioHooked", props.bio, mode);
+            console.log("!!!!! useEffect BioHooked", props.bio, mode);
         }
         console.log(props);
         return () => {};

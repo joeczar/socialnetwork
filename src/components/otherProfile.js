@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from '../helpers/axios'
 import ProfilePic from './profilePic'
 import style from '../css/otherProfile.module.css'
+import FriendButton from './friendButton'
 
 export default class OtherProfile extends Component {
     constructor(props) {
@@ -10,11 +11,13 @@ export default class OtherProfile extends Component {
             name: "",
             url: "",
             bio: "",
+            id: this.props.match.params.id
         }
-    }
+    } 
+    
     async componentDidMount() {
-        const id = this.props.match.params.id
-        console.log('in cdm otherprofile this.props.match.params.id', id);
+        const id = this.state.id
+        console.log('in cdm otherprofile this.props.match.params.id', this.state.id);
         try {
             const {data} = await axios.get(`/other-user/${id}`)
             const { first, last, pic_url, bio } = data
@@ -27,7 +30,7 @@ export default class OtherProfile extends Component {
     }
     
     render() {
-        const {name, url, bio} = this.state
+        const {id, name, url, bio} = this.state
         return (
             <div className={style.otherProfile}>
                 <ProfilePic
@@ -36,6 +39,7 @@ export default class OtherProfile extends Component {
                     toggleUpload={null}
                     size="large"
                 />
+                <FriendButton id={id} />
                 <div className={style.bio}>
                     <h2>Bio</h2>
                     <p>{bio}</p>

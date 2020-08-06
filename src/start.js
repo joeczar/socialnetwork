@@ -11,7 +11,7 @@ let isLoggedIn = location.pathname !== "/welcome";
 if (isLoggedIn) {
     elem = <App />;
 } else {
-    elem = <Home />; //;<Welcome />
+    elem = <Welcome />; //;<Home />
 }
 
 ReactDOM.render(elem, document.getElementById("root"));
