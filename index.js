@@ -258,13 +258,13 @@ app.get("/friendship/:id", async (req, res) => {
     try {
         const profileId = Number(req.params.id);
         const userId = req.session.registerId;
-        const { rows } = db.getFriendshipStatus([userId, profileId]);
+        const { rows } = await db.getFriendshipStatus([userId, profileId]);
         console.log("friendship button response", {
             success: true,
             status: rows,
             userId,
         });
-        res.json({ success: true, status: rows, userId });
+        res.json({ success: true, rows, userId });
     } catch (err) {
         console.log("error in GET /friendship", err);
     }

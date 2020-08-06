@@ -40,7 +40,6 @@ const updatePassword = (params) => {
     return db.query(q, params);
 };
 const getFriendshipStatus = (params) => {
-    console.log(params);
     const q = `SELECT * FROM friendships
     WHERE (recipient_id = $1 AND sender_id = $2)
     OR (recipient_id = $2 AND sender_id = $1);`;
@@ -50,7 +49,11 @@ const addFriend = (params) => {
     const q = `INSERT INTO friendships (sender_id, recipient_id) values ($1, $2) RETURNING sender_id, recipient_id, accepted`;
     return db.query(q, params);
 };
-
+/* 
+    SELECT * FROM friendships
+    WHERE (recipient_id = 69 AND sender_id = 201)
+    OR (recipient_id = 201 AND sender_id = 69);
+*/
 // const add200Users = () => {
 //     return db.query(fakeUsers.query);
 // };

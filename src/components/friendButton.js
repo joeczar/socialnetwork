@@ -41,6 +41,7 @@ const FriendButton = ({ id }) => {
         try {
             const request = { action: buttonText, recipient_id: id };
             const { data } = await axios.post("/friend-request", request);
+            console.log("Handle click data", data);
             if (data.success) {
                 handleResponse(data);
             } else {
