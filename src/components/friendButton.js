@@ -9,7 +9,8 @@ const FriendButton = ({ id }) => {
         return userId === sender_id ? "Cancel" : "Accept";
     };
     const handleResponse = (data) => {
-        if (!data.rows) {
+        console.log("handleResponse data", data, !data.rows || !data.rows[0]);
+        if (!data.rows || !data.rows[0]) {
             // no friendship
             console.log("no rows, no friendship");
             setButtonText("Add");
@@ -43,6 +44,7 @@ const FriendButton = ({ id }) => {
             const { data } = await axios.post("/friend-request", request);
             console.log("Handle click data", data);
             if (data.success) {
+                console.log("sending data to handleResponse", data);
                 handleResponse(data);
             } else {
                 console.log("No response", data);

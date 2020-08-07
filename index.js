@@ -261,7 +261,7 @@ app.get("/friendship/:id", async (req, res) => {
         const { rows } = await db.getFriendshipStatus([userId, profileId]);
         console.log("friendship button response", {
             success: true,
-            status: rows,
+            rows,
             userId,
         });
         res.json({ success: true, rows, userId });
@@ -275,16 +275,35 @@ app.post("/friend-request", async (req, res) => {
     const { action, recipient_id, accepted } = req.body;
     try {
         switch (action) {
-            case "Add":
+            case "Add": {
                 const { rows } = await db.addFriend([userId, recipient_id]);
+                res.json({ success: true, rows, userId });
+                break;
+            }
+            case "Cancel": {
+                // db.cancelFriendReq
+                const { rows } = await db.cancelFriendReq([
+                    userId,
+                    recipient_id,
+                ]);
                 res.json({ success: true, rows });
                 break;
-            case "Cancel":
-                // db.cancelFriendReq
+            }
+            case "Accept": {
+                // db.acceptFriendReq
+                const { rows } = await db.acceptFriendReq([
+                    userId,
+                    recipient_id,
+                ]);
+                res.json({ success: true, rows });
                 break;
-            case "End":
+            }
+            case "End": {
                 //db.endFriendship
+                const { rows } = await db.endFriendship([userId, recipient_id]);
+                res.json({ success: true });
                 break;
+            }
         }
     } catch (err) {
         console.log("error in friend request", err);

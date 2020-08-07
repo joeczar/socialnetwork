@@ -97,7 +97,7 @@ const loginValidate = () => {
             .exists()
             .withMessage("You must enter an Email."),
         check("pass")
-            .isLength({ min: 8 })
+            .isLength({ min: 5 })
             .withMessage("Password must be at least 8 characters long.")
             .exists()
             .withMessage("You must enter a password."),

@@ -49,6 +49,19 @@ const addFriend = (params) => {
     const q = `INSERT INTO friendships (sender_id, recipient_id) values ($1, $2) RETURNING sender_id, recipient_id, accepted`;
     return db.query(q, params);
 };
+const cancelFriendReq = (params) => {
+    const q = `DELETE FROM friendships WHERE sender_id=$1 AND recipient_id=$2`;
+    return db.query(q, params);
+};
+const acceptFriendReq = (params) => {
+    const q = `UPDATE friendships SET accepted=true WHERE (sender_id=$2 AND recipient_id=$1) RETURNING sender_id, recipient_id, accepted;`;
+    return db.query(q, params);
+};
+const endFriendship = (params) => {
+    const q = `DELETE FROM friendships WHERE (sender_id=$1 AND recipient_id=$2) OR (sender_id=$2 AND recipient_id=$1)`;
+    return db.query(q, params);
+};
+
 /* 
     SELECT * FROM friendships
     WHERE (recipient_id = 69 AND sender_id = 201)
@@ -77,4 +90,7 @@ module.exports = {
     addBio,
     getFriendshipStatus,
     addFriend,
+    cancelFriendReq,
+    acceptFriendReq,
+    endFriendship,
 };
