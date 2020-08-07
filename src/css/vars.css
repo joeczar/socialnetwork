@@ -1,0 +1,10 @@
+:root {
+    /* CSS */
+    --space-cadet: hsla(238, 35%, 19%, 1);
+    --cyber-grape: hsla(254, 29%, 35%, 1);
+    --orange-soda: hsla(12, 85%, 60%, 1);
+    --ghost-white: hsla(288, 29%, 97%, 1);
+    --dark-grey: hsla(0, 0%, 7%, 1);
+    --viridian-green: hsla(183, 81%, 35%, 1);
+    --blue-sapphire: hsla(195, 67%, 30%, 1);
+}

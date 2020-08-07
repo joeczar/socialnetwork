@@ -50,6 +50,15 @@ const conf = {
                 test: /\.svg$/,
                 use: "file-loader",
             },
+            {
+                test: /\.(ttf|eot|otf|woff|woff2)$/,
+                use: {
+                    loader: "file-loader",
+                    options: {
+                        name: "fonts/[name].[ext]",
+                    },
+                },
+            },
         ],
     },
     plugins: [new MiniCssExtractPlugin()],

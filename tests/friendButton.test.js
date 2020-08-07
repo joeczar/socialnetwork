@@ -226,3 +226,36 @@ test('when button state is not "Accept", a second "Cancel" button DOES NOT! rend
     const buttons = container.getElementsByTagName("button");
     expect(buttons.length).toBe(1);
 });
+test("cancel button is pressed, and axios request is made to delete the friend request", async () => {
+    axios.get.mockResolvedValue({
+        data: {
+            success: true,
+            userId: 1,
+            rows: [
+                {
+                    accepted: false,
+                    sender_id: 3,
+                    recipient_id: 1,
+                },
+            ],
+        },
+    });
+    axios.post.mockResolvedValue({
+        response: 200,
+        data: {
+            success: true,
+            rows: undefined,
+        },
+    });
+    const { container } = render(<FriendButton id="3" />);
+    const friendBtn = await waitForElement(() =>
+        container.querySelector("#friendBtn")
+    );
+    expect(friendBtn.innerHTML).toContain("Accept");
+    const denyBtn = await waitForElement(() =>
+        container.querySelector("#denyBtn")
+    );
+    expect(denyBtn.innerHTML).toContain("Cancel");
+    const buttons = container.getElementsByTagName("button");
+    expect(buttons.length).toBe(2);
+});

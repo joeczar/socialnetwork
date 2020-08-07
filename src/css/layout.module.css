@@ -1,3 +1,5 @@
+@import "./vars.css";
+
 .layout {
     min-height: 100vh;
     display: flex;
@@ -5,20 +7,21 @@
     flex: 1;
     margin: 0px;
     padding: 0px;
-    background-color: purple;
+    background-color: 1f2041;
     scroll-behavior: smooth;
 }
 .layout header {
     height: 100px;
+    background-color: var(--space-cadet);
 }
 .layout main {
     display: flex;
     flex-direction: column;
     flex: 1;
-    background-color: salmon;
+    background-color: var(--dark-grey);
     padding: 1em;
 }
 .layout footer {
     height: 50px;
-    background-color: royalblue;
+    background-color: var(--blue-sapphire);
 }

@@ -1,12 +1,21 @@
 * {
     box-sizing: border-box;
 }
+@font-face {
+    font-family: "Moon";
+    src: url("/fonts/MoonRegular.otf") format("opentype");
+}
+@font-face {
+    font-family: "BigJohn-regular";
+    src: url("/fonts/BigJohnPRO-Regular.otf") format("opentype");
+}
 
 body {
     min-height: 100vh;
     width: 100vw;
     background-color: aqua;
     overflow: scroll;
+    font-family: "Moon";
 }
 #root {
     display: flex;
