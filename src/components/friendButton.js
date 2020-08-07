@@ -39,8 +39,13 @@ const FriendButton = ({ id }) => {
     }, []);
     const handleClick = async (e) => {
         e.preventDefault();
+        let request;
+        if (e.target.id === "denyBtn") {
+            request = { action: "Cancel", recipient_id: id };
+        } else {
+            request = { action: buttonText, recipient_id: id };
+        }
         try {
-            const request = { action: buttonText, recipient_id: id };
             const { data } = await axios.post("/friend-request", request);
             console.log("Handle click data", data);
             if (data.success) {
@@ -57,7 +62,14 @@ const FriendButton = ({ id }) => {
     return (
         <div>
             {buttonText && (
-                <button onClick={(e) => handleClick(e)}>{buttonText}</button>
+                <button id="friendBtn" onClick={(e) => handleClick(e)}>
+                    {buttonText}
+                </button>
+            )}
+            {buttonText === "Accept" && (
+                <button id="denyBtn" onClick={(e) => handleClick(e)}>
+                    Cancel
+                </button>
             )}
         </div>
     );

@@ -50,7 +50,7 @@ const addFriend = (params) => {
     return db.query(q, params);
 };
 const cancelFriendReq = (params) => {
-    const q = `DELETE FROM friendships WHERE sender_id=$1 AND recipient_id=$2`;
+    const q = `DELETE FROM friendships WHERE (sender_id=$1 AND recipient_id=$2) OR (sender_id=$2 AND recipient_id=$1)`;
     return db.query(q, params);
 };
 const acceptFriendReq = (params) => {
