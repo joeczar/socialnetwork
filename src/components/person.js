@@ -12,7 +12,7 @@ const Person = ({ id, first, last, url, size }) => {
                 toggleUpload={null}
                 size={size}
             />
-            <Link to={`/user/${id}`}>
+            <Link className={style.link} to={`/user/${id}`}>
                 <h3>
                     {first} {last}
                 </h3>

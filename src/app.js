@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "./helpers/axios";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 /////////////////  COMPONENTS  ////////////////////
 import Layout from "./layouts/layout";

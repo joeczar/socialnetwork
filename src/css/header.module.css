@@ -1,4 +1,46 @@
 .header {
     display: flex;
     flex-direction: row;
+    width: 100%;
+}
+.logoWrapper {
+    position: relative;
+    background-color: black;
+    width: 125px;
+    -webkit-border-bottom-right-radius: 75px;
+    -moz-border-radius-bottomright: 75px;
+    border-bottom-right-radius: 75px;
+}
+.logoWrapper h1 {
+    position: absolute;
+    top: 29px;
+    left: 35px;
+    font-size: 40px;
+    color: var(--ghost-white);
+    text-shadow: 0px 0px 3px rgba(135, 121, 181, 1);
+}
+.profilePicWrapper {
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    padding: 0em 1em 0em 2em;
+    -webkit-border-bottom-left-radius: 75px;
+    -moz-border-radius-bottomleft: 75px;
+    border-bottom-left-radius: 75px;
+    margin: 0px;
+}
+.logOut {
+    margin: 0px 0px auto 1em;
+}
+.logOut button {
+    font-size: medium;
+    margin: 0px 0px 0px auto;
+}
+.title {
+    margin: auto;
+    justify-self: center;
+    align-self: center;
+}
+.title h1 {
+    font-size: 50px;
 }

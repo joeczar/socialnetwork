@@ -1,33 +1,87 @@
+@import "./vars.css";
+
 .profilePic {
     margin: auto;
-    height: 100%;
+    /* padding: 5px 5px; */
+    border-radius: 50%;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background: var(--blue-sapphire);
+    background-image: linear-gradient(
+        to left bottom,
+        #1f2041,
+        #25243d,
+        #292738,
+        #2c2b34,
+        #2f2f2f
+    );
 }
 .profilePic img {
-    border-radius: 50%;
     object-fit: cover;
+    margin: auto;
+    border-radius: 50%;
+    height: 90%;
+    width: 90%;
 }
 .smallPic {
-    height: 75px;
-    width: 75px;
+    height: 80px;
+    width: 80px;
 }
-.smallPic img {
-    height: 75px;
-    width: 75px;
-}
+/* .smallPic img {
+    height: 70px;
+    width: 70px;
+} */
 
 .mediumPic {
-    height: 150px;
-    width: 150px;
+    height: 155px;
+    width: 155px;
 }
-.mediumPic img {
-    height: 150px;
-    width: 150px;
-}
+/* .mediumPic img {
+    height: 145px;
+    width: 145px;
+} */
 .largePic {
-    height: 200px;
-    width: 200px;
+    height: 210px;
+    width: 210px;
 }
-.largePic img {
-    height: 200px;
-    width: 200px;
+/* .largePic img {
+    height: 190px;
+    width: 190px;
+} */
+
+.shadow1 {
+    position: relative;
+    -webkit-box-shadow: 0 1px 4px 3px hsla(288, 29%, 97%, 0.3),
+        0 0 80px hsla(288, 29%, 97%, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px 3px hsla(288, 29%, 97%, 0.3),
+        0 0 80px hsla(288, 29%, 97%, 0.1) inset;
+    box-shadow: 0 1px 4px 3px hsla(288, 29%, 97%, 0.3),
+        0 0 80px hsla(288, 29%, 97%, 0.1) inset;
+}
+.shadow1:before,
+.shadow1:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    -webkit-box-shadow: 0 0 20px hsla(183, 81%, 35%, 0.8);
+    -moz-box-shadow: 0 0 20px hsla(183, 81%, 35%, 0.8);
+    box-shadow: 0 0 20px hsla(183, 81%, 35%, 0.8);
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    -moz-border-radius: 100px / 10px;
+    border-radius: 100px / 10px;
+}
+.shadow1:after {
+    right: 10px;
+    left: auto;
+    -webkit-transform: skew(8deg) rotate(3deg);
+    -moz-transform: skew(8deg) rotate(3deg);
+    -ms-transform: skew(8deg) rotate(3deg);
+    -o-transform: skew(8deg) rotate(3deg);
+    transform: skew(8deg) rotate(3deg);
 }

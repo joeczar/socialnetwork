@@ -1,0 +1,81 @@
+@font-face {
+    font-family: "Moon";
+    src: url("/fonts/MoonRegular.otf") format("opentype");
+}
+@font-face {
+    font-family: "MoonBold";
+    src: url("/fonts/MoonBold.otf") format("opentype");
+}
+@font-face {
+    font-family: "BigJohn-regular";
+    src: url("/fonts/BigJohnPRO-Regular.otf") format("opentype");
+}
+@font-face {
+    font-family: "BigJohn-Bold";
+    src: url("/fonts/BigJohnPRO-Bold.otf") format("opentype");
+}
+@font-face {
+    font-family: "CovesLight";
+    src: url("/fonts/Coves-Light.otf") format("opentype");
+}
+@font-face {
+    font-family: "CovesBold";
+    src: url("/fonts/Coves-Bold.otf") format("opentype");
+}
+:root {
+    /* CSS */
+    --space-cadet: hsla(238, 35%, 19%, 1);
+
+    --space-cadet-shadow1: hsla(238, 35%, 19%, 0.3);
+    --space-cadet-shadow2: hsla(238, 35%, 19%, 0.8);
+    --cyber-grape: hsla(254, 29%, 35%, 1);
+    --orange-soda: hsla(12, 85%, 60%, 1);
+    --ghost-white: hsla(288, 29%, 97%, 1);
+    --dark-grey: hsla(0, 0%, 7%, 1);
+    --medium-grey: #2f2f2f;
+    --viridian-green: hsla(183, 81%, 35%, 1);
+    --viridian-green-shadow1: hsla(183, 81%, 35%, 0.3);
+    --viridian-green-shadow2: hsla(183, 81%, 35%, 0.8);
+    --blue-sapphire: hsla(195, 67%, 30%, 1);
+    --button-bg: rgb(135, 121, 181);
+    --button-gradient: linear-gradient(
+        90deg,
+        rgba(135, 121, 181, 1) 30%,
+        rgba(67, 227, 235, 1) 100%
+    );
+    --grape-gradient: linear-gradient(
+        to right top,
+        #2f2f2f,
+        #31303c,
+        #323049,
+        #323156,
+        #303264
+    );
+    --grape-blue-gradient: linear-gradient(
+        to left bottom,
+        #2184a5,
+        #1b7099,
+        #215b8a,
+        #294779,
+        #303264
+    );
+    --space-grape-gradient: linear-gradient(
+        to left bottom,
+        #1f2041,
+        #25243d,
+        #292738,
+        #2c2b34,
+        #2f2f2f
+    );
+}
+*,
+html {
+    box-sizing: border-box;
+    margin: 0px;
+}
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    margin: 0px;
+}

@@ -14,3 +14,5 @@ const { exec, spawn } = require("child_process");
 
 const startRedis = spawn("sudo service redis-server start");
 const startPostgres = spawn("sudo service postgresql start");
+
+// sudo service postgresql start && sudo service redis-server start

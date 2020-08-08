@@ -1,21 +1,6 @@
-*,
-html {
-    box-sizing: border-box;
-    margin: 0px;
-}
-
-body {
-    height: 100vh;
-    width: 100vw;
-    margin: 0px;
-}
-@import "./vars.css";
-* {
-    box-sizing: border-box;
-}
-@font-face {
+/* @font-face {
     font-family: "Moon";
-    src: url("./fonts/MoonRegular.otf") format("opentype");
+    src: url("/src/css/fonts/MoonRegular.otf") format("opentype");
 }
 @font-face {
     font-family: "MoonBold";
@@ -23,25 +8,27 @@ body {
 }
 @font-face {
     font-family: "BigJohn-regular";
-    src: url("./fonts/BigJohnPRO-Regular.otf") format("opentype");
+    src: url("/src/css/fonts/BigJohnPRO-Regular.otf") format("opentype");
 }
 @font-face {
     font-family: "BigJohn-Bold";
-    src: url("./fonts/BigJohnPRO-Bold.otf") format("opentype");
+    src: url("/src/css/fonts/BigJohnPRO-Bold.otf") format("opentype");
 }
 @font-face {
     font-family: "CovesLight";
-    src: url("./fonts/Coves-Light.otf") format("opentype");
+    src: url("/src/css/fonts/Coves-Light.otf") format("opentype");
 }
 @font-face {
     font-family: "CovesBold";
-    src: url("./fonts/Coves-Bold.otf") format("opentype");
-}
+    src: url("/src/css/fonts/Coves-Bold.otf") format("opentype");
+} */
 body {
     min-height: 100vh;
     width: 100vw;
     overflow: scroll;
     font-family: "Moon";
+    letter-spacing: 0.18em;
+    font-size: 1em;
     color: var(--ghost-white);
 }
 #root {
@@ -50,6 +37,7 @@ body {
     align-content: center;
     justify-content: center;
     height: 100vh;
+    width: 100vw;
 }
 h1,
 h2,
@@ -133,3 +121,4 @@ button:active {
     transform: scale(0.99);
     /* border-radius: 20px; */
 }
+/* shadows */

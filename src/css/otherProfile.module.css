@@ -2,7 +2,23 @@
     display: flex;
     flex-direction: row;
     margin: auto;
+    grid-area: content;
+    background-color: black;
+    margin: 0px auto auto auto;
+    padding: 1em 2em 1em 2em;
+    width: 70%;
+    -webkit-border-bottom-right-radius: 100px;
+    -webkit-border-bottom-left-radius: 100px;
+    -moz-border-radius-bottomright: 100px;
+    -moz-border-radius-bottomleft: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+}
+.infoWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0em 1em;
 }
 .bio {
-    
+    margin: 1rem;
 }

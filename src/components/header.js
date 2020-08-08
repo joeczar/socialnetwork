@@ -10,16 +10,24 @@ const Header = (props) => {
     console.log("header props", props);
     return (
         <header className={style.header}>
-            <Logo />
-            <h1>This is my header</h1>
-            <ProfilePic
-                name={props.name}
-                url={props.url}
-                toggleUpload={props.toggleUpload}
-                size="small"
-            />
-            <div id="logInOut">
-                <Logout />
+            <div className={style.logoWrapper}>
+                <Logo />
+                <h1>ZS</h1>
+            </div>
+            <div className={style.title}>
+                <h1>Zen Streak</h1>
+                <p>Mindful Goal Tracking</p>
+            </div>
+            <div className={style.profilePicWrapper}>
+                <ProfilePic
+                    name={props.name}
+                    url={props.url}
+                    toggleUpload={props.toggleUpload}
+                    size="small"
+                />
+                <div className={style.logOut} id="logInOut">
+                    <Logout />
+                </div>
             </div>
         </header>
     );

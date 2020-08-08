@@ -6,6 +6,8 @@
     background-color: black;
     grid-area: profile;
     margin: 3em 0em;
+    width: 300px;
+    padding: 2em 0em;
     -webkit-border-top-right-radius: 80px;
     -webkit-border-bottom-right-radius: 80px;
     -moz-border-radius-topright: 80px;
