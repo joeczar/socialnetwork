@@ -9,7 +9,7 @@ import { FindPeople } from "./components/findPeople";
 import NotFound from "./components/404";
 
 ///////////////  CSS  //////////////////
-import style from "./css/app.module.css";
+import "./css/style.css";
 import OtherProfile from "./components/otherProfile";
 
 class App extends Component {
