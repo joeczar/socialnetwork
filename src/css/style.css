@@ -7,11 +7,129 @@ html {
 body {
     height: 100vh;
     width: 100vw;
-    background-color: black;
-    color: royalblue;
     margin: 0px;
 }
+@import "./vars.css";
+* {
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: "Moon";
+    src: url("./fonts/MoonRegular.otf") format("opentype");
+}
+@font-face {
+    font-family: "MoonBold";
+    src: url("./fonts/MoonBold.otf") format("opentype");
+}
+@font-face {
+    font-family: "BigJohn-regular";
+    src: url("./fonts/BigJohnPRO-Regular.otf") format("opentype");
+}
+@font-face {
+    font-family: "BigJohn-Bold";
+    src: url("./fonts/BigJohnPRO-Bold.otf") format("opentype");
+}
+@font-face {
+    font-family: "CovesLight";
+    src: url("./fonts/Coves-Light.otf") format("opentype");
+}
+@font-face {
+    font-family: "CovesBold";
+    src: url("./fonts/Coves-Bold.otf") format("opentype");
+}
+body {
+    min-height: 100vh;
+    width: 100vw;
+    overflow: scroll;
+    font-family: "Moon";
+    color: var(--ghost-white);
+}
+#root {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    height: 100vh;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "BigJohn-Bold";
+    color: var(--ghost-white);
+}
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
 
-#circles {
-    height: 100%;
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit; /* 1 */
+    font-size: 100%; /* 1 */
+    line-height: 1.15; /* 1 */
+    margin: 0; /* 2 */
+}
+
+/**
+  * Show the overflow in IE.
+  * 1. Show the overflow in Edge.
+  */
+
+button,
+input {
+    /* 1 */
+    overflow: visible;
+}
+
+/**
+  * Remove the inheritance of text transform in Edge, Firefox, and IE.
+  * 1. Remove the inheritance of text transform in Firefox.
+  */
+
+button,
+select {
+    /* 1 */
+    text-transform: none;
+}
+
+/**
+  * Correct the inability to style clickable types in iOS and Safari.
+  */
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+    /* background: var(--viridian-green); */
+    background: #5255aa;
+    border: none;
+    color: var(--ghost-white);
+    font-family: "MoonBold";
+    font-size: larger;
+    background: var(--grape-blue-gradient);
+    /* border-radius: 20px; */
+    padding: 1ex 1.5ex;
+}
+button:hover,
+button:focus {
+    background: #7476bc;
+    /* border-radius: 20px; */
+}
+
+button:focus {
+    outline: 1px solid var(--ghost-white);
+    /* outline-offset: -4px; */
+    /* border-radius: 20px; */
+}
+
+button:active {
+    transform: scale(0.99);
+    /* border-radius: 20px; */
 }

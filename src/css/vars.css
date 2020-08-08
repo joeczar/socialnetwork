@@ -8,6 +8,7 @@ body {
     --orange-soda: hsla(12, 85%, 60%, 1);
     --ghost-white: hsla(288, 29%, 97%, 1);
     --dark-grey: hsla(0, 0%, 7%, 1);
+    --medium-grey: #2f2f2f;
     --viridian-green: hsla(183, 81%, 35%, 1);
     --blue-sapphire: hsla(195, 67%, 30%, 1);
     --button-bg: rgb(135, 121, 181);
@@ -16,6 +17,29 @@ body {
         rgba(135, 121, 181, 1) 30%,
         rgba(67, 227, 235, 1) 100%
     );
+    --grape-gradient: linear-gradient(
+        to right top,
+        #2f2f2f,
+        #31303c,
+        #323049,
+        #323156,
+        #303264
+    );
+    --grape-blue-gradient: linear-gradient(
+        to left bottom,
+        #2184a5,
+        #1b7099,
+        #215b8a,
+        #294779,
+        #303264
+    );
 }
 /* background: rgb(135,121,181);
 background: linear-gradient(90deg, rgba(135,121,181,1) 30%, rgba(67,227,235,1) 100%);  */
+/* SCSS HEX */
+/* $rich-black-fogra-39: #121212ff;
+$space-cadet: #1f2041ff;
+$cyber-grape: #4b3f72ff;
+$orange-soda: #f06542ff;
+$ghost-white: #f9f5faff;
+$viridian-green: #119da4ff; */

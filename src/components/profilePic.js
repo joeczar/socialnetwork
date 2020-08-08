@@ -12,7 +12,7 @@ const ProfilePic = ({ name, url, toggleUpload, size }) => {
     return (
         <div
             onClick={toggleUpload}
-            className={`${style.profilePic} ${classes[size]} `}
+            className={`profile-pic ${style.profilePic} ${classes[size]}`}
         >
             <img
                 src={url || "/ZenUserIcon.png"}

@@ -15,11 +15,16 @@
     background-color: var(--space-cadet);
 }
 .layout main {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+    display: grid;
+    grid-template-columns: 300px auto;
+    grid-template-rows: auto;
+    grid-template-areas: "profile content";
+    height: 100%;
     background-color: var(--dark-grey);
-    padding: 1em;
+    padding: 0;
+}
+.layout main .profile {
+    grid-area: profile;
 }
 .layout footer {
     height: 50px;

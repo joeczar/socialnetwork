@@ -1,0 +1,12 @@
+.bio {
+    margin: auto;
+}
+.bio h2,
+.bio p {
+    margin: 1ex 0ex;
+}
+
+.button {
+    margin: auto !important;
+    font-size: small;
+}

@@ -7,14 +7,8 @@
     max-width: 100vw;
     max-height: 100vh;
     margin: auto;
+    height: 100%;
 }
 .circleSvg {
     margin: auto;
-}
-.logoName {
-    /* font-size: clamp(1em, 1em + 8vw, 3em); */
-}
-.logoText {
-    fill: purple;
-    width: 100%;
 }

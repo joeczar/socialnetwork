@@ -7,10 +7,9 @@ import Uploader from "./components/uploader";
 import Profile from "./components/profile";
 import { FindPeople } from "./components/findPeople";
 import NotFound from "./components/404";
-
+import OtherProfile from "./components/otherProfile";
 ///////////////  CSS  //////////////////
 import "./css/style.css";
-import OtherProfile from "./components/otherProfile";
 
 class App extends Component {
     constructor(props) {

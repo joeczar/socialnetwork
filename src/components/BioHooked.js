@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import style from "../css/bio.module.css";
 
 const BioHooked = (props) => {
     const [mode, setMode] = useState("add");
@@ -47,19 +48,19 @@ const BioHooked = (props) => {
             />
         );
     } else if (mode === "showBio") {
-        return (
-            <div>
-                <ShowBio bio={bio} handleAddBio={handleAddBio} />
-            </div>
-        );
+        return <ShowBio bio={bio} handleAddBio={handleAddBio} />;
     }
 };
 
 const AddBio = ({ handleAddBio }) => {
     return (
-        <div>
+        <div className={style.bio}>
             <h2>Bio</h2>
-            <button id="addBio" onClick={(e) => handleAddBio(e)}>
+            <button
+                className={style.button}
+                id="addBio"
+                onClick={(e) => handleAddBio(e)}
+            >
                 Add a Bio
             </button>
         </div>
@@ -67,22 +68,28 @@ const AddBio = ({ handleAddBio }) => {
 };
 const EditBio = ({ handleEdit, handleChange, draft }) => {
     return (
-        <div id="editWrapper">
+        <div className={style.bio} id="editWrapper">
             <h2>Bio</h2>
             <textarea
                 defaultValue={draft}
                 onChange={(e) => handleChange(e)}
             ></textarea>
-            <button onClick={(e) => handleEdit(e)}>Save</button>
+            <button className={style.button} onClick={(e) => handleEdit(e)}>
+                Save
+            </button>
         </div>
     );
 };
 const ShowBio = ({ bio, handleAddBio }) => {
     return (
-        <div>
+        <div className={style.bio}>
             <h2>Bio</h2>
             <p>{bio}</p>
-            <button id="editBio" onClick={(e) => handleAddBio(e)}>
+            <button
+                className={style.button}
+                id="editBio"
+                onClick={(e) => handleAddBio(e)}
+            >
                 Edit Bio
             </button>
         </div>

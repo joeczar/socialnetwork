@@ -1,3 +1,7 @@
+.profilePic {
+    margin: auto;
+    height: 100%;
+}
 .profilePic img {
     border-radius: 50%;
     object-fit: cover;
@@ -20,8 +24,8 @@
     width: 150px;
 }
 .largePic {
-    height: 300px;
-    width: 300px;
+    height: 200px;
+    width: 200px;
 }
 .largePic img {
     height: 200px;

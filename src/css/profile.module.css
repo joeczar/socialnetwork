@@ -1,0 +1,20 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background-color: black;
+    grid-area: profile;
+    margin: 3em 0em;
+    -webkit-border-top-right-radius: 80px;
+    -webkit-border-bottom-right-radius: 80px;
+    -moz-border-radius-topright: 80px;
+    -moz-border-radius-bottomright: 80px;
+    border-top-right-radius: 80px;
+    border-bottom-right-radius: 80px;
+}
+.profile > h1,
+.profile .profile-pic,
+.profile .bio {
+    margin: auto !important;
+}

@@ -36,11 +36,10 @@ class Logo extends React.Component {
     componentDidMount() {
         const height = document.getElementById("circles").clientHeight;
         const width = document.getElementById("circles").clientWidth;
-        
+
         this.setState({
             height: height,
             width: width,
-           
         });
 
         if (width < height) {
@@ -64,56 +63,55 @@ class Logo extends React.Component {
             this.animate();
         }
         if (prevState.radius != this.state.radius) {
-            const curve = new this.curve(50, 10, this.state.radius)
+            const curve = new this.curve(50, 10, this.state.radius);
             this.setState({
                 easeInOutQuad: curve.easeOutQuad,
                 easeOutQuad: curve.easeOutQuad,
-                
-            }
-        )
+            });
         }
     }
     animate() {
-        
-        
         if (!this.state.open) {
-            
             step = this.spread();
             step = requestAnimationFrame(this.spread);
             cancelAnimationFrame(step);
         } else {
-            
             step = this.close();
             step = requestAnimationFrame(this.close);
             cancelAnimationFrame(step);
         }
-        
     }
     spread() {
-       
-       console.log('opening');
+        console.log("opening");
         this.setState({
             // radius: this.state.radius - 10,
-            spread: this.state.spread + this.state.easeInOutQuad[this.state.count],
-            count: this.state.count + 1
+            spread:
+                this.state.spread + this.state.easeInOutQuad[this.state.count],
+            count: this.state.count + 1,
         });
-       
-        
+
         if (this.state.spread <= this.state.radius - 10) {
             step = requestAnimationFrame(this.spread);
         }
     }
     close() {
-        console.log('Closing');
+        console.log("Closing");
         this.setState({
             // radius: this.state.radius - 10,
-            spread: this.state.spread - this.state.easeInOutQuad[this.state.count],
-            count: this.state.count - 1
+            spread:
+                this.state.spread - this.state.easeInOutQuad[this.state.count],
+            count: this.state.count - 1,
         });
-       
-        console.log('Close show radius, spread',this.state.count, this.state.easeOutQuad[this.state.count], this.state.radius, this.state.spread);
+
+        console.log(
+            "Close show radius, spread",
+            this.state.count,
+            this.state.easeOutQuad[this.state.count],
+            this.state.radius,
+            this.state.spread
+        );
         if (this.state.spread === 0) {
-            console.log('closing animation stopped');
+            console.log("closing animation stopped");
             step = requestAnimationFrame(this.spread);
         }
     }
@@ -125,7 +123,7 @@ class Logo extends React.Component {
             const stepValue = easeInOutQuad(i, 0, speed, steps);
             this.easeInOutQuad.push(stepValue);
         }
-        this.easeOutQuad = []
+        this.easeOutQuad = [];
         for (let i = 0; i < steps + 1; i++) {
             const stepValue = easeInOutQuad(i, 0, speed, steps);
             this.easeOutQuad.push(stepValue);
