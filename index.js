@@ -276,7 +276,11 @@ app.post("/friend-request", async (req, res) => {
     try {
         switch (action) {
             case "Add": {
-                const { rows } = await db.addFriend([userId, recipient_id]);
+                const { rows } = await db.acceptFriendReq([
+                    userId,
+                    recipient_id,
+                ]);
+                console.log("Adding friend", rows);
                 res.json({ success: true, rows, userId });
                 break;
             }
@@ -309,6 +313,17 @@ app.post("/friend-request", async (req, res) => {
         console.log("error in friend request", err);
     }
 });
+app.get("/friends-and-requests", async (req, res) => {
+    try {
+        const { rows } = await db.getFriendsAndRequests([
+            req.session.registerId,
+        ]);
+        res.json(rows);
+    } catch (err) {
+        console.log("error in friends-and-requests", err);
+    }
+});
+
 ///////////////////////  *  /////////////////////////////////////
 app.post("/reset", (req, res) => {
     console.log("/reset", req.session);

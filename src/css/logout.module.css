@@ -1,0 +1,14 @@
+.form {
+    display: flex;
+    flex-direction: column;
+}
+.form a {
+    display: block;
+    padding: 0.5em;
+    background: var(--grape-blue-gradient);
+    margin-top: 1em;
+    font-size: smaller;
+    color: var(--ghost-white);
+    font-family: "CovesBold";
+    text-decoration: none;
+}

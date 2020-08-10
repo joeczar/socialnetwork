@@ -2,11 +2,12 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+    /* border-radius: 0px 0px 70% 70%; */
 }
 .logoWrapper {
     position: relative;
     background-color: black;
-    width: 125px;
+    width: 200px;
     -webkit-border-bottom-right-radius: 75px;
     -moz-border-radius-bottomright: 75px;
     border-bottom-right-radius: 75px;
@@ -37,8 +38,40 @@
     margin: 0px 0px 0px auto;
 }
 .title {
-    margin: auto;
+    margin: 0px auto auto auto;
+    padding: 1em;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
     justify-self: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    -webkit-border-bottom-left-radius: 200px;
+    -moz-border-radius-bottomleft: 200px;
+    border-bottom-left-radius: 200px;
+    -webkit-border-bottom-right-radius: 200px;
+    -moz-border-radius-bottomright: 200px;
+    border-bottom-right-radius: 200px;
+    background-image: linear-gradient(
+        to top,
+        #1f2041,
+        #26264a,
+        #2e2b53,
+        #36315d,
+        #3f3766,
+        #3e4273,
+        #3b4d80,
+        #36588c,
+        #196a9a,
+        #007ca2,
+        #008da5,
+        #119da4
+    );
+}
+.title h1,
+.title p {
+    margin: auto;
     align-self: center;
 }
 .title h1 {

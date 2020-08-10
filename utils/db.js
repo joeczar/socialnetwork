@@ -61,6 +61,17 @@ const endFriendship = (params) => {
     const q = `DELETE FROM friendships WHERE (sender_id=$1 AND recipient_id=$2) OR (sender_id=$2 AND recipient_id=$1)`;
     return db.query(q, params);
 };
+const getFriendsAndRequests = (params) => {
+    const q = `
+  SELECT users.id, first, last, pic_url, accepted
+  FROM friendships
+  JOIN users
+  ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
+  OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+  OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
+`;
+    return db.query(q, params);
+};
 
 /* 
     SELECT * FROM friendships
@@ -93,4 +104,5 @@ module.exports = {
     cancelFriendReq,
     acceptFriendReq,
     endFriendship,
+    getFriendsAndRequests,
 };

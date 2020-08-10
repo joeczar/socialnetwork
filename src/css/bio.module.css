@@ -1,12 +1,15 @@
 .bio {
     margin: auto;
+    display: flex;
+    flex-direction: column;
 }
 .bio h2,
 .bio p {
-    margin: 1ex 0ex;
+    margin: 1ex 1em;
 }
 
 .button {
-    margin: auto !important;
+    margin: 1em auto !important;
     font-size: small;
+    align-self: center;
 }

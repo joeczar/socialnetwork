@@ -1,0 +1,28 @@
+.wrapper {
+    width: 100%;
+    padding: 2em;
+}
+.requestedWrapper {
+    display: flex;
+    flex-direction: row;
+    margin: 1em auto;
+    flex-wrap: wrap;
+    row-gap: 1em;
+    padding: 1em;
+}
+.requestedFriend {
+    background-color: black;
+}
+.friend {
+    background-color: black;
+}
+.friendsWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 1em;
+    padding: 1em;
+}
+.container {
+    margin-top: 1em;
+}

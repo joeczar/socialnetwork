@@ -1,4 +1,5 @@
 import React from "react";
+import style from "../css/logout.module.css";
 
 class Logout extends React.Component {
     constructor(props) {
@@ -16,8 +17,8 @@ class Logout extends React.Component {
 
     render() {
         return (
-            <div className={this.props.class}>
-                <form>
+            <div className={`${this.props.class} ${style.logout}`}>
+                <form className={style.form}>
                     {this.state.showLogout ? (
                         <>
                             <button onClick={(e) => this.handleLogout(e)}>

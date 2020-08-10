@@ -27,7 +27,7 @@ body {
     width: 100vw;
     overflow: scroll;
     font-family: "Moon";
-    letter-spacing: 0.18em;
+    letter-spacing: 0.1em;
     font-size: 1em;
     color: var(--ghost-white);
 }
@@ -99,7 +99,7 @@ button,
     background: #5255aa;
     border: none;
     color: var(--ghost-white);
-    font-family: "MoonBold";
+    font-family: "CovesBold";
     font-size: larger;
     background: var(--grape-blue-gradient);
     /* border-radius: 20px; */
