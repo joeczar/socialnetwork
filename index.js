@@ -15,6 +15,7 @@ const {
 } = require("./utils/validatorRules");
 const db = require("./utils/db");
 const cryptoRandomString = require("crypto-random-string");
+
 /////////////  REDIS  ////////////////
 const { promisify } = require("util");
 const redis = require("redis");
@@ -99,6 +100,7 @@ app.post("/register", registerValidate(), async (req, res) => {
 });
 ////////////////////////  LOGIN  //////////////////////////////
 app.post("/login", loginValidate(), async (req, res) => {
+    console.log("Login", req.body);
     const { email, pass } = req.body;
     const errors = [...validate(req)];
     if (errors.length > 0) {

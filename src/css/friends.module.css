@@ -1,18 +1,47 @@
+@import "./vars.css";
+
 .wrapper {
     width: 100%;
     padding: 2em;
 }
-.requestedWrapper {
+.requestsWrapper {
     display: flex;
     flex-direction: row;
+    align-content: center;
     margin: 1em auto;
     flex-wrap: wrap;
     row-gap: 1em;
     padding: 1em;
 }
+.requestWrapper,
+.friendWrapper {
+    display: flex;
+    flex-direction: column;
+    background-image: var(--pink-and-green);
+    padding: 0.75em;
+    margin: 0 0.5em;
+    border-radius: 30px;
+    -webkit-box-shadow: 5px 5px 9px 2px rgba(0, 0, 0, 0.56);
+    box-shadow: 5px 5px 9px 2px rgba(0, 0, 0, 0.56);
+}
+.requestBtns {
+    margin: auto;
+}
+.requestBtns button {
+    margin: 0.75em 0.5em 0 0.5em;
+}
+.requestBtns button,
+.friendWrapper button {
+    max-width: 100px;
+}
+.friendWrapper button {
+    margin: 0.75em auto 0 auto;
+}
 .requestedFriend {
     background-color: black;
+    border: 10px solid var(--light--grape-blue-gr);
 }
+
 .friend {
     background-color: black;
 }

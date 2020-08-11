@@ -14,10 +14,11 @@ const Header = (props) => {
                 <Logo />
                 <h1>ZS</h1>
             </div>
-            <div className={style.title}>
+            <div className={style.spacer}></div>
+            {/* <div className={style.title}>
                 <h1>Zen Streak</h1>
                 <p>Mindful Goal Tracking</p>
-            </div>
+            </div> */}
             <div className={style.profilePicWrapper}>
                 <ProfilePic
                     name={props.name}

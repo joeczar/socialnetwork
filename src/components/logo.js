@@ -53,7 +53,7 @@ class Logo extends React.Component {
             this.setState({
                 centerX: height,
                 centerY: height,
-                radius: height / 4,
+                radius: height / 4 - 5,
             });
         }
     }

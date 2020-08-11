@@ -1,18 +1,13 @@
-const { exec, spawn } = require("child_process");
+const util = require("util");
+const exec = util.promisify(require("child_process").exec);
 
-// exec("node bundle-server.js", (err, stdout, stderr) => {
-//     if (err) {
-//         console.log("Error: ", err.message);
-//         return;
-//     }
-//     if (stderr) {
-//         console.log("stderr: ", stderr);
-//         return;
-//     }
-//     console.log("stdout: ", stdout);
-// });
-
-const startRedis = spawn("sudo service redis-server start");
-const startPostgres = spawn("sudo service postgresql start");
-
+async function startPostgresAndRedis() {
+    const { stdout, stderr } = await exec("sh", [
+        "-c",
+        "sudo -K << IfIhad1Ubuntu! service postgresql start && sudo service redis-server start",
+    ]);
+    console.log("stdout:", stdout);
+    console.log("stderr:", stderr);
+}
+module.exports = { startPostgresAndRedis };
 // sudo service postgresql start && sudo service redis-server start

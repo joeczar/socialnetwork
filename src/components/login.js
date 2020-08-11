@@ -17,15 +17,9 @@ export default class Registration extends React.Component {
     }
     async submit() {
         const { email, pass } = this.state;
+        console.log(this.state);
         try {
-            const { data } = await axios.post(
-                "/login",
-                { email, pass },
-                {
-                    xsrfCookieName: "token",
-                    xsrfHeaderName: "csrf-token",
-                }
-            );
+            const { data } = await axios.post("/login", { email, pass });
 
             console.log(data);
             if (data.success) {
@@ -44,7 +38,7 @@ export default class Registration extends React.Component {
     render() {
         return (
             <div id="registrationWrapper" className={style.register}>
-                <h2>Login</h2>
+                <h1>Login</h1>
                 {this.state.errors.length > 0 &&
                     this.state.errors.map((err, key) => {
                         return (
@@ -53,9 +47,8 @@ export default class Registration extends React.Component {
                             </div>
                         );
                     })}
-
-                <label htmlFor="email">
-                    Email
+                <form>
+                    <label htmlFor="email">Email</label>
                     <input
                         onChange={(e) => this.handleChange(e)}
                         name="email"
@@ -64,9 +57,8 @@ export default class Registration extends React.Component {
                         placeholder="Enter your email"
                         required
                     />
-                </label>
-                <label htmlFor="pass">
-                    Password
+
+                    <label htmlFor="pass">Password</label>
                     <input
                         onChange={(e) => this.handleChange(e)}
                         name="pass"
@@ -75,13 +67,14 @@ export default class Registration extends React.Component {
                         placeholder="Password must be at least 8 characters"
                         required
                     />
-                </label>
-                {/* <input name="csurf" id="pass" type="hidden" /> */}
-                <button onClick={() => this.submit()}>Submit</button>
-                <p>
-                    Forgot your password? <br />
-                    Click <Link to="/reset">here</Link> to reset it.
-                </p>
+
+                    {/* <input name="csurf" id="pass" type="hidden" /> */}
+                    <button onClick={() => this.submit()}>Submit</button>
+                    <p>
+                        Forgot your password? <br />
+                        Reset it <Link to="/reset">here</Link>
+                    </p>
+                </form>
             </div>
         );
     }

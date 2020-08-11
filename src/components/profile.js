@@ -16,8 +16,10 @@ export default class Profile extends Component {
         return (
             <div className={`profile ${style.profile}`}>
                 <h1>{`${name.first}'s `}Profile</h1>
-                <ProfilePic name={name} url={url} size="large" />
-                <BioHooked setBio={setBio} bio={bio} />
+                <div className={style.profileWrapper}>
+                    <ProfilePic name={name} url={url} size="large" />
+                    <BioHooked setBio={setBio} bio={bio} />
+                </div>
             </div>
         );
     }

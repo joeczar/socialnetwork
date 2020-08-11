@@ -8,14 +8,14 @@ const BioHooked = (props) => {
 
     useEffect(() => {
         if (props.bio == "" || !props.bio) {
-            console.log("no bio");
             setMode("add");
         } else {
             setMode("showBio");
             setBio(props.bio);
+            setDraft(props.bio);
             console.log("!!!!! useEffect BioHooked", props.bio, mode);
         }
-        console.log(props);
+
         return () => {};
     }, [props.bio]);
 

@@ -1,5 +1,5 @@
 body {
-    background-color: var(--dark-grey);
+    background-color: var(--space-cadet);
 }
 :root {
     /* CSS */
@@ -10,7 +10,7 @@ body {
     --cyber-grape: hsla(254, 29%, 35%, 1);
     --orange-soda: hsla(12, 85%, 60%, 1);
     --ghost-white: hsla(288, 29%, 97%, 1);
-    --dark-grey: hsla(0, 0%, 7%, 1);
+    --dark-grey: hsla(0, 0%, 7%, 0.7);
     --medium-grey: #2f2f2f;
     --viridian-green: hsla(183, 81%, 35%, 1);
     --viridian-green-shadow1: hsla(183, 81%, 35%, 0.3);
@@ -22,6 +22,7 @@ body {
         rgba(135, 121, 181, 1) 100%,
         rgba(67, 227, 235, 1) 50%
     );
+
     --grape-gradient: linear-gradient(
         to right top,
         #2f2f2f,
@@ -37,6 +38,23 @@ body {
         #215b8a,
         #294779,
         #303264
+    );
+    --grape-blue-right-top: linear-gradient(
+        to right top,
+        #2699c0,
+        #228ec3,
+        #286ca4,
+        #345998,
+        #3a3c78
+    );
+    --purple-top-right: linear-gradient(to bottom left, #7476bc, #8eeef3);
+    --light-grape-blue-gr: linear-gradient(to top right, #667eb6, #8fd2e9);
+    --pink-and-green: linear-gradient(
+        to top left,
+        #8eeef3,
+        #119da4,
+        #667eb6,
+        #7476bc
     );
     --space-grape-gradient: linear-gradient(
         to left bottom,

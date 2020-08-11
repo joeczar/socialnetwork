@@ -75,20 +75,22 @@ export default class ResetPasswordEmail extends React.Component {
         if (step === 0) {
             return (
                 <div id="resetPassWrapper" className={style.register}>
-                    <h2>Reset Password</h2>
-                    <p>Please enter the email address you signed up with.</p>
+                    <h1>Reset Password</h1>
+
                     <form>
+                        <p>
+                            Please enter the email address you signed up with.
+                        </p>
                         <Errors errors={this.state.errors} />
-                        <label htmlFor="email">
-                            Email
-                            <input
-                                onChange={(e) => this.handleChange(e)}
-                                name="email"
-                                id="email"
-                                type="email"
-                                placeholder="Enter your email"
-                            />
-                        </label>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            onChange={(e) => this.handleChange(e)}
+                            name="email"
+                            id="email"
+                            type="email"
+                            placeholder="Enter your email"
+                        />
+
                         <button onClick={(e) => this.submit(e)}>Submit</button>
                     </form>
                 </div>

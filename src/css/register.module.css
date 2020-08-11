@@ -2,16 +2,58 @@
     width: 300px;
     display: flex;
     flex-direction: column;
+    background-image: var(--pink-and-green);
+    border-radius: 75px;
+    padding: 1em 0.25em 0.25em 0.25em;
+    -webkit-box-shadow: 5px 5px 9px 2px rgba(0, 0, 0, 0.56);
+    box-shadow: 5px 5px 9px 2px rgba(0, 0, 0, 0.56);
+}
+.register h1 {
+    margin: auto;
+    padding: 1em;
+}
+.register form {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--space-cadet-shadow2);
+    padding: 0.5em 1em 0.5em 1em;
+    border-radius: 50px 50px 75px 75px;
+    box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.5);
 }
 .register label {
     display: block;
-    margin: auto 10px auto auto;
+    margin: auto;
     padding: 1ex;
 }
 .register input {
     width: 100%;
+    padding: 0.35em;
+    border-radius: 10px;
+    border: rgb(0, 0, 0, 0);
 }
 .register button {
     margin: 1em auto;
     padding: 1ex;
+}
+.register a {
+    display: block;
+    text-align: center;
+    padding: 0.5em;
+    background: var(--grape-blue-gradient);
+    margin: auto;
+    width: 75px;
+    color: var(--ghost-white);
+    font-family: "CovesBold";
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: 2px 2px 9px 3px rgba(0, 0, 0, 0.46);
+}
+.register a:hover {
+    background: var(--grape-blue-right-top);
+    transition: 0.5s;
+    -webkit-box-shadow: 2px 2px 9px 5px rgba(0, 0, 0, 0.36);
+    box-shadow: 2px 2px 9px 5px rgba(0, 0, 0, 0.36);
+}
+.register p {
+    margin: 0.5em 0.25em;
 }

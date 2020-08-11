@@ -19,11 +19,11 @@ export default class Registration extends React.Component {
     }
     async submit(e) {
         e.preventDefault();
-        
+
         const { first, last, email, pass } = this.state;
-       
+
         try {
-            console.log('in try');
+            console.log("in try");
             const { data } = await axios.post(
                 "/register",
                 {
@@ -37,7 +37,7 @@ export default class Registration extends React.Component {
                     xsrfHeaderName: "csrf-token",
                 }
             );
-            console.log('submit data', data);
+            console.log("submit data", data);
             if (data.success) {
                 console.log("data.success", data);
                 location.replace("/");
@@ -57,56 +57,53 @@ export default class Registration extends React.Component {
     render() {
         return (
             <div id="registrationWrapper" className={style.register}>
+                <h1>Register</h1>
                 <Errors errors={this.state.errors} />
+
                 <form>
-                    <label htmlFor="first">
-                        First Name
-                        <input
-                            onChange={(e) => this.handleChange(e)}
-                            name="first"
-                            id="first"
-                            type="text"
-                            placeholder="Enter your first name"
-                            required
-                        />
-                    </label>
-                    <label htmlFor="last">
-                        Last Name
-                        <input
-                            onChange={(e) => this.handleChange(e)}
-                            name="last"
-                            id="last"
-                            type="text"
-                            placeholder="Enter your last name"
-                            required
-                        />
-                    </label>
-                    <label htmlFor="email">
-                        Email
-                        <input
-                            onChange={(e) => this.handleChange(e)}
-                            name="email"
-                            id="email"
-                            type="email"
-                            placeholder="Enter your email"
-                            required
-                        />
-                    </label>
-                    <label htmlFor="pass">
-                        Password
-                        <input
-                            onChange={(e) => this.handleChange(e)}
-                            name="pass"
-                            id="pass"
-                            type="password"
-                            placeholder="Password must be at least 8 characters"
-                            required
-                        />
-                    </label>
+                    <label htmlFor="first">First Name</label>
+                    <input
+                        onChange={(e) => this.handleChange(e)}
+                        name="first"
+                        id="first"
+                        type="text"
+                        placeholder="Enter your first name"
+                        required
+                    />
+
+                    <label htmlFor="last">Last Name</label>
+                    <input
+                        onChange={(e) => this.handleChange(e)}
+                        name="last"
+                        id="last"
+                        type="text"
+                        placeholder="Enter your last name"
+                        required
+                    />
+
+                    <label htmlFor="email">Email</label>
+                    <input
+                        onChange={(e) => this.handleChange(e)}
+                        name="email"
+                        id="email"
+                        type="email"
+                        placeholder="Enter your email"
+                        required
+                    />
+
+                    <label htmlFor="pass">Password</label>
+                    <input
+                        onChange={(e) => this.handleChange(e)}
+                        name="pass"
+                        id="pass"
+                        type="password"
+                        placeholder="Password must be at least 8 characters"
+                        required
+                    />
 
                     <button onClick={(e) => this.submit(e)}>Submit</button>
+                    <Link to="login">Log in</Link>
                 </form>
-                <Link to="login">Log in</Link>
             </div>
         );
     }

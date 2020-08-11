@@ -27,7 +27,7 @@ if (isLoggedIn) {
         </Provider>
     );
 } else {
-    elem = <Welcome />; //;<Home />
+    elem = <Home />; //; <Welcome />
 }
 
 ReactDOM.render(elem, document.getElementById("root"));

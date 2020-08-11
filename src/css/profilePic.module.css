@@ -10,14 +10,16 @@
     justify-content: center;
     align-content: center;
     background: var(--blue-sapphire);
-    background-image: linear-gradient(
+    background-image: var(--purple-top-right);
+    box-shadow: 5px 5px 9px 2px rgba(0, 0, 0, 0.56);
+    /* background-image: linear-gradient(
         to left bottom,
         #1f2041,
         #25243d,
         #292738,
         #2c2b34,
         #2f2f2f
-    );
+    ); */
 }
 .profilePic img {
     object-fit: cover;
@@ -25,6 +27,8 @@
     border-radius: 50%;
     height: 90%;
     width: 90%;
+    -webkit-box-shadow: 3px 3px 3px -1px rgba(0, 0, 0, 0.5);
+    box-shadow: 3px 3px 3px -1px rgba(0, 0, 0, 0.5);
 }
 .smallPic {
     height: 80px;

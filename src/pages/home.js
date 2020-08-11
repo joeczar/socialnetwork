@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 ////////  COMPONENTS  /////////////////////
 import Logo from "../components/logo";
 import Registration from "../components/register";
@@ -18,20 +18,34 @@ const Home = () => {
     };
     console.log("show menus", showMenus, "path", pathName);
     return (
-        <>
+        <div className={style.homeWrapper}>
             <Logo open={showMenus} />
-            <h1 onClick={handleClick}>Welcome</h1>
-            {showMenus && (
-                <BrowserRouter>
-                    <div className={style.home}>
-                        <h1 onClick={handleClick}>Welcome</h1>
-                        <Route exact path="/" component={Registration} />
-                        <Route path="/login" component={Login} />
-                        <Route path="/reset" component={ResetPassword} />
-                    </div>
-                </BrowserRouter>
-            )}
-        </>
+            <div className={style.modal}>
+                {!showMenus && (
+                    <h1 className={style.welcome} onClick={handleClick}>
+                        Zen Streak
+                    </h1>
+                )}
+                {showMenus && (
+                    <HashRouter>
+                        <div className={style.home}>
+                            <div className={style.container}>
+                                <Route
+                                    exact
+                                    path="/"
+                                    component={Registration}
+                                />
+                                <Route path="/login" component={Login} />
+                                <Route
+                                    path="/reset"
+                                    component={ResetPassword}
+                                />
+                            </div>
+                        </div>
+                    </HashRouter>
+                )}
+            </div>
+        </div>
     );
 };
 export default Home;

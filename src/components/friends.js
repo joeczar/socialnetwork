@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
     receiveFriendsRequests,
@@ -27,7 +28,7 @@ const Friends = () => {
     return (
         <div className={style.wrapper}>
             <h1>Friend Requests</h1>
-            <div className={style.requestedWrapper}>
+            <div className={style.requestsWrapper}>
                 {requests &&
                     requests.map((friend) => {
                         const { id, first, last, pic_url } = friend;
@@ -40,18 +41,24 @@ const Friends = () => {
                                     url={pic_url}
                                     size="small"
                                 />
-                                <button
-                                    onClick={(e) => dispatch(acceptRequest(id))}
-                                    className={style.accept}
-                                >
-                                    Accept
-                                </button>
-                                <button
-                                    onClick={(e) => dispatch(cancelRequest(id))}
-                                    className={style.deny}
-                                >
-                                    Deny
-                                </button>
+                                <div className={style.requestBtns}>
+                                    <button
+                                        onClick={(e) =>
+                                            dispatch(acceptRequest(id))
+                                        }
+                                        className={style.accept}
+                                    >
+                                        Accept
+                                    </button>
+                                    <button
+                                        onClick={(e) =>
+                                            dispatch(cancelRequest(id))
+                                        }
+                                        className={style.deny}
+                                    >
+                                        Deny
+                                    </button>
+                                </div>
                             </div>
                         );
                     })}
@@ -62,7 +69,7 @@ const Friends = () => {
                     friends.map((friend) => {
                         const { id, first, last, pic_url } = friend;
                         return (
-                            <div className={style.requestWrapper} key={id}>
+                            <div className={style.friendWrapper} key={id}>
                                 <Person
                                     id={id}
                                     first={first}
