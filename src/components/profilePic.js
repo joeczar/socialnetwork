@@ -15,7 +15,7 @@ const ProfilePic = ({ name, url, toggleUpload, size }) => {
             className={`profile-pic ${style.profilePic} ${classes[size]}`}
         >
             <img
-                src={url || "/ZenUserIcon.png"}
+                src={url ? url : "/ZenUserIcon.png"}
                 alt={`${name.first} ${name.last}`}
             />
         </div>

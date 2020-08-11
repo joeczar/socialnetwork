@@ -25,5 +25,7 @@
 .profileWrapper {
     background-color: black;
     border-radius: 150px 150px 80px 0px;
-    padding: 1em;
+    padding: 1em 0.25em;
+    -webkit-box-shadow: 3px 3px 3px -1px rgba(0, 0, 0, 0.5);
+    box-shadow: 3px 3px 3px -1px rgba(0, 0, 0, 0.5);
 }

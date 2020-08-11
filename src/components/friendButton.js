@@ -27,6 +27,7 @@ const FriendButton = ({ id }) => {
         (async () => {
             try {
                 const { data } = await axios.get(`/friendship/${id}`);
+                console.log("friend button", data);
                 if (data.success) {
                     handleResponse(data);
                 } else {

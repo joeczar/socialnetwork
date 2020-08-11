@@ -104,22 +104,21 @@ app.post("/login", loginValidate(), async (req, res) => {
     const { email, pass } = req.body;
     const errors = [...validate(req)];
     if (errors.length > 0) {
+        console.log("errors login", errors);
         res.json({ success: false, errors });
     } else {
         try {
             const { rows } = await db.getUserByEmail([email]);
             const { id, first, last, hash } = rows[0];
             const match = await compare(pass, hash);
+
             if (match) {
                 req.session.registerId = id;
-
+                console.log("match is true!", first, last);
                 res.json({ success: true, name: { first, last } });
-
-                return;
             } else {
                 errors.push("That email/password didn't work");
                 res.json({ success: false });
-                return;
             }
         } catch (err) {
             console.log("error in getUserBaEmail", err);
@@ -272,18 +271,19 @@ app.get("/friendship/:id", async (req, res) => {
     }
 });
 app.post("/friend-request", async (req, res) => {
-    console.log("POST /friend-request", req.body);
     const userId = req.session.registerId;
     const { action, recipient_id, accepted } = req.body;
+    console.log("POST /friend-request", userId, recipient_id);
     try {
         switch (action) {
             case "Add": {
-                const { rows } = await db.acceptFriendReq([
-                    userId,
-                    recipient_id,
-                ]);
-                console.log("Adding friend", rows);
-                res.json({ success: true, rows, userId });
+                try {
+                    const { rows } = await db.addFriend([userId, recipient_id]);
+                    console.log("Adding friend", rows);
+                    res.json({ success: true, rows, userId });
+                } catch (err) {
+                    console.log("Error in acceptFriendRequest", err);
+                }
                 break;
             }
             case "Cancel": {

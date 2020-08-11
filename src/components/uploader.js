@@ -52,34 +52,27 @@ class Uploader extends Component {
                         size="medium"
                     />
                     <h1>Change your profile picture</h1>
-                    <form className="upload shadow-3">
-                        <div className="formTitleWrapper">
-                            <h1>Upload a photo</h1>
-                        </div>
-
-                        <div id="fileAndSubmit">
-                            <div className="inputWrap">
-                                <label
-                                    htmlFor="image_uploads"
-                                    className="shadow-3"
-                                >
-                                    Choose an image to upload
-                                </label>
-                                <input
-                                    onChange={(e) => this.handleChange(e)}
-                                    type="file"
-                                    id="image_uploads"
-                                    name="image_uploads"
-                                    accept="image/*"
-                                />
-                            </div>
-                            <button
-                                onClick={(e) => this.handleClick(e)}
-                                className="btn shadow-3"
-                            >
-                                submit
-                            </button>
-                        </div>
+                    <form>
+                        <label
+                            htmlFor="image_uploads"
+                            className={style.uploadLabel}
+                        >
+                            Choose an image
+                        </label>
+                        <input
+                            onChange={(e) => this.handleChange(e)}
+                            type="file"
+                            id="image_uploads"
+                            name="image_uploads"
+                            accept="image/*"
+                            className={style.uploadInput}
+                        />
+                        <button
+                            onClick={(e) => this.handleClick(e)}
+                            className={style.btn}
+                        >
+                            submit
+                        </button>
                     </form>
                 </div>
             </div>

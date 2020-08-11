@@ -4,14 +4,10 @@ import ProfilePic from "./profilePic";
 import style from "../css/person.module.css";
 
 const Person = ({ id, first, last, url, size }) => {
+    const name = { first, last };
     return (
         <div className={style.person}>
-            <ProfilePic
-                name={(first, last)}
-                url={url}
-                toggleUpload={null}
-                size={size}
-            />
+            <ProfilePic name={name} url={url} toggleUpload={null} size={size} />
             <Link className={style.link} to={`/user/${id}`}>
                 <h3>
                     {first} {last}

@@ -10,7 +10,8 @@ import style from "../css/home.module.css";
 const Home = () => {
     const [showMenus, setShowMenus] = useState(false);
     const pathName = window.location.pathname;
-    if (pathName === "/login" || pathName === "/reset") {
+    console.log({ pathName });
+    if (pathName.startsWith("/welcome#") || pathName.startsWith("/welcome?")) {
         setShowMenus(true);
     }
     const handleClick = () => {

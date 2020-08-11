@@ -22,12 +22,15 @@
 .logoWrapper #circles {
     margin: 0px !important;
 }
+.zs {
+    color: #8eeef3;
+}
 .logoWrapper h1 {
     position: absolute;
     top: 29px;
     left: 70px;
     font-size: 40px;
-    color: var(--ghost-white);
+    /* color: var(--ghost-white); */
 
     text-shadow: 0px 0px 3px rgba(135, 121, 181, 1);
 }

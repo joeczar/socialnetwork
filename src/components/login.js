@@ -17,7 +17,7 @@ export default class Registration extends React.Component {
     }
     async submit() {
         const { email, pass } = this.state;
-        console.log(this.state);
+
         try {
             const { data } = await axios.post("/login", { email, pass });
 
@@ -30,7 +30,6 @@ export default class Registration extends React.Component {
                 });
             }
         } catch (err) {
-            console.log(data);
             console.log("Error in submit", err);
             this.setState({ errors: [`Something went wrong`] });
         }
