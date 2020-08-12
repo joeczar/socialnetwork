@@ -9,6 +9,7 @@ import { FindPeople } from "./components/findPeople";
 import NotFound from "./components/404";
 import OtherProfile from "./components/otherProfile";
 import Friends from "./components/friends";
+import Chat from "./components/chat";
 ///////////////  CSS  //////////////////
 import "./css/style.css";
 
@@ -100,6 +101,7 @@ class App extends Component {
                         <Route path="/users" component={FindPeople} />
                         <Route path="/user/:id" component={OtherProfile} />
                         <Route path="/friends" component={Friends} />
+                        <Route path="/chat" component={Chat} />
                         <Route component={NotFound} />
                     </Switch>
                 </BrowserRouter>

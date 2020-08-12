@@ -25,5 +25,11 @@ export default function reducer(state = {}, action) {
             friends: state.friends.filter((friend) => friend.id != action.id),
         };
     }
+    if (action.type === "LATEST_MESSAGES") {
+        return { ...state, chatMessages: action.data };
+    }
+    if (action.type === "NEWEST_MESSAGE") {
+        return { ...state, chatMessages: [...state.chatMessages, action.data] };
+    }
     return state;
 }

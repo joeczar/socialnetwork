@@ -15,13 +15,12 @@ export default class Registration extends React.Component {
             [e.target.name]: e.target.value,
         });
     }
-    async submit() {
+    async submit(e) {
+        e.preventDefault();
         const { email, pass } = this.state;
 
         try {
             const { data } = await axios.post("/login", { email, pass });
-
-            console.log(data);
             if (data.success) {
                 location.replace("/");
             } else {
@@ -68,7 +67,7 @@ export default class Registration extends React.Component {
                     />
 
                     {/* <input name="csurf" id="pass" type="hidden" /> */}
-                    <button onClick={() => this.submit()}>Submit</button>
+                    <button onClick={(e) => this.submit(e)}>Submit</button>
                     <p>
                         Forgot your password? <br />
                         Reset it <Link to="/reset">here</Link>

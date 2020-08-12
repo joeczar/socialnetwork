@@ -1,5 +1,10 @@
 const express = require("express");
 const app = express();
+
+// SOCKET IO
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
+//////////////////////////////
 const compression = require("compression");
 const cookieSession = require("cookie-session");
 const { hash, compare } = require("./utils/bc");
@@ -19,6 +24,7 @@ const cryptoRandomString = require("crypto-random-string");
 /////////////  REDIS  ////////////////
 const { promisify } = require("util");
 const redis = require("redis");
+const { IoT1ClickDevicesService } = require("aws-sdk");
 const client = redis.createClient({
     host: "localhost",
     port: 6379,
@@ -31,12 +37,15 @@ client.on("error", (err) => {
 });
 
 //////////  MIDDLEWARE  //////////////
-app.use(
-    cookieSession({
-        secret: COOKIE_SESSION,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-    })
-);
+const cookieSessionMiddleware = cookieSession({
+    secret: COOKIE_SESSION,
+    maxAge: 1000 * 60 * 60 * 24 * 14,
+});
+app.use(cookieSessionMiddleware);
+
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(compression());
 app.use(express.static("public"));
@@ -156,8 +165,6 @@ app.post("/resetpassword", async (req, res) => {
             });
             // save in REDIS
             const data = await setex(secretCode, 600, email);
-            console.log(data);
-
             const emailMsg = `Your secret code is: \n \t${secretCode} \n\n It is only good for 10 min.`;
             const subject = "Reset your Password";
             const confirmation = await aws.sendEmail(email, emailMsg, subject);
@@ -170,21 +177,17 @@ app.post("/resetpassword", async (req, res) => {
     }
 });
 app.post("/entercode", async (req, res) => {
-    console.log("post /entercode sanityCheck", req.body);
     const { code, password, email } = req.body;
     try {
         const data = await redisGet(code);
-        console.log("entercode redis response", data, email);
         if (data == email) {
             // hash password
             const hashed = await hash(password);
-            console.log(hashed);
             // store new password
             const { rows } = await db.updatePassword([
                 hashed,
                 req.session.registerId,
             ]);
-            console.log(rows);
             res.json({ success: true });
         } else {
             res.json({ success: false, errors: ["That code didn't match"] });
@@ -219,13 +222,11 @@ app.post(
     }
 );
 app.post("/add-bio", async (req, res) => {
-    console.log("post /add-bio sanityCheck", req.body);
     try {
         const { rows } = await db.addBio([
             req.body.bio,
             req.session.registerId,
         ]);
-        console.log("add-bio rows", rows);
         res.send({ success: true, bio: rows[0].bio });
     } catch (err) {
         console.log("error in add-bio", err);
@@ -240,14 +241,12 @@ app.get("/other-user/:id", async (req, res) => {
 app.get("/new-users", async (req, res) => {
     console.log("get /new-users sanityCheck");
     const { rows } = await db.getNewUsers();
-
     res.json({ success: true, rows });
 });
 app.get("/search-users/:input", async (req, res) => {
     console.log("get /search-users sanityCheck", req.params.input);
     try {
         const { rows } = await db.searchUsers([req.params.input + "%"]);
-        console.log("searchusers", rows);
         res.json({ success: true, rows });
     } catch (err) {
         console.log("Error getting users", err);
@@ -255,7 +254,6 @@ app.get("/search-users/:input", async (req, res) => {
 });
 //////////////  FRIEND REQUESTS  /////////////////////////
 app.get("/friendship/:id", async (req, res) => {
-    console.log("GET /friendship", req.params.id);
     try {
         const profileId = Number(req.params.id);
         const userId = req.session.registerId;
@@ -279,7 +277,6 @@ app.post("/friend-request", async (req, res) => {
             case "Add": {
                 try {
                     const { rows } = await db.addFriend([userId, recipient_id]);
-                    console.log("Adding friend", rows);
                     res.json({ success: true, rows, userId });
                 } catch (err) {
                     console.log("Error in acceptFriendRequest", err);
@@ -346,10 +343,31 @@ app.get("*", function (req, res) {
     }
 });
 
-// app.get("*", function (req, res) {
-//     res.sendFile(__dirname + "/index.html");
-// });
+io.on("connection", (socket) => {
+    console.log(socket.request.session);
+    const userId = socket.request.session.registerId;
+    console.log("User is logged on", userId);
+    if (!userId) {
+        return socket.disconnect();
+    }
 
-app.listen(8080, function () {
+    // send the chatMessages event to the socket that just connected
+    // the payload must include the 10 most recent messages + associated user info
+    //socket.emit
+
+    socket.on("chatMessage", async (data) => {
+        // userId is the id of the user who sent this chat message
+
+        // insert the message into the database
+
+        // get sender info
+
+        const user = await db.getUserById(userId);
+
+        //io.emit('chatMessage')
+    });
+});
+
+server.listen(8080, function () {
     console.log("Server listening at: http://localhost:8080");
 });
