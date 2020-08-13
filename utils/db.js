@@ -16,7 +16,7 @@ const getUserByEmail = (params) => {
     return db.query(q, params);
 };
 const getUser = (params) => {
-    const q = `SELECT first, last, pic_url, bio FROM users WHERE id=$1`;
+    const q = `SELECT id, first, last, pic_url, bio FROM users WHERE id=$1`;
     return db.query(q, params);
 };
 const searchUsers = (params) => {
@@ -72,6 +72,28 @@ const getFriendsAndRequests = (params) => {
 `;
     return db.query(q, params);
 };
+const addMessage = (params) => {
+    const q = `INSERT INTO chat_messages (message, sender_id) VALUES ($1, $2) RETURNING id`;
+    return db.query(q, params);
+};
+const getMsgData = (params) => {
+    const q = `SELECT chat_messages.id AS msg_id, message, users.id AS user_id,
+    first, last, pic_url, chat_messages.ts
+    FROM chat_messages
+    JOIN users
+    ON sender_id = users.id
+    WHERE chat_messages.id = $1`;
+    return db.query(q, params);
+};
+const getRecentMsgs = () => {
+    const q = `SELECT chat_messages.id AS msg_id, message, users.id AS user_id,
+        first, last, pic_url, chat_messages.ts
+        FROM chat_messages
+        JOIN users
+        ON sender_id = users.id
+        ORDER BY ts DESC LIMIT 10`;
+    return db.query(q);
+};
 
 /* 
     SELECT * FROM friendships
@@ -105,4 +127,7 @@ module.exports = {
     acceptFriendReq,
     endFriendship,
     getFriendsAndRequests,
+    addMessage,
+    getMsgData,
+    getRecentMsgs,
 };

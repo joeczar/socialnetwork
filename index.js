@@ -3,8 +3,11 @@ const app = express();
 
 // SOCKET IO
 const server = require("http").Server(app);
-const io = require("socket.io")(server, { origins: "localhost:8080" });
+const io = require("socket.io")(server, {
+    origins: "localhost:8080 127.0.0.1:8080",
+});
 //////////////////////////////
+
 const compression = require("compression");
 const cookieSession = require("cookie-session");
 const { hash, compare } = require("./utils/bc");
@@ -343,28 +346,43 @@ app.get("*", function (req, res) {
     }
 });
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
     console.log(socket.request.session);
     const userId = socket.request.session.registerId;
     console.log("User is logged on", userId);
     if (!userId) {
         return socket.disconnect();
     }
-
-    // send the chatMessages event to the socket that just connected
-    // the payload must include the 10 most recent messages + associated user info
-    //socket.emit
+    try {
+        // send the chatMessages event to the socket that just connected
+        const { rows } = await db.getRecentMsgs();
+        io.emit("chatMessages", rows.reverse());
+        // the payload must include the 10 most recent messages + associated user info
+    } catch (err) {
+        console.log("Error in chat", err);
+    }
 
     socket.on("chatMessage", async (data) => {
         // userId is the id of the user who sent this chat message
-
+        console.log("chatMessage socket io", data);
         // insert the message into the database
 
         // get sender info
 
-        const user = await db.getUserById(userId);
+        try {
+            const { rows } = await db.addMessage([data, userId]);
 
-        //io.emit('chatMessage')
+            const getMsgData = await db.getMsgData([rows[0].id]);
+
+            const chatMessage = {
+                ...getMsgData.rows[0],
+            };
+
+            console.log(chatMessage);
+            io.emit("chatMessage", chatMessage);
+        } catch (err) {
+            console.log("Error in socketio getUser", err);
+        }
     });
 });
 

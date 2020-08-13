@@ -1,0 +1,57 @@
+.bubble {
+    border-radius: 30px;
+    margin: 0.5em 0;
+    display: flex;
+}
+.message {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    grid-area: message;
+}
+.message p {
+    margin: auto auto auto 0.5em;
+    color: black;
+    padding: 0.25em 0.5em;
+}
+.name,
+.time {
+    font-size: x-small;
+}
+.other-bubble .name {
+    margin-right: 1em;
+}
+.other-bubble {
+    flex-direction: row;
+    margin: 0.5em auto 0.5em 0px;
+}
+.user-bubble {
+    flex-direction: row-reverse;
+    margin: 0.5em 0px 0.5em auto;
+}
+.other-bubble .message {
+    margin-left: 1em;
+}
+.user-bubble .message {
+    margin-right: 1em;
+}
+.other-bubble .message p {
+    background: #6ac4e2;
+
+    border-radius: 25px 25px 25px 0;
+    margin-right: auto;
+}
+.user-bubble .message p {
+    background: #7476bc;
+    border-radius: 25px 25px 0px 25px;
+    margin: auto 0px auto auto;
+    text-align: right;
+}
+.user-bubble .info {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0.5em 0;
+}
+.user-bubble .time {
+    margin-right: 1em;
+}

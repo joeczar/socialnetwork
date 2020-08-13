@@ -21,6 +21,7 @@ class App extends Component {
             name: "",
             url: "",
             bio: "",
+            id: null,
         };
         this.toggleUploadModal = this.toggleUploadModal.bind(this);
         this.updateUrl = this.updateUrl.bind(this);
@@ -29,12 +30,13 @@ class App extends Component {
     async componentDidMount() {
         console.log("App has mounted");
         const { data } = await axios.get("/user");
-        const { first, last, pic_url, bio } = data;
+        const { id, first, last, pic_url, bio } = data;
 
         this.setState({
             name: { first: first, last: last },
             url: pic_url,
             bio: bio,
+            id: id,
         });
     }
     toggleUploadModal() {
@@ -101,7 +103,10 @@ class App extends Component {
                         <Route path="/users" component={FindPeople} />
                         <Route path="/user/:id" component={OtherProfile} />
                         <Route path="/friends" component={Friends} />
-                        <Route path="/chat" component={Chat} />
+                        <Route
+                            path="/chat"
+                            render={() => <Chat userId={this.state.id} />}
+                        />
                         <Route component={NotFound} />
                     </Switch>
                 </BrowserRouter>
