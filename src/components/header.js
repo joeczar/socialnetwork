@@ -1,8 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import style from "../css/header.module.css";
 import Logo from "./logo";
 import Logout from "./logout";
 import ProfilePic from "./profilePic";
+import Nav from "./nav";
 // import { Route } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
@@ -11,10 +13,14 @@ const Header = (props) => {
     return (
         <header className={style.header}>
             <div className={style.logoWrapper}>
-                <Logo />
-                <h1 className={style.zs}>ZS</h1>
+                <Link to="/">
+                    <Logo />
+                    <h1 className={style.zs}>ZS</h1>
+                </Link>
             </div>
-            <div className={style.spacer}></div>
+            <div className={style.spacer}>
+                <Nav />
+            </div>
             <div className={style.profilePicWrapper}>
                 <ProfilePic
                     name={props.name}

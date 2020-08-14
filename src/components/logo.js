@@ -86,7 +86,7 @@ class Logo extends React.Component {
         this.setState({
             // radius: this.state.radius - 10,
             spread:
-                this.state.spread + this.state.easeInOutQuad[this.state.count],
+                this.state.spread + this.state.easeOutQuad[this.state.count],
             count: this.state.count + 1,
         });
 
@@ -135,13 +135,6 @@ class Logo extends React.Component {
 
         const outerWidth = { width: this.props.width };
 
-        const pos = {
-            position: "absolute",
-            top: `calc(50% -  ${this.state.logoHeight / 2}px)`,
-            right: `calc(50% - ${this.state.logoWidth / 2}px)`,
-
-            textShadow: "0px 0px 5px rgba(0,0,0,1)",
-        };
         return (
             <div className={style.logo} style={outerWidth} id="circles">
                 <CircleArray

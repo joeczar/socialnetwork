@@ -1,7 +1,5 @@
 import React from "react";
 import Circle from "./circle";
-import ZenStreak from "./zenStreak";
-
 import { circlePos } from "../helpers/circleOfCircles";
 import style from "../css/circles.module.css";
 

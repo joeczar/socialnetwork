@@ -1,0 +1,31 @@
+.nav {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-content: center;
+    height: 100%;
+    width: 100%;
+}
+.nav a {
+    color: var(--ghost-white);
+    text-decoration: none;
+    cursor: pointer;
+    margin: auto;
+}
+.nav p {
+    font-size: smaller;
+}
+.nav path {
+    /* fill: var(--ghost-white) !important; */
+    stroke: var(--ghost-white) !important;
+    stroke-width: 1;
+}
+.nav svg {
+    margin: auto;
+}
+.navGroup {
+    display: flex;
+    flex-direction: column;
+    /* align-content: center; */
+    justify-content: center;
+}

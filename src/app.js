@@ -71,12 +71,12 @@ class App extends Component {
     render() {
         console.log("app state", this.state);
         return (
-            <Layout
-                toggleUpload={this.toggleUploadModal}
-                name={this.state.name}
-                url={this.state.url}
-            >
-                <BrowserRouter>
+            <BrowserRouter>
+                <Layout
+                    toggleUpload={this.toggleUploadModal}
+                    name={this.state.name}
+                    url={this.state.url}
+                >
                     <Switch>
                         <Route
                             exact
@@ -109,8 +109,8 @@ class App extends Component {
                         />
                         <Route component={NotFound} />
                     </Switch>
-                </BrowserRouter>
-            </Layout>
+                </Layout>
+            </BrowserRouter>
         );
     }
 }
