@@ -63,7 +63,7 @@ class Logo extends React.Component {
             this.animate();
         }
         if (prevState.radius != this.state.radius) {
-            const curve = new this.curve(50, 10, this.state.radius);
+            const curve = new this.curve(5, 5, this.state.radius);
             this.setState({
                 easeInOutQuad: curve.easeOutQuad,
                 easeOutQuad: curve.easeOutQuad,
@@ -86,7 +86,7 @@ class Logo extends React.Component {
         this.setState({
             // radius: this.state.radius - 10,
             spread:
-                this.state.spread + this.state.easeOutQuad[this.state.count],
+                this.state.spread + this.state.easeInOutQuad[this.state.count],
             count: this.state.count + 1,
         });
 

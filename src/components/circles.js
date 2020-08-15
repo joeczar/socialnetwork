@@ -39,8 +39,7 @@ const Circles = ({ radius, steps, centerX, centerY, spread }) => {
     return (
         <svg
             className={style.circles}
-            width="100%"
-            height="100%"
+            height="90%"
             viewBox={`0 0 ${svgWidth} ${svgHeight}`}
         >
             <g

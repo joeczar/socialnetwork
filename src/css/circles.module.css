@@ -3,8 +3,10 @@
     -moz-animation: spin 40s linear infinite;
     animation: spin 40s linear infinite;
     overflow: hidden;
-    height: 100%;
+
     stroke-width: 0.5;
+
+    max-height: 100vh;
 }
 
 @-moz-keyframes spin {

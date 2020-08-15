@@ -42,3 +42,11 @@ export async function chatMessage(msg) {
         data: msg,
     };
 }
+export async function receiveSuggestedFriends(msg) {
+    const { data } = await axios.get("/suggested-friends");
+    console.log("in actions", data);
+    return {
+        type: "RECEIVE_SUGGESTED_FRIENDS",
+        data: data,
+    };
+}

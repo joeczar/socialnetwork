@@ -325,7 +325,23 @@ app.get("/friends-and-requests", async (req, res) => {
         console.log("error in friends-and-requests", err);
     }
 });
-
+app.get("/suggested-friends/:otherId", async (res, req) => {
+    const { otherId } = req.params;
+    console.log(
+        "GET /suggested-friends params",
+        req.session.registerId,
+        otherId
+    );
+    try {
+        const { rows } = db.getOtherProfileFriends([
+            otherId,
+            req.session.registerId,
+        ]);
+        res.json(rows);
+    } catch (error) {
+        console.log("Error in /suggested-friends", err);
+    }
+});
 ///////////////////////  *  /////////////////////////////////////
 app.post("/reset", (req, res) => {
     console.log("/reset", req.session);
@@ -365,9 +381,6 @@ io.on("connection", async (socket) => {
     socket.on("chatMessage", async (data) => {
         // userId is the id of the user who sent this chat message
         console.log("chatMessage socket io", data);
-        // insert the message into the database
-
-        // get sender info
 
         try {
             const { rows } = await db.addMessage([data, userId]);

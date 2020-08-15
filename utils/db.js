@@ -1,6 +1,7 @@
 const spicedPg = require("spiced-pg");
 const username = require("os").userInfo().username;
 const { POSTGRES_PWD } = require("../secrets.json");
+const { deepEqual } = require("assert");
 // const fakeUsers = require("./fakeUsers.json");
 
 const db = spicedPg(
@@ -94,7 +95,16 @@ const getRecentMsgs = () => {
         ORDER BY ts DESC LIMIT 10`;
     return db.query(q);
 };
-
+const getOtherProfileFriends = (params) => {
+    const q = `SELECT users.id, first, last, pic_url, accepted
+    FROM friendships
+    JOIN users
+    ON (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+    OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
+    OR (accepted = true AND recipient_id = $2 AND sender_id = users.id)
+    OR (accepted = true AND sender_id = $2 AND recipient_id = users.id)`;
+    return db.query(q, params);
+};
 /* 
     SELECT * FROM friendships
     WHERE (recipient_id = 69 AND sender_id = 201)
@@ -130,4 +140,5 @@ module.exports = {
     addMessage,
     getMsgData,
     getRecentMsgs,
+    getOtherProfileFriends,
 };

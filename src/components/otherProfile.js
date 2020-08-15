@@ -35,24 +35,27 @@ export default class OtherProfile extends Component {
     render() {
         const { id, name, url, bio } = this.state;
         return (
-            <div className={style.otherProfile}>
-                <ProfilePic
-                    name={name}
-                    url={url}
-                    toggleUpload={null}
-                    size="large"
-                />
-                <div className={style.infoWrapper}>
-                    <h1 className={style.name}>
-                        {name.first} {name.last}
-                    </h1>
-                    <div className={style.bio}>
-                        <h2>Bio</h2>
-                        <p>{bio}</p>
+            <article className={style.wrapper}>
+                <header className={style.otherProfile}>
+                    <ProfilePic
+                        name={name}
+                        url={url}
+                        toggleUpload={null}
+                        size="large"
+                    />
+                    <div className={style.infoWrapper}>
+                        <h1 className={style.name}>
+                            {name.first} {name.last}
+                        </h1>
+                        <div className={style.bio}>
+                            <h2>Bio</h2>
+                            <p>{bio}</p>
+                        </div>
+                        <FriendButton id={id} />
                     </div>
-                    <FriendButton id={id} />
-                </div>
-            </div>
+                </header>
+                <section className={style.friends} />
+            </article>
         );
     }
 }
