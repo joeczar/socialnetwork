@@ -10,6 +10,7 @@ import NotFound from "./components/404";
 import OtherProfile from "./components/otherProfile";
 import Friends from "./components/friends";
 import Chat from "./components/chat";
+import OtherProfileFR from "./components/otherProfileFR";
 ///////////////  CSS  //////////////////
 import "./css/style.css";
 
@@ -101,7 +102,8 @@ class App extends Component {
                             )}
                         />
                         <Route path="/users" component={FindPeople} />
-                        <Route path="/user/:id" component={OtherProfile} />
+                        {/* <Route path="/user/:id" component={OtherProfile} /> */}
+                        <Route path="/user/:id" component={OtherProfileFR} />
                         <Route path="/friends" component={Friends} />
                         <Route
                             path="/chat"

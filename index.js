@@ -7,7 +7,6 @@ const io = require("socket.io")(server, {
     origins: "localhost:8080 127.0.0.1:8080",
 });
 //////////////////////////////
-
 const compression = require("compression");
 const cookieSession = require("cookie-session");
 const { hash, compare } = require("./utils/bc");
@@ -274,12 +273,13 @@ app.get("/friendship/:id", async (req, res) => {
 app.post("/friend-request", async (req, res) => {
     const userId = req.session.registerId;
     const { action, recipient_id, accepted } = req.body;
-    console.log("POST /friend-request", userId, recipient_id);
+    console.log("POST /friend-request", action, userId, recipient_id);
     try {
         switch (action) {
             case "Add": {
                 try {
                     const { rows } = await db.addFriend([userId, recipient_id]);
+                    console.log(rows);
                     res.json({ success: true, rows, userId });
                 } catch (err) {
                     console.log("Error in acceptFriendRequest", err);
@@ -316,6 +316,7 @@ app.post("/friend-request", async (req, res) => {
     }
 });
 app.get("/friends-and-requests", async (req, res) => {
+    console.log("friends-and-requests");
     try {
         const { rows } = await db.getFriendsAndRequests([
             req.session.registerId,
@@ -325,20 +326,16 @@ app.get("/friends-and-requests", async (req, res) => {
         console.log("error in friends-and-requests", err);
     }
 });
-app.get("/suggested-friends/:otherId", async (res, req) => {
+
+app.get("/suggested-friends/:otherId", async (req, res) => {
+    console.log(req.params);
     const { otherId } = req.params;
-    console.log(
-        "GET /suggested-friends params",
-        req.session.registerId,
-        otherId
-    );
+    console.log("GET /suggested-friends params", otherId);
     try {
-        const { rows } = db.getOtherProfileFriends([
-            otherId,
-            req.session.registerId,
-        ]);
+        const { rows } = await db.getOtherProfileFriends([otherId]);
+        console.log("ROWS getOtherProfileFriends", rows);
         res.json(rows);
-    } catch (error) {
+    } catch (err) {
         console.log("Error in /suggested-friends", err);
     }
 });

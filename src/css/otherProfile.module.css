@@ -40,3 +40,8 @@
 .bio {
     margin: 1rem;
 }
+.suggestedWrapper {
+    display: flex;
+    flex-direction: row;
+    margin: 1em auto;
+}

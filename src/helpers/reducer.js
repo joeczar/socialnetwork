@@ -31,9 +31,23 @@ export default function reducer(state = {}, action) {
     if (action.type === "NEWEST_MESSAGE") {
         return { ...state, chatMessages: [...state.chatMessages, action.data] };
     }
+    if (action.type === "SET_OTHER_PROFILE_ID") {
+        console.log(action);
+        return { ...state, otherProfileId: action.id };
+    }
+    if (action.type === "RECEIVE_OTHER_PROFILE") {
+        state = Object.assign({}, state, {
+            otherProfile: action.data,
+        });
+    }
     if (action.type === "RECEIVE_SUGGESTED_FRIENDS") {
         state = Object.assign({}, state, {
-            receiveSuggestedFriends: action.receiveSuggestedFriends,
+            suggestedFriends: action.data,
+        });
+    }
+    if (action.type === "RECEIVE_PROFILE") {
+        state = Object.assign({}, state, {
+            profile: action.data,
         });
     }
     return state;

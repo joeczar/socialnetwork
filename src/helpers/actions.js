@@ -10,7 +10,7 @@ export async function receiveFriendsRequests() {
 }
 export async function acceptRequest(id) {
     await axios.post("/friend-request", {
-        action: "Add",
+        action: "Accept",
         recipient_id: id,
         accepted: true,
     });
@@ -42,11 +42,33 @@ export async function chatMessage(msg) {
         data: msg,
     };
 }
-export async function receiveSuggestedFriends(msg) {
-    const { data } = await axios.get("/suggested-friends");
-    console.log("in actions", data);
+export async function setOtherProfileId(id) {
+    return {
+        type: "SET_OTHER_PROFILE_ID",
+        id,
+    };
+}
+export async function receiveOtherProfile(id) {
+    const { data } = await axios.get(`/other-user/${id}`);
+
+    return {
+        type: "RECEIVE_OTHER_PROFILE",
+        data,
+    };
+}
+export async function receiveSuggestedFriends(id) {
+    console.log("in actions", id);
+    const { data } = await axios.get(`/suggested-friends/${id}`);
+
     return {
         type: "RECEIVE_SUGGESTED_FRIENDS",
-        data: data,
+        data,
+    };
+}
+export async function receiveProfile() {
+    const { data } = await axios.get("/user");
+    return {
+        type: "RECEIVE_PROFILE",
+        data,
     };
 }

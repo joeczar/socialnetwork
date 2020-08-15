@@ -101,8 +101,7 @@ const getOtherProfileFriends = (params) => {
     JOIN users
     ON (accepted = true AND recipient_id = $1 AND sender_id = users.id)
     OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
-    OR (accepted = true AND recipient_id = $2 AND sender_id = users.id)
-    OR (accepted = true AND sender_id = $2 AND recipient_id = users.id)`;
+    `;
     return db.query(q, params);
 };
 /* 
