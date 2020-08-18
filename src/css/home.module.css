@@ -27,4 +27,5 @@
     margin: auto;
     font-size: 8vw;
     color: var(--viridian-green);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6);
 }

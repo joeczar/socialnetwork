@@ -50,15 +50,13 @@ export default class ResetPasswordEmail extends React.Component {
         e.preventDefault();
         const { code, password, email } = this.state;
         try {
-            const { data } = await axios.post(
-                "/entercode",
-                { code, password, email },
-                {
-                    xsrfCookieName: "token",
-                    xsrfHeaderName: "csrf-token",
-                }
-            );
+            const { data } = await axios.post("/entercode", {
+                code,
+                password,
+                email,
+            });
             if (data.success) {
+                console.log(data);
                 this.setState({ step: 2 });
             } else {
                 this.setState({
@@ -97,8 +95,8 @@ export default class ResetPasswordEmail extends React.Component {
             );
         } else if (step === 1) {
             return (
-                <div>
-                    <h2>Enter your Code</h2>
+                <div className={style.register}>
+                    <h1>Enter your Code</h1>
                     <p>Please enter the code you recieved via Email</p>
                     <form>
                         <Errors errors={this.state.errors} />
@@ -130,7 +128,7 @@ export default class ResetPasswordEmail extends React.Component {
             );
         } else if (step === 2) {
             return (
-                <div>
+                <div className={style.register}>
                     <h1>Password successfully reset</h1>
                     <Link to="login">Login</Link>
                 </div>

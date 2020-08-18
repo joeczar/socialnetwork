@@ -121,7 +121,7 @@
         - ✔️ needs change handler
     - ✔️ Determines which ui to display based on bio prop passed
         1. ✔️ No Bio (prop from profile is undefined)
-           - ✔️ render clickable element "Add Bio"
+            - ✔️ render clickable element "Add Bio"
             - ✔️ No text area visible
         2. ✔️ User has bio
             - ✔️ render bio with clickable element "Edit Bio"
@@ -153,12 +153,76 @@
 ## Part 8 Friend Requests
 
 1. New Table in DB
-    - ````
+    - ```
         CREATE TABLE friendships( id SERIAL PRIMARY KEY,
         sender_id INT REFERENCES users(id) NOT NULL,
         recipient_id INT REFERENCES users(id) NOT NULL,
         accepted BOOLEAN DEFAULT false);
-      ````
+      ```
 2. Server Routes
-    - dynamic `GET` route that gets the friendship status between viewer oder viewee (cookie id, userr pofile)
+    - dynamic `GET` route that gets the friendship status between viewer oder viewee (cookie id, user profile)
         - gets initial status between logged user and profile id of page
+
+# Streaks
+
+## Front End
+
+1. Streaks route
+    - new Route in App loads the Streaks component
+2. Streaks Component
+    - functional component
+    - redux, BrowserRouter
+    - The Streaks component contains the routing for all the streaks sub components
+        - intro (what is a streak) - if user has created a streak, these are shown only as links
+        - tutorial (how to create a streak) - if user has created a streak, these are shown only as links
+        - Streak Builder (where you build streaks)
+        - Search/browse Streaks
+3. Intro Component
+    - Introduction to streaks and how they work.
+    - functional component
+    - visible if user has no streaks
+    - minimized it is just a link on the Streak Builder page
+    - link to tutorial
+4. Tutorial
+    - A walk through of creating your first streak
+    - each input component will be rendered with a clear explanation of what and why it is needed.
+    - functional component
+    - Redux - same actions and reducers as the Streak Builder
+5. Streak Builder
+    - functional component
+    - redux
+    - Input Components
+        1. Streak Title
+            - Title of the streak
+            - create a stub for the router/api
+            - input text
+        2. streak Description
+            - textarea
+            - short description of the goal and how you will achieve it
+        3. Start Date.
+            - date input
+            - can be in the past & future or set to today
+        4. end Date
+            - can be in the past, future or left open
+    - This info should then generate a Streak composed of "Day" objects containing data information and updateable text objects. that gets parsed to json and stored in the database
+    - from there the MyStreaks component will be rendered
+6. MyStreaks
+    - shows current and past streaks of the user
+    - needs popup tips for each input that can be turned off
+    - clicking on a current streak will open it and allow updates to it
+    - the streaks render as a circle of circles grouped by day, month and year. Days grouping into months and months grouping into years, each group being a circle of circles around the larger time grouping.
+    - on mouseover the streak day is brought into focus with a subtle color-change and size transition.
+    - clicking on the streak day makes it editable (only for today and past days, future days can only have notes)
+        - modal with day in the center of window
+        - Streak Goal met? yes or no
+        - clicking on writing prompts opens a text field
+        - writing prompts:
+            - What did you do on this day to reach your goal?
+            - What didn't go well? How could you have dealt with that better?
+            - What went well? How will you keep that going?
+            - Notes
+        - save button updates the streak
+        - streak day had 3 classes
+            - empty - no info
+            - success - info entered
+            - fail - info but goal not achieved

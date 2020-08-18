@@ -130,3 +130,6 @@ button:active {
     /* border-radius: 20px; */
 }
 /* shadows */
+a {
+    text-decoration: none;
+}

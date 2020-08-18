@@ -11,4 +11,22 @@
     color: var(--ghost-white);
     font-family: "CovesBold";
     text-decoration: none;
+    border-radius: 20px;
+}
+.cancel {
+    background: rgb(240, 101, 66);
+    background: linear-gradient(
+        45deg,
+        rgba(240, 101, 66, 1) 30%,
+        rgba(75, 63, 114, 1) 100%
+    );
+}
+.cancel:hover,
+.cancel:focus {
+    background: rgb(240, 101, 66);
+    background: linear-gradient(
+        -45deg,
+        rgba(240, 101, 66, 1) 30%,
+        rgba(75, 63, 114, 1) 100%
+    );
 }

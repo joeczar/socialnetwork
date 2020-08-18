@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 const app = express();
 
 // SOCKET IO
@@ -10,23 +11,25 @@ const io = require("socket.io")(server, {
 const compression = require("compression");
 const cookieSession = require("cookie-session");
 const { hash, compare } = require("./utils/bc");
+
+/////////////  AWS  ///////////////////
 const { uploader } = require("./utils/multer");
 const aws = require("./utils/aws");
 const { s3Url } = require("./config");
+
+////////////// SECURITY  ////////////////
 const csurf = require("csurf");
 const { COOKIE_SESSION } = require("./secrets.json");
+const cryptoRandomString = require("crypto-random-string");
 const {
     registerValidate,
     loginValidate,
     validate,
 } = require("./utils/validatorRules");
-const db = require("./utils/db");
-const cryptoRandomString = require("crypto-random-string");
 
 /////////////  REDIS  ////////////////
 const { promisify } = require("util");
 const redis = require("redis");
-const { IoT1ClickDevicesService } = require("aws-sdk");
 const client = redis.createClient({
     host: "localhost",
     port: 6379,
@@ -37,7 +40,8 @@ const redisGet = promisify(client.get).bind(client);
 client.on("error", (err) => {
     console.log("Redis error", err);
 });
-
+///////////  DATABASE QUERIES  ///////////
+const db = require("./utils/db");
 //////////  MIDDLEWARE  //////////////
 const cookieSessionMiddleware = cookieSession({
     secret: COOKIE_SESSION,
@@ -160,6 +164,7 @@ app.post("/resetpassword", async (req, res) => {
     const email = req.body.email;
     try {
         const { rows } = await db.getUserByEmail([email]);
+        console.log(rows);
         if (rows[0]) {
             // generate code
             const secretCode = cryptoRandomString({
@@ -167,6 +172,7 @@ app.post("/resetpassword", async (req, res) => {
             });
             // save in REDIS
             const data = await setex(secretCode, 600, email);
+            console.log(data);
             const emailMsg = `Your secret code is: \n \t${secretCode} \n\n It is only good for 10 min.`;
             const subject = "Reset your Password";
             const confirmation = await aws.sendEmail(email, emailMsg, subject);
@@ -182,15 +188,21 @@ app.post("/entercode", async (req, res) => {
     const { code, password, email } = req.body;
     try {
         const data = await redisGet(code);
+        console.log();
         if (data == email) {
             // hash password
             const hashed = await hash(password);
             // store new password
-            const { rows } = await db.updatePassword([
-                hashed,
-                req.session.registerId,
-            ]);
-            res.json({ success: true });
+            const { rows } = await db.updatePassword([hashed, email]);
+            console.log("entercode & password", hashed, rows);
+            if (hashed === rows[0].hash) {
+                res.json({ success: true });
+            } else {
+                res.json({
+                    success: false,
+                    errors: ["That code didn't match"],
+                });
+            }
         } else {
             res.json({ success: false, errors: ["That code didn't match"] });
         }

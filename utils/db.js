@@ -37,7 +37,7 @@ const addBio = (params) => {
     return db.query(q, params);
 };
 const updatePassword = (params) => {
-    const q = `UPDATE users SET hash=$1 WHERE id=$2`;
+    const q = `UPDATE users SET hash=$1 WHERE email=$2`;
     return db.query(q, params);
 };
 const getFriendshipStatus = (params) => {

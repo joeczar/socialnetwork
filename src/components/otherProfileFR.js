@@ -22,8 +22,8 @@ export const OtherProfileFR = (props) => {
         dispatch(receiveSuggestedFriends(id));
         dispatch(receiveFriendsRequests());
         dispatch(receiveProfile());
-    }, []);
-    useEffect(() => {});
+    }, [props.match.params.id]);
+
     const dispatch = useDispatch();
     const myId = useSelector((state) => state.profile && state.profile.id);
 
@@ -32,6 +32,15 @@ export const OtherProfileFR = (props) => {
         (state) =>
             state.friends && state.friends.filter((friend) => friend.accepted)
     );
+    const otherFriends = useSelector((state) => state.suggestedFriends);
+    const commonFriends =
+        otherFriends &&
+        otherFriends.filter(
+            (friend) =>
+                myFriends &&
+                myFriends.map((myFriend) => myFriend.id).includes(friend.id) &&
+                friend.id !== myId
+        );
     const suggestedFriends = useSelector(
         (state) =>
             state.suggestedFriends &&
@@ -45,7 +54,6 @@ export const OtherProfileFR = (props) => {
             )
     );
 
-    console.log("suggestedFriends", suggestedFriends);
     return (
         <article className={style.wrapper}>
             {otherProfile && (
@@ -64,30 +72,62 @@ export const OtherProfileFR = (props) => {
                             <h2>Bio</h2>
                             <p>{otherProfile.bio}</p>
                         </div>
+                        {otherFriends && (
+                            <p>
+                                {otherFriends.length} Friends,{" "}
+                                {commonFriends.length} in common
+                            </p>
+                        )}
+
                         <FriendButton id={otherProfile.id} />
                     </div>
                 </header>
             )}
-            <section className={style.suggestedWrapper}>
+
+            <section className={style.friends}>
+                {commonFriends && (
+                    <>
+                        <h4>Common Friends</h4>
+                        <div className={style.suggestedWrapper}>
+                            {commonFriends.map((friend) => {
+                                const { id, first, last, pic_url } = friend;
+                                return (
+                                    <>
+                                        <Person
+                                            key={id}
+                                            id={id}
+                                            first={first}
+                                            last={last}
+                                            url={pic_url}
+                                            size="small"
+                                        />
+                                    </>
+                                );
+                            })}
+                        </div>
+                    </>
+                )}
                 <h4>Suggested Friends</h4>
-                {suggestedFriends &&
-                    suggestedFriends
-                        .map((friend) => {
-                            const { id, first, last, pic_url } = friend;
-                            return (
-                                <>
-                                    <Person
-                                        key={id}
-                                        id={id}
-                                        first={first}
-                                        last={last}
-                                        url={pic_url}
-                                        size="small"
-                                    />
-                                </>
-                            );
-                        })
-                        .slice(0, 3)}
+                <div className={style.suggestedWrapper}>
+                    {suggestedFriends &&
+                        suggestedFriends
+                            .map((friend) => {
+                                const { id, first, last, pic_url } = friend;
+                                return (
+                                    <>
+                                        <Person
+                                            key={id}
+                                            id={id}
+                                            first={first}
+                                            last={last}
+                                            url={pic_url}
+                                            size="small"
+                                        />
+                                    </>
+                                );
+                            })
+                            .slice(0, 3)}
+                </div>
             </section>
         </article>
     );

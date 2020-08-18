@@ -40,8 +40,12 @@
 .bio {
     margin: 1rem;
 }
+.friends {
+    margin: 1em auto;
+}
 .suggestedWrapper {
     display: flex;
     flex-direction: row;
     margin: 1em auto;
+    justify-content: left;
 }

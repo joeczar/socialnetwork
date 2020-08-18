@@ -21,7 +21,10 @@ class Logout extends React.Component {
                 <form className={style.form}>
                     {this.state.showLogout ? (
                         <>
-                            <button onClick={(e) => this.handleLogout(e)}>
+                            <button
+                                className={style.cancel}
+                                onClick={(e) => this.handleLogout(e)}
+                            >
                                 Cancel
                             </button>{" "}
                             <a href="/logout" role="button">
