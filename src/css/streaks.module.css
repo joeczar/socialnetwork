@@ -1,0 +1,58 @@
+.streaksWrapper {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+.container {
+    margin: 1em auto;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    background-image: var(--pink-and-green);
+    border-radius: 75px;
+    padding: 1em 0.25em 0.25em 0.25em;
+    -webkit-box-shadow: 5px 5px 9px 2px rgba(0, 0, 0, 0.56);
+    box-shadow: 5px 5px 9px 2px rgba(0, 0, 0, 0.56);
+}
+
+.container form {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--space-cadet-shadow2);
+    padding: 0.5em 1em 0.5em 1em;
+    border-radius: 50px 50px 75px 75px;
+    box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.5);
+}
+.container h1 {
+    text-align: center;
+}
+.container label {
+    display: block;
+    margin: auto auto auto 1em;
+    padding: 1ex;
+}
+.container input,
+.container textarea {
+    width: 100%;
+    padding: 0.35em;
+    border-radius: 10px;
+    border: rgb(0, 0, 0, 0);
+}
+.container p {
+    margin: 0.5em 0.25em;
+}
+.startDate,
+.endDate {
+    margin: auto auto auto 0px;
+    width: 200px !important;
+}
+.endDateWrapper {
+    display: flex;
+    flex-direction: row;
+}
+.container button {
+    margin: 1em auto;
+}

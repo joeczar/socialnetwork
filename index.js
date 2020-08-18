@@ -42,6 +42,9 @@ client.on("error", (err) => {
 });
 ///////////  DATABASE QUERIES  ///////////
 const db = require("./utils/db");
+
+//////////  ROUTERS  //////////////////
+const { streakRouter } = require("./routers/streakRouter");
 //////////  MIDDLEWARE  //////////////
 const cookieSessionMiddleware = cookieSession({
     secret: COOKIE_SESSION,
@@ -74,6 +77,9 @@ if (process.env.NODE_ENV != "production") {
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
+/////////////////  ROUTERS  //////////////
+
+app.use(streakRouter);
 
 /////////////////////////  REGISTER  /////////////////////////////
 app.post("/register", registerValidate(), async (req, res) => {

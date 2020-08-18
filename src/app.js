@@ -11,6 +11,7 @@ import OtherProfile from "./components/otherProfile";
 import Friends from "./components/friends";
 import Chat from "./components/chat";
 import OtherProfileFR from "./components/otherProfileFR";
+import Streaks from "./components/streaks";
 ///////////////  CSS  //////////////////
 import "./css/style.css";
 
@@ -109,6 +110,7 @@ class App extends Component {
                             path="/chat"
                             render={() => <Chat userId={this.state.id} />}
                         />
+                        <Route path="/streaks" component={Streaks} />
                         <Route component={NotFound} />
                     </Switch>
                 </Layout>

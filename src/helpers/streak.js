@@ -1,6 +1,8 @@
 /*
     this datastructure needs to hold the individual Date Objects, the length of the streak in Days, Months and Years
 */
+import getSlug from "speakingurl";
+
 Date.prototype.addDays = function (days) {
     const date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
@@ -9,13 +11,29 @@ Date.prototype.addDays = function (days) {
 
 export default class Streak {
     // input should be YYYY MM DD
-    constructor(year, month, day) {
+    constructor(streak) {
+        this.title = streak.title;
+        this.slug = getSlug(this.title);
+        this.description = streak.description;
         this.today = new Date();
-        this.beginning = new Date(year, month, day);
+        this.beginning = new Date(streak.startDate);
+        this.endDate = new Date(streak.endDate) || null;
+        this.openEnded = !this.endDate ? true : false;
         this.streakLength = this.daysBetween(this.beginning, this.today);
-        this.list = this.getStreakList(this.streakLength);
+        this.streak = this.getStreakList(this.streakLength);
+        this.savedStreaks = streak.streak || null;
     }
-
+    save = () => {
+        return {
+            title: this.title,
+            description: this.description,
+            startDate: this.beginning,
+            endDate: this.endDate,
+            openEnded: this.openEnded,
+            streakLength: this.streakLength,
+            streak: this.streak,
+        };
+    };
     daysBetween = (startDate, endDate) => {
         const oneDay = 1000 * 60 * 60 * 24;
 
@@ -26,7 +44,11 @@ export default class Streak {
         const strArr = [];
         for (let i = 0; i < streakLength; i++) {
             let streakDate = this.beginning.addDays(i);
-            strArr.push([streakDate.toDateString().split(" "), streakDate, i]);
+            strArr.push({
+                dateStrings: streakDate.toDateString().split(" "),
+                streakDate,
+                day: i,
+            });
         }
         return strArr;
     };
@@ -34,12 +56,12 @@ export default class Streak {
     getMonthsAndYears = () => {
         const mySet = new Set();
 
-        for (let i = 0; i < this.list.length; i++) {
-            const date = this.list[i];
+        for (let i = 0; i < this.streak.length; i++) {
+            const date = this.streak[i];
             const monthName = getMonthName(date[1]);
             const totalDaysInMonth = daysInMonth(date);
             const year = date[1].getFullYear();
-            const key = `${monthName} ${year}`;
+            const key = `${monthName}_${year}`;
 
             mySet.add(`${key} ${totalDaysInMonth}`);
         }
@@ -48,7 +70,7 @@ export default class Streak {
     groupByMonth = () => {
         const monthsArr = [];
         const months = this.getMonthsAndYears();
-        const dates = this.list;
+        const dates = this.streak;
 
         for (let month of months) {
             const monthArr = month.split(" ");
@@ -73,7 +95,7 @@ export default class Streak {
     numberOfMonths = 0;
 
     getChip = (date) => {
-        // add congradulatory message for milestones §0, 60, 90 days and beyond
+        // add congratulatory message for milestones §0, 60, 90 days and beyond
         const dayNumber = date[2];
         const startDate = this.beginning.getDate();
         const thisDate = date[1].getDate();

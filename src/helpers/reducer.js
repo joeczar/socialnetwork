@@ -50,5 +50,16 @@ export default function reducer(state = {}, action) {
             profile: action.data,
         });
     }
+    if (action.type === "GENERATE_STREAK") {
+        state = Object.assign({}, state, {
+            streak: action.streak,
+        });
+        history.pushState("/streaks");
+    }
+    if (action.type === "RECEIVE_STREAKS") {
+        state = Object.assign({}, state, {
+            streaks: action.data,
+        });
+    }
     return state;
 }

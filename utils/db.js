@@ -104,6 +104,14 @@ const getOtherProfileFriends = (params) => {
     `;
     return db.query(q, params);
 };
+const addStreak = (params) => {
+    const q = `INSERT INTO streaks (title, streak, user_id) VALUES ($1, $2, $3) RETURNING title, streak`;
+    return db.query(q, params);
+};
+const getStreaks = (params) => {
+    const q = `SELECT * FROM streaks WHERE user_id=$1`;
+    return db.query(q, params);
+};
 /* 
     SELECT * FROM friendships
     WHERE (recipient_id = 69 AND sender_id = 201)
@@ -140,4 +148,6 @@ module.exports = {
     getMsgData,
     getRecentMsgs,
     getOtherProfileFriends,
+    addStreak,
+    getStreaks,
 };

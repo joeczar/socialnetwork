@@ -1,4 +1,5 @@
 import axios from "./axios";
+import Streak from "./streak";
 
 export async function receiveFriendsRequests() {
     const { data } = await axios.get("/friends-and-requests");
@@ -71,4 +72,32 @@ export async function receiveProfile() {
         type: "RECEIVE_PROFILE",
         data,
     };
+}
+export async function generateStreak(input) {
+    try {
+        const streak = new Streak(input);
+        const { data } = await axios.post("/api/streak", {
+            title: streak.slug,
+            streak: streak.save(),
+        });
+        console.log(data);
+        return {
+            type: "GENERATE_STREAK",
+            streak: data,
+        };
+    } catch (err) {
+        console.log("Error in generateStreak", err);
+    }
+}
+export async function receiveStreaks() {
+    try {
+        const { data } = await axios.get("/api/streaks");
+        console.log(data);
+        return {
+            type: "RECEIVE_STREAKS",
+            data,
+        };
+    } catch (err) {
+        console.log("Error in receiveStreaks", err);
+    }
 }
