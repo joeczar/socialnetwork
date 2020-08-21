@@ -25,5 +25,12 @@ router.get("/api/streaks", async (req, res) => {
         res.json(rows);
     } catch (err) {}
 });
+router.get("/api/streak/:streak", async (req, res) => {
+    try {
+        const { streak } = req.params;
+        const { data } = await db.getStreaks([req.session.registerId, streak]);
+        console.log("GET /api/streak/:streak", streak, data);
+    } catch (err) {}
+});
 
 module.exports.streakRouter = router;

@@ -11,6 +11,7 @@ const streakBuilder = (props) => {
         e.preventDefault();
         console.log(values);
         dispatch(generateStreak(values));
+        props.history.push("/streaks");
     };
     return (
         <div className={style.container}>

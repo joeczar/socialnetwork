@@ -103,7 +103,6 @@ class App extends Component {
                             )}
                         />
                         <Route path="/users" component={FindPeople} />
-                        {/* <Route path="/user/:id" component={OtherProfile} /> */}
                         <Route path="/user/:id" component={OtherProfileFR} />
                         <Route path="/friends" component={Friends} />
                         <Route

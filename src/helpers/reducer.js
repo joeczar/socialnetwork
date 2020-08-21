@@ -54,7 +54,7 @@ export default function reducer(state = {}, action) {
         state = Object.assign({}, state, {
             streak: action.streak,
         });
-        history.pushState("/streaks");
+        history.pushState("", "/streaks");
     }
     if (action.type === "RECEIVE_STREAKS") {
         state = Object.assign({}, state, {

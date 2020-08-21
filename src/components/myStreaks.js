@@ -1,37 +1,35 @@
-import React from "react";
-import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { receiveStreaks } from "../helpers/actions";
+import StreakCard from "./streakCard";
+import Streak from "../helpers/streak";
 
-const MyStreaks = ({ streaks }) => {
-    console.log("MYSTREAKS", streaks);
+import style from "../css/streakCard.module.css";
+
+const MyStreaks = () => {
+    const dispatch = useDispatch();
+    const streaks = useSelector((state) => state.streaks && state.streaks);
+    // const [streak, setStreak] = useState();
+
+    useEffect(() => {
+        console.log("useeffect streaks");
+        dispatch(receiveStreaks());
+    }, []);
+
     return (
-        <div>
-            <h1>My Streaks</h1>
-            <div>
-                {streaks &&
-                    streaks.map((streak) => {
-                        console.log(streak);
-                        return (
-                            <>
-                                <h2>{streak.streak.title}</h2>
-                                <p>{streak.streak.description}</p>
-                                <h3>
-                                    Started on:{" "}
-                                    {moment(streak.startDate).format(
-                                        "dddd, MMMM Do YYYY"
-                                    )}
-                                </h3>
-                                {!streak.streak.openEnded && (
-                                    <h3>
-                                        End Date:{" "}
-                                        {moment(streak.endDate).format(
-                                            "dddd, MMMM Do YYYY"
-                                        )}
-                                    </h3>
-                                )}
-                            </>
-                        );
-                    })}
-            </div>
+        <div className={style.streakFlexRow}>
+            hi
+            {streaks &&
+                streaks.reverse().map((streakWrapper) => {
+                    // const streak = new Streak(streakWrapper.streak);
+
+                    return (
+                        <StreakCard
+                            key={streakWrapper.id}
+                            streak={streakWrapper.streak}
+                        />
+                    );
+                })}
         </div>
     );
 };

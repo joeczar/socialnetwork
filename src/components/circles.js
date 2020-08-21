@@ -5,7 +5,7 @@ import style from "../css/circles.module.css";
 
 const Circles = ({ radius, steps, centerX, centerY, spread }) => {
     //Create an array of Circles
-    const circArr = new Array(Number(steps)).fill(<Circle />);
+    const circArr = new Array(Number(steps && steps)).fill(<Circle />);
 
     // Add x position, y position & radius values
     let position = circlePos({ radius, steps, centerX, centerY, spread });

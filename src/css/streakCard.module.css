@@ -1,0 +1,40 @@
+.streakFlexRow {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.card {
+    margin: 1em auto;
+    width: 300px;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: var(--pink-and-green);
+    border-radius: 75px;
+    -webkit-box-shadow: 5px 5px 9px 2px rgba(0, 0, 0, 0.56);
+    box-shadow: 5px 5px 9px 2px rgba(0, 0, 0, 0.56);
+}
+.dates {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 1em 0px;
+}
+.startStop {
+    display: block;
+}
+.circles {
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+.card h1 {
+    margin: 1em auto 0 auto;
+}

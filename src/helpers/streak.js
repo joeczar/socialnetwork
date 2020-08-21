@@ -2,6 +2,7 @@
     this datastructure needs to hold the individual Date Objects, the length of the streak in Days, Months and Years
 */
 import getSlug from "speakingurl";
+import moment from "moment";
 
 Date.prototype.addDays = function (days) {
     const date = new Date(this.valueOf());
@@ -34,15 +35,15 @@ export default class Streak {
             streak: this.streak,
         };
     };
-    daysBetween = (startDate, endDate) => {
+    daysBetween = () => {
         const oneDay = 1000 * 60 * 60 * 24;
 
-        const differenceMilli = Math.abs(endDate - startDate);
+        const differenceMilli = Math.abs(this.today - this.beginning);
         return Math.round(differenceMilli / oneDay);
     };
-    getStreakList = (streakLength) => {
+    getStreakList = () => {
         const strArr = [];
-        for (let i = 0; i < streakLength; i++) {
+        for (let i = 0; i < this.streakLength; i++) {
             let streakDate = this.beginning.addDays(i);
             strArr.push({
                 dateStrings: streakDate.toDateString().split(" "),
@@ -58,9 +59,9 @@ export default class Streak {
 
         for (let i = 0; i < this.streak.length; i++) {
             const date = this.streak[i];
-            const monthName = getMonthName(date[1]);
+            const monthName = getMonthName(date.streakDate);
             const totalDaysInMonth = daysInMonth(date);
-            const year = date[1].getFullYear();
+            const year = date.streakDate.getFullYear();
             const key = `${monthName}_${year}`;
 
             mySet.add(`${key} ${totalDaysInMonth}`);
@@ -77,8 +78,8 @@ export default class Streak {
 
             const filterDates = dates.filter(
                 (date) =>
-                    getMonthName(date[1]) === monthArr[0] &&
-                    date[0][3] === monthArr[1]
+                    getMonthName(date) === monthArr[0] &&
+                    date.dateStrings[3] === monthArr[1]
             );
 
             monthsArr.push([
@@ -96,9 +97,9 @@ export default class Streak {
 
     getChip = (date) => {
         // add congratulatory message for milestones §0, 60, 90 days and beyond
-        const dayNumber = date[2];
+        const dayNumber = date.day;
         const startDate = this.beginning.getDate();
-        const thisDate = date[1].getDate();
+        const thisDate = date.streakDate.getDate();
         const monthDiff = (d1, d2) => {
             return (
                 d2.getMonth() -
@@ -107,7 +108,7 @@ export default class Streak {
             );
         };
 
-        const numberOfMonths = monthDiff(this.beginning, date[1]);
+        const numberOfMonths = monthDiff(this.beginning, date.streakDate);
 
         const monthOrMonths = () => {
             if (numberOfMonths !== 1) {
@@ -149,11 +150,14 @@ const getMonthName = (date) => {
     month[10] = "November";
     month[11] = "December";
 
-    const getMonth = date.getMonth();
+    const getMonth = new Date(date).getMonth();
     return month[getMonth];
 };
 function daysInMonth(date) {
-    const month = date[1].getMonth() + 1;
-    const year = date[0][3];
+    // console.log(date.streakDate);
+    const getMonth = new Date(date.streakDate);
+    const month = getMonth.getMonth() + 1;
+    const year = date.dateStrings[3];
+
     return new Date(year, month, 0).getDate();
 }

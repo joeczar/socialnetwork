@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+.wrapper h1 {
+    margin: auto;
+}
+.dates {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    width: 500px;
+    min-height: 500px !important;
+
+    margin: auto;
+    flex: 1;
+}
+.date {
+    margin: auto;
+}
+.wrapper header {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+}

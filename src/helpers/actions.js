@@ -1,5 +1,5 @@
 import axios from "./axios";
-import Streak from "./streak";
+import Streak from "./newStreak";
 
 export async function receiveFriendsRequests() {
     const { data } = await axios.get("/friends-and-requests");
@@ -76,11 +76,12 @@ export async function receiveProfile() {
 export async function generateStreak(input) {
     try {
         const streak = new Streak(input);
+        console.log(streak);
         const { data } = await axios.post("/api/streak", {
             title: streak.slug,
             streak: streak.save(),
         });
-        console.log(data);
+
         return {
             type: "GENERATE_STREAK",
             streak: data,
@@ -92,10 +93,18 @@ export async function generateStreak(input) {
 export async function receiveStreaks() {
     try {
         const { data } = await axios.get("/api/streaks");
-        console.log(data);
+
+        const streaks = data.map((strObj) => {
+            console.log("in data", strObj.id);
+            return {
+                id: strObj.id,
+                title: strObj.title,
+                streak: new Streak(strObj.streak),
+            };
+        });
         return {
             type: "RECEIVE_STREAKS",
-            data,
+            data: streaks,
         };
     } catch (err) {
         console.log("Error in receiveStreaks", err);
