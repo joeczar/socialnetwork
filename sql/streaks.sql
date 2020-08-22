@@ -1,5 +1,6 @@
 -- psql socialnetwork -f sql/streaks.sql
-DROP TABLE IF EXISTS streaks;
+DROP TABLE IF EXISTS streaks
+CASCADE;
 CREATE TABLE streaks
 (
     id SERIAL PRIMARY KEY,
@@ -10,7 +11,7 @@ CREATE TABLE streaks
     start_date DATE NOT NULL,
     end_date DATE,
     length INT NOT NULL,
-    streak JSONb NOT NULL,
+
     ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 

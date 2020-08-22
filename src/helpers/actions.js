@@ -93,19 +93,39 @@ export async function receiveStreaks() {
     try {
         const { data } = await axios.get("/api/streaks");
 
-        // const streaks = data.map((strObj) => {
-        //     console.log("in data", strObj.id);
-        //     return {
-        //         id: strObj.id,
-        //         title: strObj.title,
-        //         streak: new Streak(strObj.streak),
-        //     };
-        // });
         return {
             type: "RECEIVE_STREAKS",
             data,
         };
     } catch (err) {
         console.log("Error in receiveStreaks", err);
+    }
+}
+export async function receiveStreak(slug) {
+    try {
+        console.log("receiveStreak", slug);
+        const { data } = await axios.get(`/api/streak/${slug}`);
+        console.log("DATA IN RECEIVE STREAK", data);
+        return {
+            type: "RECEIVE_STREAK",
+            data,
+        };
+    } catch (err) {
+        console.log("error in receive streak action", err);
+    }
+}
+export async function receiveDates(streakId) {
+    try {
+        console.log("receiveDates", streakId);
+        const { data } = await axios.get(
+            `/api/streak-dates/${Number(streakId)}`
+        );
+        console.log("receiveDates data", data);
+        return {
+            type: "RECEIVE_DATES",
+            data,
+        };
+    } catch (err) {
+        console.log("error in receiveDates");
     }
 }

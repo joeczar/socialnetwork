@@ -61,5 +61,15 @@ export default function reducer(state = {}, action) {
             streaks: action.data,
         });
     }
+    if (action.type === "RECEIVE_STREAK") {
+        state = Object.assign({}, state, {
+            streak: action.data,
+        });
+    }
+    if (action.type === "RECEIVE_DATES") {
+        state = Object.assign({}, state, {
+            dates: action.data,
+        });
+    }
     return state;
 }

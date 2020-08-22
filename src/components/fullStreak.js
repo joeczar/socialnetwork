@@ -1,34 +1,31 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { receiveStreaks } from "../helpers/actions";
+import {
+    receiveStreaks,
+    receiveStreak,
+    receiveDates,
+} from "../helpers/actions";
 import { circlePos } from "../helpers/circleOfCircles";
 import StreakDate from "./streakDate";
 import style from "../css/fullStreak.module.css";
 
 const FullStreak = ({ location }) => {
+    const getSlug = location.pathname.split("/");
+
     const dispatch = useDispatch();
-
+    const streak = useSelector((state) => state.streak && state.streak);
+    const dates = useSelector((state) => state.dates);
     const [title, setTitle] = useState();
-    const [streak, setStreak] = useState();
-    const streaks = useSelector(
-        (state) =>
-            state.streaks && state.streaks.filter((s) => s.title === title)
-    );
-    useEffect(() => {
-        const wrapper = streaks && streaks[0];
-        const { streak } = wrapper && wrapper;
-        setStreak(streak);
-        console.log(streak);
-    }, [streaks]);
-    useEffect(() => {
-        dispatch(receiveStreaks());
-        console.log("FullStreak!");
-        const slug = location.pathname.split("/");
-        setTitle(slug[slug.length - 1]);
-        // console.log({ getStreaks });
-        // setStreak(getStreaks);
-    }, []);
+    // const [dates, setDates] = useState();
 
+    useEffect(() => {
+        const slug = getSlug[getSlug.length - 1];
+        setTitle(slug);
+        dispatch(receiveStreak(slug));
+    }, []);
+    useEffect(() => {
+        streak && dispatch(receiveDates(streak.id));
+    }, [streak]);
     const [dateDimensions, setDateDimensions] = useState({});
     const datesRef = useRef();
 
@@ -42,12 +39,13 @@ const FullStreak = ({ location }) => {
 
     const { yValues, xValues } = circlePos({
         radius: dateDimensions.width / 4,
-        steps: (streak && streak.streakLength) || 0,
+        steps: (streak && streak.length) || 0,
         centerX: dateDimensions.width / 2,
         centerY: dateDimensions.height / 2 + 50,
         spread: 0,
     });
-    console.log("STREAK FULL STRREAK!!!", streak);
+    console.log("dates", dates);
+    console.log("STREAK FULL STRREAK!!!", streak && streak);
     return (
         <div className={style.wrapper}>
             <header>
@@ -55,8 +53,8 @@ const FullStreak = ({ location }) => {
                 <button>Edit</button>
             </header>
             <section className={style.dates} ref={datesRef}>
-                {streak &&
-                    streak.map((date, i) => (
+                {dates &&
+                    dates.map((date, i) => (
                         <StreakDate
                             date={date}
                             top={yValues[i]}

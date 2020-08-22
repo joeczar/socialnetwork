@@ -1,6 +1,6 @@
 .wrapper {
-    /* height: 200px;
-    width: 200px; */
+    height: 250px;
+    width: 250px;
     margin: auto;
     position: "absolute";
     z-index: 1;
@@ -8,6 +8,28 @@
     border: 1px solid var(--ghost-white);
     transition: all 0.25s ease-in-out;
     background: rgb(0, 0, 0, 0);
+    z-index: 0;
+}
+.modal {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background-color: black;
+}
+.large {
+    height: 90vh;
+    width: 90vh;
+    top: calc(50vh - 45vh) !important;
+    left: calc(50vw - 50vh) !important;
+    position: relative;
+    background: var(--cyber-grape);
+    z-index: 3;
 }
 .text {
     /* background: var(--pink-and-green); */

@@ -23,18 +23,16 @@ router.post("/api/streak", async (req, res) => {
         startDate,
         endDate,
         streakLength,
-        { streak },
     ];
-    console.log("ENTER STREAK", enterStreak);
+
     try {
         const { rows } = await db.addStreak(enterStreak);
         console.log(rows);
         const { id } = rows[0];
         streak.forEach(async (s) => {
             const date = [id, s.dayNumber, s];
-            console.log("DATE", date);
+
             const { rows } = await db.addStreakDate(date);
-            console.log("ROWS assStreakDate", rows[0]);
         });
         res.json(rows);
     } catch (err) {
@@ -49,11 +47,24 @@ router.get("/api/streaks", async (req, res) => {
     } catch (err) {}
 });
 router.get("/api/streak/:streak", async (req, res) => {
+    console.log("in /api/streak/:streak", req.params);
     try {
         const { streak } = req.params;
-        const { data } = await db.getStreaks([req.session.registerId, streak]);
-        console.log("GET /api/streak/:streak", streak, data);
-    } catch (err) {}
+        const { rows } = await db.getStreak([req.session.registerId, streak]);
+        res.json(rows[0]);
+    } catch (err) {
+        console.log("error in /api/streak/:streak", err);
+    }
 });
-
+router.get("/api/streak-dates/:id", async (req, res) => {
+    console.log("GET /api/streak-dates/:id", req.params);
+    try {
+        const { id } = req.params;
+        const { rows } = await db.getDates([id]);
+        console.log("GET /api/streak-dates/:id, rows", rows, id);
+        res.json(rows);
+    } catch (err) {
+        console.log("Error in GET /api/streak-dates/:id", err);
+    }
+});
 module.exports.streakRouter = router;
