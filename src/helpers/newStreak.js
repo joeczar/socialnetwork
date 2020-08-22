@@ -17,6 +17,7 @@ export default class Streak {
     save = () => {
         const saved = {
             title: this.title,
+            slug: this.slug,
             description: this.description,
             startDate: this.beginning,
             endDate: this.endDate,

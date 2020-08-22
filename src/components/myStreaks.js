@@ -10,6 +10,7 @@ const MyStreaks = () => {
     const dispatch = useDispatch();
     const streaks = useSelector((state) => state.streaks && state.streaks);
     // const [streak, setStreak] = useState();
+    console.log("MyStreaks", streaks);
 
     useEffect(() => {
         console.log("useeffect streaks");
@@ -20,15 +21,9 @@ const MyStreaks = () => {
         <div className={style.streakFlexRow}>
             hi
             {streaks &&
-                streaks.reverse().map((streakWrapper) => {
-                    // const streak = new Streak(streakWrapper.streak);
-
-                    return (
-                        <StreakCard
-                            key={streakWrapper.id}
-                            streak={streakWrapper.streak}
-                        />
-                    );
+                streaks.reverse().map((streak) => {
+                    // const streak = new Streak(streak.streak);
+                    return <StreakCard key={streak.id} streak={streak} />;
                 })}
         </div>
     );

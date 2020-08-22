@@ -105,7 +105,11 @@ const getOtherProfileFriends = (params) => {
     return db.query(q, params);
 };
 const addStreak = (params) => {
-    const q = `INSERT INTO streaks (title, streak, user_id) VALUES ($1, $2, $3) RETURNING title, streak`;
+    const q = `INSERT INTO streaks (user_id, title, slug, description, start_date, end_date, length, streak) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id, title, slug, streak`;
+    return db.query(q, params);
+};
+const addStreakDate = (params) => {
+    const q = `INSERT INTO streak_dates (streak_id, day, date_obj) VALUES ($1, $2, $3)`;
     return db.query(q, params);
 };
 const getStreaks = (params) => {
@@ -150,4 +154,5 @@ module.exports = {
     getOtherProfileFriends,
     addStreak,
     getStreaks,
+    addStreakDate,
 };

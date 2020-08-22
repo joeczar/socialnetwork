@@ -3,9 +3,14 @@ DROP TABLE IF EXISTS streaks;
 CREATE TABLE streaks
 (
     id SERIAL PRIMARY KEY,
-    title VARCHAR NOT NULL CHECK(title != '') UNIQUE,
-    streak JSONb NOT NULL,
     user_id INT NOT NULL REFERENCES users(id),
+    title VARCHAR NOT NULL CHECK(title != ''),
+    slug VARCHAR NOT NULL CHECK(slug != ''),
+    description TEXT NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE,
+    length INT NOT NULL,
+    streak JSONb NOT NULL,
     ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 

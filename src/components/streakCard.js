@@ -40,7 +40,7 @@ const StreakCard = ({ streak }) => {
             <div className={style.circles} ref={targetRef}>
                 <Circles
                     radius={dimensions.height / 4 - 5}
-                    steps={streak.streakLength}
+                    steps={streak.length}
                     centerX={dimensions.height}
                     centerY={dimensions.height}
                     spread="0"

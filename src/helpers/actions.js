@@ -78,7 +78,6 @@ export async function generateStreak(input) {
         const streak = new Streak(input);
         console.log(streak);
         const { data } = await axios.post("/api/streak", {
-            title: streak.slug,
             streak: streak.save(),
         });
 
@@ -94,17 +93,17 @@ export async function receiveStreaks() {
     try {
         const { data } = await axios.get("/api/streaks");
 
-        const streaks = data.map((strObj) => {
-            console.log("in data", strObj.id);
-            return {
-                id: strObj.id,
-                title: strObj.title,
-                streak: new Streak(strObj.streak),
-            };
-        });
+        // const streaks = data.map((strObj) => {
+        //     console.log("in data", strObj.id);
+        //     return {
+        //         id: strObj.id,
+        //         title: strObj.title,
+        //         streak: new Streak(strObj.streak),
+        //     };
+        // });
         return {
             type: "RECEIVE_STREAKS",
-            data: streaks,
+            data,
         };
     } catch (err) {
         console.log("Error in receiveStreaks", err);
