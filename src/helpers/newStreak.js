@@ -55,4 +55,5 @@ export default class Streak {
         }
         return strArr;
     };
+    updateStreak = () => {};
 }
