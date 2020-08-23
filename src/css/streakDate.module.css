@@ -1,6 +1,6 @@
 .wrapper {
-    height: 250px;
-    width: 250px;
+    /* height: 250px;
+    width: 250px; */
     margin: auto;
     position: "absolute";
     z-index: 1;
@@ -40,6 +40,9 @@
     flex-direction: column;
     justify-content: center;
     align-content: center;
+    opacity: 0;
+
+    transition: all 0.25s ease-in-out;
 }
 .day {
     margin: auto auto 0 auto;
@@ -51,10 +54,13 @@
     position: relative;
 }
 .wrapper:hover {
-    background: var(--viridian-green-shadow2);
+    background: var(--viridian-green);
     border-width: 2px;
     z-index: 3;
     -webkit-box-shadow: 0px 0px 30px 3px rgba(0, 0, 0, 0.71);
     -moz-box-shadow: 0px 0px 30px 3px rgba(0, 0, 0, 0.71);
     box-shadow: 0px 0px 30px 3px rgba(0, 0, 0, 0.71);
+}
+.wrapper:hover .text {
+    opacity: 1;
 }

@@ -76,7 +76,7 @@ export async function receiveProfile() {
 export async function generateStreak(input) {
     try {
         const streak = new Streak(input);
-        console.log(streak);
+
         const { data } = await axios.post("/api/streak", {
             streak: streak.save(),
         });
@@ -103,9 +103,8 @@ export async function receiveStreaks() {
 }
 export async function receiveStreak(slug) {
     try {
-        console.log("receiveStreak", slug);
         const { data } = await axios.get(`/api/streak/${slug}`);
-        console.log("DATA IN RECEIVE STREAK", data);
+
         return {
             type: "RECEIVE_STREAK",
             data,
@@ -116,16 +115,35 @@ export async function receiveStreak(slug) {
 }
 export async function receiveDates(streakId) {
     try {
-        console.log("receiveDates", streakId);
         const { data } = await axios.get(
             `/api/streak-dates/${Number(streakId)}`
         );
-        console.log("receiveDates data", data);
+
         return {
             type: "RECEIVE_DATES",
             data,
         };
     } catch (err) {
         console.log("error in receiveDates");
+    }
+}
+export async function receiveStreakDay(streakId, day) {
+    try {
+        const { data } = await axios.get(`/api/streak-day/${streakId}/${day}`);
+        console.log("receiveStreakDay---", streakId, day);
+        return { type: "RECEIVE_DAY", data };
+    } catch (err) {
+        console.log("Error in action receiveStreakDay", err);
+    }
+}
+export async function saveNote(id, note) {
+    try {
+        const { data } = await axios.post("/api/save-note", { id, note });
+        return {
+            type: "SAVE_NOTE",
+            data,
+        };
+    } catch (err) {
+        console.log("Error in saveNote action", err);
     }
 }

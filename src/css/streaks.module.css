@@ -1,7 +1,7 @@
 .streaksWrapper {
     margin: 0;
     width: 100%;
-    position: absolute;
+
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -61,4 +61,18 @@
 }
 .container button {
     margin: 1em auto;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+}
+.title {
+    margin: auto 1em auto 1em;
+}
+.header nav {
+    align-self: center;
+}
+.header nav a {
+    color: var(--ghost-white);
+    text-decoration: none;
 }

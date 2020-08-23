@@ -32,7 +32,6 @@ export default function reducer(state = {}, action) {
         return { ...state, chatMessages: [...state.chatMessages, action.data] };
     }
     if (action.type === "SET_OTHER_PROFILE_ID") {
-        console.log(action);
         return { ...state, otherProfileId: action.id };
     }
     if (action.type === "RECEIVE_OTHER_PROFILE") {
@@ -70,6 +69,14 @@ export default function reducer(state = {}, action) {
         state = Object.assign({}, state, {
             dates: action.data,
         });
+    }
+    if (action.type === "RECEIVE_DAY") {
+        state = Object.assign({}, state, {
+            day: action.data,
+        });
+    }
+    if (action.type === "SAVE_NOTE") {
+        return { ...state, day: action.data };
     }
     return state;
 }

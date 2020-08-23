@@ -16,11 +16,11 @@ const StreakDate = ({ date, top, left, size }) => {
         console.log(modal, large);
     }, [modal]);
     const dateStyle = {
-        position: "absolute",
-        top: `${top}px`,
-        left: `${left}px`,
-        // width: `${size}px`,
-        // height: `${size}px`,
+        // position: "absolute",
+        // top: `${top}px`,
+        // left: `${left}px`,
+        width: `${size}px`,
+        height: `${size}px`,
     };
     const handleClick = (e) => {
         const isModal = modal ? false : true;

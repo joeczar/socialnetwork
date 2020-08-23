@@ -6,7 +6,9 @@ import {
     receiveDates,
 } from "../helpers/actions";
 import { circlePos } from "../helpers/circleOfCircles";
+// import { mapMonthsAndYears } from "../helpers/newStreak";
 import StreakDate from "./streakDate";
+import CircleArrayWrapper from "./circleArrayWrapper";
 import style from "../css/fullStreak.module.css";
 
 const FullStreak = ({ location }) => {
@@ -44,8 +46,25 @@ const FullStreak = ({ location }) => {
         centerY: dateDimensions.height / 2 + 50,
         spread: 0,
     });
-    console.log("dates", dates);
-    console.log("STREAK FULL STRREAK!!!", streak && streak);
+    const mapToMonthsAndYears = (datesArr) => {
+        const months = {};
+        //create months object with name,number and year properties
+        // map dates to
+        datesArr.forEach((d) => {
+            months[`${d.date_obj.month.name}_${d.date_obj.year}`] = {
+                name: d.date_obj.month.name,
+                number: d.date_obj.month.number,
+                year: d.date_obj.year,
+                dates: [],
+            };
+        });
+        datesArr.forEach((d) => {
+            months[`${d.date_obj.month.name}_${d.date_obj.year}`].dates.push(d);
+        });
+        return months;
+    };
+    const months = dates && mapToMonthsAndYears(dates);
+    console.log(months);
     return (
         <div className={style.wrapper}>
             <header>
@@ -53,16 +72,71 @@ const FullStreak = ({ location }) => {
                 <button>Edit</button>
             </header>
             <section className={style.dates} ref={datesRef}>
-                {dates &&
-                    dates.map((date, i) => (
-                        <StreakDate
-                            date={date}
-                            top={yValues[i]}
-                            left={xValues[i]}
-                            size={dateDimensions.width / 2}
-                        />
-                    ))}
-                <div className={style.filler} />
+                {
+                    months &&
+                        Object.keys(months)
+                            .sort((a, b) =>
+                                months[a].number < months[b].number ? 1 : -1
+                            )
+                            .map((month, i) => {
+                                console.log("monthNum", months[month].number);
+                                return (
+                                    <div
+                                        id={`#${months[month].name}`}
+                                        className={style.fullMonthWrapper}
+                                    >
+                                        <div
+                                            className={style.monthWrapper}
+                                            style={{
+                                                left:
+                                                    dateDimensions.width / 6 -
+                                                    200 +
+                                                    "px",
+                                                top: "50%",
+                                            }}
+                                        >
+                                            <h3 className={style.monthName}>
+                                                {months[month].name}
+                                            </h3>
+                                            <h3 className={style.year}>
+                                                {months[month].year}
+                                            </h3>
+                                        </div>
+                                        <CircleArrayWrapper
+                                            size={dateDimensions.width / 3 - 50}
+                                        >
+                                            {months[month].dates
+                                                .sort((a, b) =>
+                                                    a.date_obj.streakDate <
+                                                    b.date_obj.streakDate
+                                                        ? 1
+                                                        : -1
+                                                )
+                                                .map((date, i) => {
+                                                    console.log(
+                                                        "inobjmap",
+                                                        date.day
+                                                    );
+                                                    return (
+                                                        <StreakDate
+                                                            date={date}
+                                                            top={yValues[i]}
+                                                            left={xValues[i]}
+                                                            size={
+                                                                dateDimensions.width /
+                                                                3 /
+                                                                2
+                                                            }
+                                                        />
+                                                    );
+                                                })}
+                                        </CircleArrayWrapper>
+                                    </div>
+                                );
+                            })
+
+                    // dates.map((date, i) => )}
+                }
             </section>
         </div>
     );

@@ -117,13 +117,20 @@ const getStreaks = (params) => {
     return db.query(q, params);
 };
 const getStreak = (params) => {
-    console.log("GETSTREAK", params);
     const q = `SELECT * FROM streaks WHERE user_id=$1 AND slug=$2`;
     return db.query(q, params);
 };
 const getDates = (params) => {
-    console.log("db.getDates", params);
     const q = `SELECT * FROM streak_dates WHERE streak_id=$1`;
+    return db.query(q, params);
+};
+const getStreakDay = (params) => {
+    const q = `SELECT * FROM streak_dates WHERE streak_id=$1 AND day=$2`;
+    return db.query(q, params);
+};
+const updateNote = (params) => {
+    console.log(params);
+    const q = `UPDATE streak_dates SET notes=$2 WHERE id=$1 RETURNING *`;
     return db.query(q, params);
 };
 /* 
@@ -167,4 +174,6 @@ module.exports = {
     addStreakDate,
     getStreak,
     getDates,
+    getStreakDay,
+    updateNote,
 };

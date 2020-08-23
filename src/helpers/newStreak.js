@@ -58,3 +58,13 @@ export default class Streak {
     };
     updateStreak = () => {};
 }
+// const mapToMonthsAndYears = (datesArr) => {
+//     const months = {};
+//     //create months object with name,number and year properties
+//     // map dates to
+//     datesArr.forEach((d) => {
+//         months[`${d.date_obj.month.name}_${d.date_obj.year}`] = [];
+//     });
+//     return months;
+// };
+// export mapToMonthsAndYears;

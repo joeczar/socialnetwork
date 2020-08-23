@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
+import {
+    BrowserRouter,
+    Route,
+    Switch,
+    useLocation,
+    Link,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { receiveStreaks } from "../helpers/actions";
 import NotFound from "./404";
@@ -10,6 +16,8 @@ import SearchStreaks from "./searchStreaks";
 import style from "../css/streaks.module.css";
 import MyStreaks from "./myStreaks";
 import FullStreak from "./fullStreak";
+import StreakNav from "./streakNav";
+import StreakDayEditor from "./streakDayEditor";
 
 const Streaks = () => {
     const dispatch = useDispatch();
@@ -21,13 +29,19 @@ const Streaks = () => {
         //
     }, []);
 
-    // useEffect(() => {}, []);
+    // useEffect(() => {}, [location.pathname]);
     // const streaks = useSelector((state) => state.streaks && state.streaks);
 
     return (
         <div id="streaksWrapper" className={style.streaksWrapper}>
-            <h1>Streaks</h1>
             <BrowserRouter>
+                <header className={style.header}>
+                    <Link to="/streaks">
+                        <h1 className={style.title}>Streaks</h1>
+                    </Link>
+                    <StreakNav />
+                </header>
+
                 <Switch>
                     <Route
                         exact
@@ -49,6 +63,10 @@ const Streaks = () => {
                             }}
                         />
                     )}
+                    <Route
+                        path="/streaks/mystreaks-day/:streak/:dayNumber"
+                        component={StreakDayEditor}
+                    />
                     <Route path="/streaks/intro" component={StreakIntro} />
                     <Route
                         path="/streaks/tutorial"

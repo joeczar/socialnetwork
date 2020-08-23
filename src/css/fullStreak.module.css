@@ -7,22 +7,45 @@
     margin: auto;
 }
 .dates {
-    position: relative;
+    /* position: relative; */
     display: flex;
-    flex-direction: column;
-    align-content: center;
+    flex-direction: row;
+    /* align-content: center; */
     justify-content: center;
-    width: 500px;
-    min-height: 500px !important;
-
+    width: 100%;
+    height: 100%;
     margin: auto;
     flex: 1;
 }
 .date {
-    margin: auto;
+    margin: auto 2em;
 }
 .wrapper header {
     display: flex;
     flex-direction: row;
     justify-items: center;
+}
+.fullMonthWrapper {
+    /* position: relative;
+    height: 250px; */
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    /* height: 100%; */
+    margin: auto 1em;
+}
+.monthWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 100px;
+    margin: auto;
+    position: relative;
+}
+.monthWrapper h3 {
+    margin: auto;
+    color: var(--viridian-green);
+    z-index: 5;
+    font-size: 40px;
 }

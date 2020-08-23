@@ -24,7 +24,7 @@ class Logo extends React.Component {
             spread: 0,
             centerX: 0,
             centerY: 0,
-            steps: 8,
+            steps: props.steps || 8,
             change: 50,
             open: false,
             size: "large",
@@ -145,14 +145,6 @@ class Logo extends React.Component {
                     className={style.circleSvg}
                     spread={this.state.spread}
                 />
-                {/* <h1
-                    onClick={(e) => this.handleLogoClick(e)}
-                    id="logoName"
-                    style={pos}
-                    className={style.logoName}
-                >
-                    {this.state.size === "small" ? "Zen Streak" : "ZD"}
-                </h1> */}
             </div>
         );
     }

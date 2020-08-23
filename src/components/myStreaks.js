@@ -9,20 +9,15 @@ import style from "../css/streakCard.module.css";
 const MyStreaks = () => {
     const dispatch = useDispatch();
     const streaks = useSelector((state) => state.streaks && state.streaks);
-    // const [streak, setStreak] = useState();
-    console.log("MyStreaks", streaks);
 
     useEffect(() => {
-        console.log("useeffect streaks");
         dispatch(receiveStreaks());
     }, []);
 
     return (
         <div className={style.streakFlexRow}>
-            hi
             {streaks &&
                 streaks.reverse().map((streak) => {
-                    // const streak = new Streak(streak.streak);
                     return <StreakCard key={streak.id} streak={streak} />;
                 })}
         </div>
