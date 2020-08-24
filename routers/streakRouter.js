@@ -78,7 +78,7 @@ router.post("/api/save-note", async (req, res) => {
     try {
         const { id, note } = req.body;
         console.log(id, note);
-        const { rows } = await db.updateNote([id, note]);
+        const { rows } = await db.updateNote([id, { note }]);
         res.json(rows[0]);
         console.log(id, note, rows[0]);
     } catch (err) {

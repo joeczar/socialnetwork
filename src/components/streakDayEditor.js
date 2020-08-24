@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import moment from "moment";
 import { receiveStreakDay, receiveStreak, saveNote } from "../helpers/actions";
+import style from "../css/streakDayEditor.module.css";
 
 const StreakDayEditor = ({ location }) => {
     const getSlug = location.pathname.split("/");
@@ -15,12 +18,26 @@ const StreakDayEditor = ({ location }) => {
         const day = getSlug[getSlug.length - 1];
         streak && dispatch(receiveStreakDay(streak.id, day));
     }, [streak]);
+    day && console.log(day);
     return (
-        <div>
+        <div className={style.wrapper}>
             {streak && (
                 <>
-                    <h1>Streak: {streak.title}</h1>
-                    <h2>Description:</h2>
+                    <p>
+                        {day &&
+                            moment(day.streakDate).format(
+                                "dddd, MMMM Do, YYYY"
+                            )}
+                    </p>
+                    <h1 className={style.heading}>Day {day && day.day} of</h1>
+                    <h2 className={style.heading}>
+                        {" "}
+                        <Link to={`/streaks/mystreaks/${streak.slug}`}>
+                            {streak.title}
+                        </Link>
+                    </h2>
+
+                    <h3 className={style.heading}>Description:</h3>
                     <p>{streak.description}</p>
                     <NotesEditor id={day && day.id} notes={day && day.notes} />
                 </>
@@ -36,7 +53,11 @@ const NotesEditor = ({ id, notes }) => {
     const [showEdit, setShowEdit] = useState(false);
     const [newNote, setNewNote] = useState(notes);
 
-    useEffect(() => {}, [notes]);
+    useEffect(() => {
+        setNewNote(notes);
+        console.log("NEW NOTE?", notes);
+        setShowEdit(false);
+    }, [notes]);
     const handleEdit = (e) => {
         e.preventDefault();
         setShowEdit(true);
@@ -49,18 +70,18 @@ const NotesEditor = ({ id, notes }) => {
         id && dispatch(saveNote(id, newNote));
     };
     const showNotes = (
-        <div>
-            <h3>Notes:</h3>
-            <p>{notes}</p>
+        <div className={style.wrapper}>
+            <h3 className={style.heading}>Notes:</h3>
+            <p>{newNote && newNote.note}</p>
             <button onClick={(e) => handleEdit(e)}>
-                {notes ? "Edit" : "Add"}
+                {newNote ? "Edit" : "Add"}
             </button>
         </div>
     );
     const addNote = (
         <form>
             <textarea
-                defaultValue={notes && notes}
+                defaultValue={newNote && newNote.note}
                 onChange={(e) => handleChange(e)}
                 placeholder="Add a note about this day."
             />

@@ -132,4 +132,5 @@ button:active {
 /* shadows */
 a {
     text-decoration: none;
+    color: var(--ghost-white);
 }

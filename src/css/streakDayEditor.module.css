@@ -1,0 +1,15 @@
+.wrapper {
+    margin: 1em auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.heading {
+    margin: 0 auto 1em auto;
+}
+.wrapper p {
+    margin: 0.5em auto;
+}
+.wrapper button {
+    margin: auto;
+}
