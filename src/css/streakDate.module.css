@@ -25,8 +25,7 @@
 .large {
     height: 90vh;
     width: 90vh;
-    top: calc(50vh - 45vh) !important;
-    left: calc(50vw - 50vh) !important;
+
     position: relative;
     background: var(--cyber-grape);
     z-index: 3;

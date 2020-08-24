@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import moment from "moment";
 import style from "../css/streakDate.module.css";
 const StreakDate = ({ date, top, left, size }) => {
@@ -13,7 +14,6 @@ const StreakDate = ({ date, top, left, size }) => {
         setLarge(isLarge);
         const isModal = modal ? style.modal : "";
         setShowModal(isModal);
-        console.log(modal, large);
     }, [modal]);
     const dateStyle = {
         // position: "absolute",
@@ -29,7 +29,7 @@ const StreakDate = ({ date, top, left, size }) => {
     };
 
     return (
-        <div className={showModal}>
+        <div>
             <div
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}

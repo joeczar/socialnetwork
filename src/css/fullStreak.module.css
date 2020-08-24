@@ -10,6 +10,7 @@
     /* position: relative; */
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     /* align-content: center; */
     justify-content: center;
     width: 100%;
@@ -48,4 +49,6 @@
     color: var(--viridian-green);
     z-index: 5;
     font-size: 40px;
+    margin-bottom: -120%;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 1);
 }

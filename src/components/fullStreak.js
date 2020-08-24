@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
     receiveStreaks,
     receiveStreak,
@@ -40,7 +41,7 @@ const FullStreak = ({ location }) => {
     }, [datesRef]);
 
     const { yValues, xValues } = circlePos({
-        radius: dateDimensions.width / 4,
+        radius: dateDimensions.width / 4 + 20,
         steps: (streak && streak.length) || 0,
         centerX: dateDimensions.width / 2,
         centerY: dateDimensions.height / 2 + 50,
@@ -64,7 +65,7 @@ const FullStreak = ({ location }) => {
         return months;
     };
     const months = dates && mapToMonthsAndYears(dates);
-    console.log(months);
+
     return (
         <div className={style.wrapper}>
             <header>
@@ -78,10 +79,17 @@ const FullStreak = ({ location }) => {
                             .sort((a, b) =>
                                 months[a].number < months[b].number ? 1 : -1
                             )
+                            .sort((a, b) =>
+                                Number(months[a].year) < Number(months[b].year)
+                                    ? 1
+                                    : -1
+                            )
+
                             .map((month, i) => {
-                                console.log("monthNum", months[month].number);
+                                console.log("month", months[month]);
                                 return (
                                     <div
+                                        key={i}
                                         id={`#${months[month].name}`}
                                         className={style.fullMonthWrapper}
                                     >
@@ -103,6 +111,7 @@ const FullStreak = ({ location }) => {
                                             </h3>
                                         </div>
                                         <CircleArrayWrapper
+                                            key
                                             size={dateDimensions.width / 3 - 50}
                                         >
                                             {months[month].dates
@@ -113,21 +122,25 @@ const FullStreak = ({ location }) => {
                                                         : -1
                                                 )
                                                 .map((date, i) => {
-                                                    console.log(
-                                                        "inobjmap",
-                                                        date.day
-                                                    );
                                                     return (
-                                                        <StreakDate
-                                                            date={date}
-                                                            top={yValues[i]}
-                                                            left={xValues[i]}
-                                                            size={
-                                                                dateDimensions.width /
-                                                                3 /
-                                                                2
-                                                            }
-                                                        />
+                                                        <Link
+                                                            to={`/streaks/mystreaks-day/${
+                                                                streak &&
+                                                                streak.slug
+                                                            }/${date.day}`}
+                                                        >
+                                                            <StreakDate
+                                                                key={date.id}
+                                                                date={date}
+                                                                top={0}
+                                                                left={0}
+                                                                size={
+                                                                    dateDimensions.width /
+                                                                    3 /
+                                                                    2
+                                                                }
+                                                            />
+                                                        </Link>
                                                     );
                                                 })}
                                         </CircleArrayWrapper>

@@ -77,7 +77,7 @@ const StreakCard = ({ streak }) => {
                         {moment(streak.start_date).format("DD.MM.YY")}
                     </span>
                 </div>
-                {!streak.end_date && (
+                {streak.end_date && (
                     <div className={style.dateWrapper}>
                         <span className={style.startStop}>End Date:</span>
                         <span className={style.date}>
