@@ -79,7 +79,7 @@ const NotesEditor = ({ id, notes }) => {
         </div>
     );
     const addNote = (
-        <form>
+        <form className={style.wrapper}>
             <textarea
                 defaultValue={newNote && newNote.note}
                 onChange={(e) => handleChange(e)}

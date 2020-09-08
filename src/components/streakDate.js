@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import moment from "moment";
 import style from "../css/streakDate.module.css";
-const StreakDate = ({ date, top, left, size }) => {
+const StreakDate = ({ date, top, left, size, chip }) => {
     // console.log("date in streakDate", date);
     const [hover, setHover] = useState(false);
     const [modal, setModal] = useState(false);
@@ -37,6 +37,7 @@ const StreakDate = ({ date, top, left, size }) => {
                 style={dateStyle}
                 className={`${style.wrapper} ${large}`}
             >
+                {chip && <h2>{chip}</h2>}
                 <div className={style.text}>
                     <h4 className={style.day}>{`Day ${date.day}`}</h4>
                     <p className={style.date}>{`${moment(
